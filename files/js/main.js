@@ -1,184 +1,163 @@
-var missing_chart;
-var delay_chart;
-var first_point = {};
+var data_url = 'https://beaglebone-hvac-demo.apps.exosite.io/data' // url for getting data - should be raw tsdb response
+var omit_keys = ['pid', 'time'] // list of keys to not plot
+var timeout = 20; // timeout to refresh
+var force_current_timestamp = true;
 
+var chart;
+var plot_indices = {}
+
+var c10 = d3.scale.category10();
+
+var charts = {};
+
+function createChart(data, id) {
+  if(!id) {
+    id = 'chart'
+  }
+
+  var min_datapoint = _.minBy(_.map(data, function(series) {
+    return _.minBy(series.values, 'y')
+  }), 'y')
+  var plot_min = min_datapoint.y - 1
+
+  var max_datapoint = _.maxBy(_.map(data, function(series) {
+    return _.maxBy(series.values, 'y')
+  }), 'y')
+  var plot_max = max_datapoint.y + 1
+
+  nv.addGraph(function() {
+    var chart = nv.models.lineChart()
+                  .margin({left: 100, right: 100})  //Adjust chart margins to give the x-axis some breathing room.
+                  .useInteractiveGuideline(true)  //We want nice looking tooltips and a guideline!
+                  // .transitionDuration(350)  //how fast do you want the lines to transition?
+                  .showLegend(false)       //Show the legend, allowing users to turn on/off line series.
+                  .showYAxis(true)        //Show the y-axis
+                  .showXAxis(true)        //Show the x-axis
+                  .forceY([plot_min, plot_max])
+
+    if(force_current_timestamp) {
+      var min_timestamp = _.minBy(_.map(data, function(series) {
+        return _.minBy(series.values, 'x')
+      }), 'x')
+
+      chart.forceX([new Date(min_timestamp.x).valueOf(), new Date().valueOf()])
+    }
+
+    chart.xAxis     //Chart x-axis settings
+        .axisLabel('')
+        .showMaxMin(false)
+        .tickFormat(function(timestamp) {
+          return d3.time.format('%m/%d %I:%M:%S%p')(new Date(timestamp))
+        });
+
+    chart.yAxis     //Chart y-axis settings
+        .axisLabel('')
+        .tickFormat(d3.format(''));
+
+    d3.select('#'+id)    // Select the <svg> element you want to render the chart in.
+        .datum(data)       // Populate the <svg> element with chart data...
+        .call(chart);      // Finally, render the chart!
+
+    //Update the chart when window resizes.
+    nv.utils.windowResize(function() { chart.update() });
+    charts[id] = chart;
+    return chart;
+  });
+  // tooltip gets messed up when data gets replaced
+  d3.selectAll('.nvtooltip').remove();
+  countdown = true;
+}
+
+function makePlot(response) {
+  if(response.results) {
+    var plot = [];
+    var data = response.results[0].series
+    _.each(data, function(series) {
+      var time_index;
+      _.each(series.columns, function(column, column_index) {
+        if(column == 'time') {
+          time_index = column_index;
+          return
+        } else {
+          if(omit_keys.indexOf(column) == -1) {
+            var graph = {
+              key: column,
+              values: [],
+              color: c10(column)
+            }
+            plot.push(graph)
+            plot_indices[column] = plot.length-1;
+          }
+        }
+      })
+
+      _.each(series.values, function(row, row_index) {
+        var timestamp = new Date(row[time_index])
+        _.each(row, function(value, value_index) {
+          if(value_index == time_index) {
+            return;
+          } else {
+            var key = series.columns[value_index]
+            var series_index = plot_indices[key]
+            if(omit_keys.indexOf(key) == -1 && value !== null) {
+              var point = {
+                x: timestamp,
+                y: value
+              }
+              // add point to our series
+              plot[series_index].values.push(point)
+            }
+          }
+        })
+      })
+    })
+
+    // if you want to display all data on a single plot, uncomment this line and comment the next ones out
+    // the 2nd parameter is the ID of where to put the chart - must be a div in the html
+    // createChart(plot, 'chart')
+    _.each(plot, function(series) {
+      createChart([series], series.key)
+    })
+  }
+
+  // make sure data is sorted
+  plot = _.sortBy(plot, (series) => {
+    series.values = _.sortBy(series.values, 'x')
+    return series
+  })
+
+  var minimum_timestamp = _.min(_.map(plot, function(series) {
+    return series.values[0]
+  }), 'x')
+
+}
 
 function getData() {
-  let order = ['10', '5', '1'];
-  let colors = ['#1f77b4', '#ff7f0e', '#d62728'];
-  var maxes = {};
-  var avgs = {};
-
-  var dataRequest = new Request('https://time-delay-test.apps.exosite.io/data');
+  var dataRequest = new Request(data_url);
 
   fetch(dataRequest)
     .then(function(response) {
       return response.json();
     })
     .then(function(response) {
-      if(response.results) {
-        all_data = response.results[0].series
-        delay_data = _.map(all_data, function(series) {
-          sn = series.tags.sn;
-          columns = series.columns;
-          onep_column = 0;
-          lua_column = 0;
-          _.each(columns, function(column, index) {
-            if(column == "onep_timestamp") {
-              onep_column = index;
-            } else if(column == "lua_timestamp") {
-              lua_column = index;
-            }
-          })
-          values = _.map(series.values, function(value) {
-            tsdb_timestamp = new Date(value[0])
-            lua_timestamp = value[lua_column]
-            onep_timestamp = value[onep_column]
-            return {x: tsdb_timestamp, y: (lua_timestamp - onep_timestamp)};
-          })
-          maxes[sn] = _.maxBy(values, 'y');
-          avgs[sn] = _.mean(values, 'y');
-          $("#max_"+sn).text(maxes[sn].y);
-          $("mean_"+sn).text(avgs[sn].y);
-          return {
-            key: sn+'s rate',
-            values: _.sortBy(values, 'x'),
-            color: colors[order.indexOf(sn)]
-          }
-        })
-        delay_data = _.sortBy(delay_data, (data) => {
-          return order.indexOf(data.key);
-        })
-
-        missing_data = _.map(all_data, function(series) {
-          sn = series.tags.sn;
-          if(sn == 10) {
-            console.log("Data: ", series)
-          }
-          columns = series.columns;
-          console.log("columns: ", columns)
-          onep_column = 0
-          series.values.reverse()
-          _.each(columns, function(column, index) {
-            if(column == "onep_timestamp") {
-              onep_column = index;
-            }
-          })
-          onep_timestamps = _.map(series.values, function(value) {
-            return (new Date(value[0]).valueOf())/1000
-          })
-          deltas = _.filter(_.map(onep_timestamps, function(value, i) {
-            if(i > 0) {
-              // delta = (new Date(value[0]).valueOf())/1000 - (new Date(series.values[i-1][0]).valueOf())/1000
-              delta = value - onep_timestamps[i-1];
-              return delta;
-            }
-            return undefined;
-          }))
-          values = _.filter(_.map(deltas, function(delta, i) {
-            if(delta > (sn+1)) {
-              return {x: new Date(series.values[i][0]), y: parseInt(delta/sn)}
-            } else {
-              if(typeof series.values[i] !== "undefined") {
-                return {x: new Date(series.values[i][0]), y: 0}
-              }
-            }
-          }))
-          return {
-            key: sn+' missing points',
-            values: _.sortBy(values, 'x'),
-            color: colors[order.indexOf(sn)]
-          }
-        })
-
-        missing_data = _.sortBy(missing_data, (data) => {
-          return order.indexOf(data.key);
-        })
-
-        first_point = _.min(_.map(delay_data, function(series) {
-            return series.values[0]
-        }), 'y')
-
-        maximum_delay = _.max(_.map(maxes, function(value) { return value.y; }))
-
-        nv.addGraph(function() {
-          missing_chart = nv.models.lineChart()
-                        .margin({left: 100, right: 100})  //Adjust chart margins to give the x-axis some breathing room.
-                        .useInteractiveGuideline(true)  //We want nice looking tooltips and a guideline!
-                        // .transitionDuration(350)  //how fast do you want the lines to transition?
-                        .showLegend(false)       //Show the legend, allowing users to turn on/off line series.
-                        .showYAxis(true)        //Show the y-axis
-                        .showXAxis(true)        //Show the x-axis
-                        .forceY([0,2])
-                        .forceX([new Date(first_point.x).valueOf(), new Date().valueOf()])
-          ;
-
-          missing_chart.xAxis     //Chart x-axis settings
-              .axisLabel('')
-              .tickFormat(function(timestamp) {
-                return d3.time.format('%I:%M:%S%p')(new Date(timestamp))
-              });
-
-          missing_chart.yAxis     //Chart y-axis settings
-              .axisLabel('Humidity (%)')
-              .tickFormat(d3.format(''));
-
-          d3.select('#missing_plot')    //Select the <svg> element you want to render the chart in.
-              .datum(missing_data)         //Populate the <svg> element with chart data...
-              .call(missing_chart);          //Finally, render the chart!
-
-          //Update the chart when window resizes.
-          nv.utils.windowResize(function() { missing_chart.update() });
-          return missing_chart;
-        });
-
-        nv.addGraph(function() {
-          delay_chart = nv.models.lineChart()
-                        .margin({left: 100, right: 100})  //Adjust chart margins to give the x-axis some breathing room.
-                        .useInteractiveGuideline(true)  //We want nice looking tooltips and a guideline!
-                        // .transitionDuration(350)  //how fast do you want the lines to transition?
-                        .showLegend(false)       //Show the legend, allowing users to turn on/off line series.
-                        .showYAxis(true)        //Show the y-axis
-                        .showXAxis(true)        //Show the x-axis
-                        .forceY([0,maximum_delay+1])
-                        .forceX([new Date(first_point.x).valueOf(), new Date().valueOf()])
-          ;
-
-          delay_chart.xAxis     //Chart x-axis settings
-              .axisLabel('')
-              .tickFormat(function(timestamp) {
-                return d3.time.format('%I:%M:%S%p')(new Date(timestamp))
-              });
-
-          delay_chart.yAxis     //Chart y-axis settings
-              .axisLabel('Temperature (c)')
-              .tickFormat(d3.format(''));
-
-          d3.select('#delay_plot')    //Select the <svg> element you want to render the chart in.
-              .datum(delay_data)         //Populate the <svg> element with chart data...
-              .call(delay_chart);          //Finally, render the chart!
-
-          //Update the chart when window resizes.
-          nv.utils.windowResize(function() { delay_chart.update() });
-          return delay_chart;
-        });
-      }
-      // tooltip gets messed up when data gets replaced
-      d3.selectAll('.nvtooltip').remove();
-      countdown = true;
-    });
+      makePlot(response)
+    })
 }
-var timeout = 20;
+
 getData();
-countdown = false;
+
+var countdown = false;
 function checkFetch() {
   if(countdown) {
     timeout -= 1
     $("#refreshtime").text(timeout);
-    delay_chart.forceX([new Date(first_point.x).valueOf(), new Date().valueOf()])
-    delay_chart.update()
-    missing_chart.forceX([new Date(first_point.x).valueOf(), new Date().valueOf()])
-    missing_chart.update()
+    if(force_current_timestamp) {
+      _.each(charts, function(chart) {
+        var min = chart.forceX()[0];
+        chart.forceX([min, new Date().valueOf()])
+        chart.update();
+      })
+    }
   }
   if(timeout == 0) {
     getData();
