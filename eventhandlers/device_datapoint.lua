@@ -31,7 +31,7 @@ end
 
 if data.alias == "temperature" or data.alias == "humidity" then
 	local fields = {
-		[alias]=data.value[2]
+		[data.alias]=data.value[2]
     }
 
 	local tags = {
