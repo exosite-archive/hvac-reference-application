@@ -8,8 +8,6 @@ var plot_indices = {}
 
 var c10 = d3.scale.category10();
 
-var charts = {};
-
 function createChart(data, id) {
   if(!id) {
     id = 'chart'
