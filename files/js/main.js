@@ -9,7 +9,7 @@ function getData() {
   var maxes = {};
   var avgs = {};
 
-  var dataRequest = new Request('https://time-delay-test.apps.exosite.io/data');
+  var dataRequest = new Request('https://beaglebone-hvac-demo.apps.exosite.io/data');
 
   fetch(dataRequest)
     .then(function(response) {
@@ -24,16 +24,10 @@ function getData() {
           onep_column = 0;
           lua_column = 0;
           _.each(columns, function(column, index) {
-            if(column == "onep_timestamp") {
-              onep_column = index;
-            } else if(column == "lua_timestamp") {
-              lua_column = index;
-            }
-          })
+
           values = _.map(series.values, function(value) {
             tsdb_timestamp = new Date(value[0])
-            lua_timestamp = value[lua_column]
-            onep_timestamp = value[onep_column]
+
             return {x: tsdb_timestamp, y: (lua_timestamp - onep_timestamp)};
           })
           maxes[sn] = _.maxBy(values, 'y');

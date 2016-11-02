@@ -1,23 +1,4 @@
 --#EVENT device datapoint
---[[
-
-  - EVENT TRIGGER -
-
-  File in the eventhandlers folders are call at service event trigger. The file name needs to match 'servicealias'_'eventtype'.lua
-
-  In this example this script is triggered by the 'datapoint' event from the Device service. This event provides a 'data' parameters (http://docs.exosite.com/murano/services/device/#datapoint).
-
-  All available Eventhandlers and parameters are documented under the events sections of the Murano service documentation (http://docs.exosite.com/murano/services).
-
-]]--
-
--- Your code here
-local payload = {
-  event_timestamp=math.floor(data.timestamp/1000000),
-  onep_timestamp=data.value[2],
-  lua_timestamp=os.time()
-}
-
 
 function table_to_idb(tbl)
 	if tbl == nil then
@@ -48,6 +29,17 @@ function ts_write(metric, tags, fields, timestamp)
 	return s
 end
 
-local query = tostring(ts_write("timestamps", {sn=data.device_sn}, payload))
+if data.alias == "temperature" or data.alias == "humidity" then
+	local fields = {
+		[alias]=data.value[2]
+    }
 
-Timeseries.write({query=query})
+	local tags = {
+		sn=data.device_sn,
+		pid=data.pid
+	}
+
+	local query = tostring(ts_write("data", tags, fields))
+
+	Timeseries.write({query=query})
+end
