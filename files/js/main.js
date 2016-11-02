@@ -17,12 +17,12 @@ function createChart(data, id) {
   var min_datapoint = _.minBy(_.map(data, function(series) {
     return _.minBy(series.values, 'y')
   }), 'y')
-  var plot_min = min_datapoint.y - 1
+  var plot_min = Math.floor(min_datapoint.y - 1)
 
   var max_datapoint = _.maxBy(_.map(data, function(series) {
     return _.maxBy(series.values, 'y')
   }), 'y')
-  var plot_max = max_datapoint.y + 1
+  var plot_max = Math.ceil(max_datapoint.y + 1)
 
   nv.addGraph(function() {
     var chart = nv.models.lineChart()
