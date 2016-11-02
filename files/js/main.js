@@ -5,6 +5,7 @@ var force_current_timestamp = true;
 
 var chart;
 var plot_indices = {}
+var charts = [];
 
 var c10 = d3.scale.category10();
 
