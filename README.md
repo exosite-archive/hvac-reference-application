@@ -277,11 +277,12 @@ $ sudo apt-get install python-smbus
 
 [https://gateway-engine.exosite.io/](https://gateway-engine.exosite.io/)
 
-You have already done Step 1 above. Start from Step 2.
+You have already done Step 1 above. Start from Step 2. Write down mac address for adding the device later. 
 
 [https://gateway-engine.exosite.io/getting_started.html#step-two](https://gateway-engine.exosite.io/getting_started.html#step-two)
 
-## Install Node Modules
+## Install Node Modules 
+-Skipped this test
 
 ```
 $ npm install -g node-red-contrib-exosite
