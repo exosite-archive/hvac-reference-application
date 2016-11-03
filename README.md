@@ -1,10 +1,10 @@
-Hackathon BeagleBone User Guide
+# Hackathon BeagleBone User Guide
 
-# 1. Requirements
+# Requirements
 
-## 1.1. Hardware Requirements
+## Hardware Setup
 
-### 1.1.1. SeeedStudio BeagleBone Green Wireless
+### SeeedStudio BeagleBone Green Wireless
 
 [https://beagleboard.org/green-wireless](https://beagleboard.org/green-wireless)
 
@@ -40,9 +40,9 @@ SeeedStudio BeagleBone Green (BBG) is a low-cost, open-source, community-support
 
 * 2x Grove connectors (I2C and UART)
 
-## 1.2. Software
+## Software Setup
 
-### 1.2.1. BeagleBone Green
+### BeagleBone Green
 
 The BBG comes standard with a useful set of software that will enable you to rapidly develop your IoT solution.
 
@@ -54,11 +54,11 @@ The BBG comes standard with a useful set of software that will enable you to rap
 
 * Node-RED ([http://nodered.org/](http://nodered.org/))
 
-### 1.2.2. Gateway Engine with GMQ
+### Gateway Engine with GMQ
 
 ExositeReady™ Gateway Engine (GWE) is a Python-based application framework that runs on embedded Linux gateway devices, such as the Multitech Conduit. GWE makes it easy to connect devices to a gateway and write applications on that gateway that interact with Exosite web services, including the Murano platform, Murano Edge, or both.
 
-### 1.2.3. Mr. Murano
+### Mr. Murano
 
 Mr. Murano is a command line utility for working with Murano.
 
@@ -66,23 +66,23 @@ Mr. Murano is a command line utility for working with Murano.
 
 $ mr help
 
-### 1.2.4. Git
+### Git
 
 Git is required to check out the source code used in this tutorial.
 
 https://git-scm.com/downloads
 
-## 1.3. Solution Implementation
+## Solution Implementation
 
-### 1.3.1. Generic Solution and Product
+### Generic Solution and Product
 
 For the purposes of executing this tutorial, a generic solution and product have been created called GWE-Multitool.
 
-### 1.3.2. Endpoints
+### Endpoints
 
 Details about the endpoints that exist in the solution
 
-### 1.3.3. Freeboard
+### Freeboard
 
 [https://freeboard.io/](https://freeboard.io/)
 
@@ -90,9 +90,9 @@ Details about Freeboard and why we decided to use it
 
 Auto-create datasources for connected sensors details
 
-## 1.4. Sensors
+## Sensors
 
-## 1.5. SeeedStudio Grove Sensors
+## SeeedStudio Grove Sensors
 
 * Sensor pack
 
@@ -110,19 +110,19 @@ Auto-create datasources for connected sensors details
 
 * [http://wiki.seeedstudio.com/wiki/Grove_Starter_Kit_for_BeagleBone_Green](http://wiki.seeedstudio.com/wiki/Grove_Starter_Kit_for_BeagleBone_Green)
 
-# 2. Getting Started
+# Getting Started
 
 In this section, we’ll walk through the process of connecting the BBG to a Murano Solution. 
 
-## 2.1. Features
+## Features
 
 The code provided in this tutorial connects a BBG to Murano and allows data to be displayed with Freeboard deployed as a solution. From there you will be able to create widgets to visualize data in Freeboard, or deploy an example solution that can be modified and extended for your project’s needs.
 
-## 2.2. Constraints
+## Constraints
 
 The current solutions implemented by this tutorial ignore users and groups. Any solution implemented by or created from this base tutorial will need to apply their needs for users and groups.
 
-## 2.3. Create Business
+## Create Business
 
 To get started with this tutorial you will need to create an Exosite account. You can sign up here ([https://exosite.com/signup/](https://exosite.com/signup/)) or log in here ([https://www.exosite.io/business/auth/login](https://www.exosite.io/business/auth/login)).
 
@@ -130,19 +130,19 @@ Once you have an active account and have logged in, you can navigate to the foll
 
 [https://www.exosite.io/business/memberships](https://www.exosite.io/business/memberships)
 
-![image alt text](image_0.png)
+![image alt text](new_business_button.png)
 
-## 2.4. Create Product
+## Create Product
 
 Once a business has been created, you will need to create a product. The product you will create is the virtual representation of the BBG’s physical hardware and sensors that will send data to the platform. To create a new product, navigate to the following URL.  
 
 [https://www.exosite.io/business/products](https://www.exosite.io/business/products)
 
-![image alt text](image_1.png)
+![image alt text](new_product_button.png)
 
 Create the product without a template. In the next step we will use code to configure your product.
 
-## 2.5. Install Mr. Murano
+## Install Mr. Murano
 
 Mr. Murano requires Ruby. If you’re new to Ruby, it is recommend to use RVM for development. If you’re not doing development work with Ruby or Mr. Murano, you can skip this portion of the step.
 
@@ -158,7 +158,7 @@ Once Ruby is installed and properly configured, you can install Mr. Murano.
 
 $ sudo gem install MrMurano
 
-## 2.6. Checkout GWE-Multitool Code
+## Checkout GWE-Multitool Code
 
 In this  step you will use the GWE-MT spec file to configure your product.
 
@@ -188,7 +188,7 @@ At this point your product is configured and ready to start receiving data from 
 
 If you would like to review the spec file that was used to configure your product, it can be viewed at the following URL: [https://raw.githubusercontent.com/tadpol/GWE-Multitool/master/spec/gwe-multitool.yaml](https://raw.githubusercontent.com/tadpol/GWE-Multitool/master/spec/gwe-multitool.yaml)
 
-## 2.7. Create Solution
+## Create Solution
 
 Next we need a place to deploy the GWE-Multitool solution code. The steps for creating a solution can be found in the Murano documentation. Please follow only Step 1 and be sure to "start from scratch" when creating the solution.
 
@@ -216,7 +216,7 @@ $ cd GWE-Multitool
 
 $ mr syncup -V
 
-## 2.9. Read BeagleBone Documentation
+## Read BeagleBone Documentation
 
 [http://beagleboard.org/static/beaglebone/latest/README.htm](http://beagleboard.org/static/beaglebone/latest/README.htm)
 
@@ -242,7 +242,7 @@ $ sudo pip install pyserial --upgrade
 
 $ sudo apt-get install python-smbus
 
-## 2.10. Install GWE w/GMQ on BeagleBone
+## Install GWE w/GMQ on BeagleBone
 
 [https://gateway-engine.exosite.io/](https://gateway-engine.exosite.io/)
 
@@ -250,13 +250,13 @@ We have already done Step 1 above. Start from Step 2.
 
 [https://gateway-engine.exosite.io/getting_started.html#step-two](https://gateway-engine.exosite.io/getting_started.html#step-two)
 
-## 2.11. Install Node Modules
+## Install Node Modules
 
 $ npm install -g node-red-contrib-exosite
 
 *At this point in the tutorial, your device’s software is up to date and ready to connect.
 
-## 2.12. Add Device
+## Add Device
 
 1. In Murano select *Products*
 
@@ -268,11 +268,11 @@ $ npm install -g node-red-contrib-exosite
 
 5. Add device with name and serial number
 
-## 2.13. Enable Serial Number which is the MAC Address of the Device
+## Enable Serial Number which is the MAC Address of the Device
 
 Enable device words.
 
-## 2.14. Activate GWE:
+## Activate GWE:
 
 GWE can be activated by passing information:
 
@@ -280,7 +280,7 @@ $ gwe --set-product-id <PRODUCT_ID> --set-uuid <THE_SERIAL_NUMBER>
 
 *At this point in the tutorial, your device is now connected to the platform
 
-# 3. In Murano, Connect the Product to the Solution
+# In Murano, Connect the Product to the Solution
 
 4. In your solution, click on the *SERVICES* tab 
 
@@ -292,7 +292,7 @@ $ gwe --set-product-id <PRODUCT_ID> --set-uuid <THE_SERIAL_NUMBER>
 
 8. Hit *APPLY*
 
-# 4. Final Steps
+# Final Steps
 
 At this point in the development process there are few paths one can take.
 
@@ -302,7 +302,7 @@ Use Node-RED to connect sensors
 
 Create a <vertical> web solution
 
-# 5. Diagrams
+# Diagrams
 
 Dataflow from device to Freeboard
 
