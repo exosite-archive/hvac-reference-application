@@ -1,4 +1,4 @@
-var data_url = 'https://beaglebone-hvac-demo.apps.exosite.io/data' // url for getting data - should be raw tsdb response
+var data_url = 'https://strangeriothings.apps.exosite.io/data' // url for getting data - should be raw tsdb response TODO make this a config value
 var omit_keys = ['pid', 'time'] // list of keys to not plot
 var timeout = 20; // timeout to refresh
 var force_current_timestamp = true;
