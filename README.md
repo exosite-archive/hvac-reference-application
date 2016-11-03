@@ -134,6 +134,8 @@ Once you have an active account and have logged in, you can navigate to the foll
 
 ![image alt text](new_business_button.png)
 
+**NOTE:** Whether your company is real or imaginary, you will need to create a business profile. This business is where you will house your products and solutions in the steps ahead, set up your team members as users, and access your account's billing and payment information. 
+
 ## Create Product
 
 Once a business has been created, you will need to create a product. The product you will create is the virtual representation of the BBG’s physical hardware and sensors that will send data to the platform. To create a new product, navigate to the following URL.  
@@ -203,6 +205,8 @@ If you would like to review the spec file that was used to configure your produc
 Next you need a place to deploy the GWE-Multitool solution code. The steps for creating a solution can be found in the Murano documentation. Please follow only Step 1 and be sure to "start from scratch" when creating the solution.
 
 [http://docs.exosite.com/murano/get-started/solutions/exampleapp/](http://docs.exosite.com/murano/get-started/solutions/exampleapp/) 
+
+**NOTE:** Think of the solution as everything else that will make this work. The solution is how you will interact and communicate with the necessary functions. It is used to deploy and manage your website, endpoints, data, and users. 
 
 Once you have created a solution using the "start from scratch" option, you will need to find the Solution ID.
 
