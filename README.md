@@ -134,47 +134,51 @@ Once you have an active account and have logged in, you can navigate to the foll
 
 ![image alt text](new_business_button.png)
 
-**NOTE:** Whether your company is real or imaginary, you will need to create a business profile. This business is where you will house your products and solutions in the steps ahead, set up your team members as users, and access your account's billing and payment information. 
-
 ## Create Product
 
-Once a business has been created, you will need to create a product. The product you will create is the virtual representation of the BBG’s physical hardware and sensors that will send data to the platform. To create a new product, navigate to the following URL.  
+Once a business has been created, you have to click on the business to switch to that new business. Next, you will need to create a product. The product you will create is the virtual representation of the BBG’s physical hardware and sensors that will send data to the platform. To create a new product, navigate to the following URL. Note: Product name cannot contain any capital letters.
 
 [https://www.exosite.io/business/products](https://www.exosite.io/business/products)
 
 ![image alt text](new_product_button.png)
 
-Create the product without a template. In the next step you can use code to configure your product.
+Select start from scratch and then click the add button. In the next step you can use code to configure your product.
 
 ## Install Mr. Murano
 
-Mr. Murano requires Ruby. If you are new to Ruby, it is recommended to use RVM for development. If you are not doing development work with Ruby or Mr. Murano, you can skip this portion of the step.
+Mr. Murano requires Ruby. If you are new to Ruby, it is recommended to use RVM for development. If you are not doing development work with Ruby or Mr. Murano, you can skip this portion of the step. 
 
 * [https://rvm.io/](https://rvm.io/)
 
 * [https://www.moncefbelyamani.com/how-to-install-xcode-homebrew-git-rvm-ruby-on-mac/](https://www.moncefbelyamani.com/how-to-install-xcode-homebrew-git-rvm-ruby-on-mac/) 
 
-Ruby may already be installed on your system. If you do not have Ruby installed, the official Ruby docs will help you get it installed.
+Ruby may already be installed on your system. Check to see if it is installed first by opening up a terminal window then type the command "which gem" then enter. If you see /usr/bin/gem, then it is already installed. If you do not have Ruby installed, the official Ruby docs will help you get it installed.
 
 [https://www.ruby-lang.org/en/documentation/installation/](https://www.ruby-lang.org/en/documentation/installation/) 
 
-Once Ruby is installed and properly configured, you can install Mr. Murano.
+Once Ruby is installed, you can install Mr. Murano by running this command by copying and pasting below (always copy and paste what comes after the $).
 
 ```
 $ sudo gem install MrMurano
 ```
 
-## Check Out GWE-Multitool Code
+## Check Out BBAE HVAC
 
-In this  step you will use the GWE-MT spec file to configure your product.
+Check if Git is installed by running the command: 
+$ which git 
+
+In this step you will use the BBAE HVAC spec file to configure your product.
 
 The following repository includes everything you need to configure the product you just created and deploy a solution. Get started by checking out the code.
 
 In a terminal window:
 
 ```
-$ git clone https://github.com/tadpol/GWE-Multitool.git
+$ git clone https://github.com/tadpol/GWE-Multitool.git **Change
 ```
+Enter your GitHub username and password if prompted.
+
+Run command:
 ```
 $ cd GWE-Multitool
 ```
@@ -187,13 +191,14 @@ Before continuing you will need to find the ID of the product you created.
 
 3. Copy the Product ID on this page
 
-To configure your product, use the config command of the Mr. Murano tool.
+To configure your product, use the config command of the Mr. Murano tool.This command tells MrMurano what product to look use. 
 
 ```
 $ mr config product.id <productid>
 ```
+Run the command below. This command will set the product definition for this example.
 ```
-$ mr product spec push --file spec/gwe-multitool.yaml
+$ mr product spec push --file spec/beaglebone-hvac-spec.yaml 
 ```
 
 At this point your product is configured and ready to start receiving data from the BBG.
@@ -202,11 +207,9 @@ If you would like to review the spec file that was used to configure your produc
 
 ## Create Solution
 
-Next you need a place to deploy the GWE-Multitool solution code. The steps for creating a solution can be found in the Murano documentation. Please follow only Step 1 and be sure to "start from scratch" when creating the solution.
+Next you need a place to deploy the BBAE solution code. The steps for creating a solution can be found in the Murano documentation (we will add in here from the documentation). Please follow only Step 1 and be sure to "start from scratch" when creating the solution.
 
 [http://docs.exosite.com/murano/get-started/solutions/exampleapp/](http://docs.exosite.com/murano/get-started/solutions/exampleapp/) 
-
-**NOTE:** Think of the solution as everything else that will make this work. The solution is how you will interact and communicate with the necessary functions. It is used to deploy and manage your website, endpoints, data, and users. 
 
 Once you have created a solution using the "start from scratch" option, you will need to find the Solution ID.
 
@@ -221,12 +224,12 @@ Once you have created a solution using the "start from scratch" option, you will
 To configure your solution, use the config command of the Mr. Murano tool.
 
 ```
-$ mr config solution.id XXXXX
+$ mr config solution.id>solutionid
 ```
 
 ## Use Mr. Murano to Sync Code
 
-At this point the product is created and the solution is ready to be deployed. In the GWE-Multitool repository directory, you can sync the code base. Ensure you are in the GWE-Multitool repository directory and then use the syncup command of Mr. Murano.
+At this point the product is created and the solution is ready to be deployed. In the BBAE repository directory, you can sync the code base. Ensure you are in the BBAE HVAC repository directory and then use the syncup command of Mr. Murano.
 
 ```
 $ cd GWE-Multitool
@@ -237,9 +240,12 @@ $ mr syncup -V
 
 ## Read BeagleBone Documentation
 
+
 [http://beagleboard.org/static/beaglebone/latest/README.htm](http://beagleboard.org/static/beaglebone/latest/README.htm)
 
-Follow the connection steps to connect to the BeagleBone’s Wi-Fi. The box has an informational sheet that includes details on how to accomplish this.
+Follow the connection steps to connect to the BeagleBone’s Wi-Fi. The box has an informational sheet that includes details on how to accomplish this. 
+
+After you have connected to Wi-Fi, write down your devices IP address. 
 
 If you need to reset your device:
 
