@@ -1,4 +1,4 @@
-# Hackathon BeagleBone User Guide
+# Getting-started Guide: Hackathon BeagleBone User Guide
 
 # Requirements
 
@@ -64,7 +64,9 @@ Mr. Murano is a command line utility for working with Murano.
 
 [https://github.com/tadpol/MrMurano#mrmurano](https://github.com/tadpol/MrMurano#mrmurano)
 
+```
 $ mr help
+```
 
 ### Git
 
@@ -86,13 +88,13 @@ Details about the endpoints that exist in the solution
 
 [https://freeboard.io/](https://freeboard.io/)
 
-Details about Freeboard and why we decided to use it
+Details about Freeboard and it is useful
 
 Auto-create datasources for connected sensors details
 
 ## Sensors
 
-## SeeedStudio Grove Sensors
+### SeeedStudio Grove Sensors
 
 * Sensor pack
 
@@ -112,7 +114,7 @@ Auto-create datasources for connected sensors details
 
 # Getting Started
 
-In this section, we’ll walk through the process of connecting the BBG to a Murano Solution. 
+In this section, you can walk through the process of connecting the BBG to a Murano solution. 
 
 ## Features
 
@@ -140,11 +142,11 @@ Once a business has been created, you will need to create a product. The product
 
 ![image alt text](new_product_button.png)
 
-Create the product without a template. In the next step we will use code to configure your product.
+Create the product without a template. In the next step you can use code to configure your product.
 
 ## Install Mr. Murano
 
-Mr. Murano requires Ruby. If you’re new to Ruby, it is recommend to use RVM for development. If you’re not doing development work with Ruby or Mr. Murano, you can skip this portion of the step.
+Mr. Murano requires Ruby. If you are new to Ruby, it is recommended to use RVM for development. If you are not doing development work with Ruby or Mr. Murano, you can skip this portion of the step.
 
 * [https://rvm.io/](https://rvm.io/)
 
@@ -156,21 +158,26 @@ Ruby may already be installed on your system. If you do not have Ruby installed,
 
 Once Ruby is installed and properly configured, you can install Mr. Murano.
 
+```
 $ sudo gem install MrMurano
+```
 
-## Checkout GWE-Multitool Code
+## Check Out GWE-Multitool Code
 
 In this  step you will use the GWE-MT spec file to configure your product.
 
-The following repository includes everything you need to configure the product you just created and to deploy a solution. Let’s get started by checking out the code.
+The following repository includes everything you need to configure the product you just created and deploy a solution. Get started by checking out the code.
 
 In a terminal window:
 
-$ git clone [https://github.com/tadpol/GWE-Multitool.git](https://github.com/tadpol/GWE-Multitool.git)
-
+```
+$ git clone https://github.com/tadpol/GWE-Multitool.git
+```
+```
 $ cd GWE-Multitool
+```
 
-Before continuing you’ll need to find the ID of the product you created.
+Before continuing you will need to find the ID of the product you created.
 
 1. In Murano select *Products*
 
@@ -180,9 +187,12 @@ Before continuing you’ll need to find the ID of the product you created.
 
 To configure your product, use the config command of the Mr. Murano tool.
 
+```
 $ mr config product.id <productid>
-
+```
+```
 $ mr product spec push --file spec/gwe-multitool.yaml
+```
 
 At this point your product is configured and ready to start receiving data from the BBG.
 
@@ -190,11 +200,11 @@ If you would like to review the spec file that was used to configure your produc
 
 ## Create Solution
 
-Next we need a place to deploy the GWE-Multitool solution code. The steps for creating a solution can be found in the Murano documentation. Please follow only Step 1 and be sure to "start from scratch" when creating the solution.
+Next you need a place to deploy the GWE-Multitool solution code. The steps for creating a solution can be found in the Murano documentation. Please follow only Step 1 and be sure to "start from scratch" when creating the solution.
 
 [http://docs.exosite.com/murano/get-started/solutions/exampleapp/](http://docs.exosite.com/murano/get-started/solutions/exampleapp/) 
 
-Once you have created a solution using the "start from scratch" option, we’ll need to find the Solution ID.
+Once you have created a solution using the "start from scratch" option, you will need to find the Solution ID.
 
 [https://www.exosite.io/business/solutions](https://www.exosite.io/business/solutions) 
 
@@ -206,15 +216,20 @@ Once you have created a solution using the "start from scratch" option, we’ll 
 
 To configure your solution, use the config command of the Mr. Murano tool.
 
+```
 $ mr config solution.id XXXXX
+```
 
-## 2.8. Use Mr. Murano to Sync Code
+## Use Mr. Murano to Sync Code
 
-At this point the product is created and the solution is ready to be deployed. In the GWE-Multitool repository directory we can sync the code base. Ensure you are in the GWE-Multitool repository directory and then use the syncup command of Mr. Murano.
+At this point the product is created and the solution is ready to be deployed. In the GWE-Multitool repository directory, you can sync the code base. Ensure you are in the GWE-Multitool repository directory and then use the syncup command of Mr. Murano.
 
+```
 $ cd GWE-Multitool
-
+```
+```
 $ mr syncup -V
+```
 
 ## Read BeagleBone Documentation
 
@@ -230,29 +245,37 @@ If you intend to use Node-RED, you can connect at the following address: [http:/
 
 If you intend to use Cloud9, you can conenct at the following address: [http://192.168.11.xxx:3000/](http://192.168.11.xxx:3000/)
 
-Now, to connect directly to the BBG, you can use ssh. At this point we will update the board the install a few needed libraries. The password for the BBG will be displayed after you initiate the ssh connection.
+Now, to connect directly to the BBG, you can use ssh. At this point you can update the board to install a few needed libraries. The password for the BBG will be displayed after you initiate the ssh connection.
 
+```
 $ ssh [debian@192.168.11.xxx](mailto:debian@192.168.11.xxx)
-
+```
+```
 $ sudo apt-get update && sudo apt-get upgrade
-
+```
+```
 $ sudo pip install Adafruit_BBIO --upgrade
-
+```
+```
 $ sudo pip install pyserial --upgrade
-
+```
+```
 $ sudo apt-get install python-smbus
+```
 
 ## Install GWE w/GMQ on BeagleBone
 
 [https://gateway-engine.exosite.io/](https://gateway-engine.exosite.io/)
 
-We have already done Step 1 above. Start from Step 2.
+You have already done Step 1 above. Start from Step 2.
 
 [https://gateway-engine.exosite.io/getting_started.html#step-two](https://gateway-engine.exosite.io/getting_started.html#step-two)
 
 ## Install Node Modules
 
+```
 $ npm install -g node-red-contrib-exosite
+```
 
 *At this point in the tutorial, your device’s software is up to date and ready to connect.
 
@@ -264,7 +287,7 @@ $ npm install -g node-red-contrib-exosite
 
 3. Select *DEVICES*
 
-4. Hit *+ NEW DEVICE*
+4. Click "+ NEW DEVICE"
 
 5. Add device with name and serial number
 
@@ -272,27 +295,29 @@ $ npm install -g node-red-contrib-exosite
 
 Enable device words.
 
-## Activate GWE:
+## Activate GWE
 
 GWE can be activated by passing information:
 
+```
 $ gwe --set-product-id <PRODUCT_ID> --set-uuid <THE_SERIAL_NUMBER>
+```
 
 *At this point in the tutorial, your device is now connected to the platform
 
-# In Murano, Connect the Product to the Solution
+## Connect the Product to the Solution
 
-4. In your solution, click on the *SERVICES* tab 
+1. In your Murano solution, click on the *SERVICES* tab 
 
-5. Select *Product*
+2. Select *Product*
 
-6. Select the settings icon 
+3. Select the settings icon 
 
-7. Select the product(s) you want to include in the solution 
+4. Select the product(s) you want to include in the solution 
 
-8. Hit *APPLY*
+5. Click "APPLY"
 
-# Final Steps
+## Final Steps
 
 At this point in the development process there are few paths one can take.
 
@@ -302,7 +327,7 @@ Use Node-RED to connect sensors
 
 Create a <vertical> web solution
 
-# Diagrams
+## Diagrams
 
 Dataflow from device to Freeboard
 
