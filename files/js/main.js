@@ -2,6 +2,11 @@ var data_url = 'https://beaglebone-hvac-demo.apps.exosite.io/data' // url for ge
 var omit_keys = ['pid', 'time'] // list of keys to not plot
 var timeout = 20; // timeout to refresh
 var force_current_timestamp = true;
+var units = {
+    temperature: '*C',
+    humidity: '%'
+}
+
 
 var chart;
 var plot_indices = {}
@@ -116,6 +121,10 @@ function makePlot(response) {
     // createChart(plot, 'chart')
     _.each(plot, function(series) {
       createChart([series], series.key)
+      var value = _.last(series.values).y;
+      value = Math.round(value*100)/100
+      value = value + units[series.key]
+      $("#big-"+series.key).html(value)
     })
   }
 
@@ -130,6 +139,7 @@ function makePlot(response) {
   }), 'x')
 
 }
+
 
 function getData() {
   var dataRequest = new Request(data_url);
