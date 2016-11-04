@@ -139,14 +139,14 @@ To get started with this tutorial you will need to create an Exosite account.
 1. If you do not have an Exosite account, you can sign up here ([https://exosite.com/signup/](https://exosite.com/signup/)).
 
    ![image alt text](assets/exosite_signup.png)
+   
+   ![image alt text](assets/business_welcome.png)
 
 1. Once you have an active account and have logged in, you can navigate to the following URL to create a new business or switch to the business you would like to use [https://www.exosite.io/business/memberships](https://www.exosite.io/business/memberships).
 
-   ![image alt text](assets/business_welcome.png)
+   ![image alt text](assets/new_business.png)
 
 1. Once a business has been created, click on the business to switch to it.
-
-   ![image alt text](assets/new_business.png)
 
 ```
 What is a Business within Murano?
@@ -173,9 +173,6 @@ A Product encompasses the device side of Murano. Think of it as a virtual bluepr
 
 Example: If you have a thermometer product, you would want all your new devices to report a temperature back to Murano. When you create a product definition with a temperature, every new device added to that product will contain the temerature alias. In order to make this product definition easier to create, we will need some help from Mr. Murano, the command-line tool for Murano.
 ```
-
-TODO update this screenshot to be the full page
-![image alt text](new_product_button.png)
 
 ## Install Mr. Murano
 
