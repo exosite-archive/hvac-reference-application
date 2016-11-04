@@ -138,9 +138,15 @@ To get started with this tutorial you will need to create an Exosite account.
 
 1. If you do not have an Exosite account, you can sign up here ([https://exosite.com/signup/](https://exosite.com/signup/)).
 
+   ![image alt text](assets/exosite_signup.png)
+
 1. Once you have an active account and have logged in, you can navigate to the following URL to create a new business or switch to the business you would like to use [https://www.exosite.io/business/memberships](https://www.exosite.io/business/memberships).
 
+   ![image alt text](assets/business_welcome.png)
+
 1. Once a business has been created, click on the business to switch to it.
+
+   ![image alt text](assets/new_business.png)
 
 ```
 What is a Business within Murano?
@@ -148,17 +154,17 @@ What is a Business within Murano?
 A Business is a virtual space that houses all the products and solutions of your organization in one place. A Business does not necessarily have to be a real-life company. Products and solutions are explained in later sections.
 ```
 
-TODO update the screen to be a full screenshot
-![image alt text](new_business_button.png)
-
-
 ## Create Product
 
 Next, you will need to create a product. The product you create is the virtual representation of the BBG’s physical hardware and sensors that will send data to the platform. To create a new product:
 
 1. Navigate to the following URL. Note: Product name cannot contain any capital letters. [https://www.exosite.io/business/products](https://www.exosite.io/business/products)
 
+   ![image alt text](assets/new_product.png)
+
 1. Select *Start from scratch* and click the "ADD" button. In the next step you can use code to configure your product.
+
+   ![image alt text](assets/new_product_popup.png)
 
 ```
 What is a Product within Murano?
