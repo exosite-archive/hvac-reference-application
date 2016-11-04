@@ -62,7 +62,7 @@ ExositeReady™ Gateway Engine (GWE) is a Python-based application framework tha
 
 ### Mr. Murano
 
-Mr. Murano is a command line utility for working with Murano.
+Mr. Murano is a command-line utility for working with Murano.
 
 [https://github.com/tadpol/MrMurano#mrmurano](https://github.com/tadpol/MrMurano#mrmurano)
 
@@ -84,15 +84,16 @@ For the purposes of executing this tutorial, a generic solution and product have
 
 ### Endpoints
 
-Details about the endpoints that exist in the solution
+Details about the endpoints that exist in the solution.
 
 ### Freeboard
 
 [https://freeboard.io/](https://freeboard.io/)
 
 Details about Freeboard and it is useful
+TODO: update this text 
 
-Auto-create datasources for connected sensors details
+Auto-create datasources for connected sensors details.
 
 ## Sensors
 
@@ -124,7 +125,7 @@ Watch for the comments in boxes like these! These notes will provide further ins
 
 ## Features
 
-The code provided in this tutorial connects a BBG to Murano and allows data to be displayed with a simple example solution. This shoudl provide you with an easy starting point for connecting devices and creating solutions to visualize and inturpret your device's data.
+The code provided in this tutorial connects a BBG to Murano and allows data to be displayed with a simple example solution. This should provide you with an easy starting point for connecting devices and creating solutions to visualize and interpret your device's data.
 
 ## Constraints
 
@@ -133,31 +134,38 @@ The current solutions implemented by this tutorial ignore users and groups. Any 
 ## Create Business
 
 To get started with this tutorial you will need to create an Exosite account. 
-1. If you don't have an Exosite account, you can sign up here ([https://exosite.com/signup/](https://exosite.com/signup/))
-1. Once you have an active account and have logged in, you can navigate to the following URL to create a new business or switch to the business you would like to use. [https://www.exosite.io/business/memberships](https://www.exosite.io/business/memberships)
+
+1. If you do not have an Exosite account, you can sign up here ([https://exosite.com/signup/](https://exosite.com/signup/)).
+
+1. Once you have an active account and have logged in, you can navigate to the following URL to create a new business or switch to the business you would like to use [https://www.exosite.io/business/memberships](https://www.exosite.io/business/memberships).
+
 1. Once a business has been created, click on the business to switch to it.
 
 ```
 What is a Business within Murano?
 
-A Business is a virtual space that houses all the products and solutions of your organization in one place. A Business does not necessarily have to be a real-life company, but rather a space to keep all of your solutions and businesses together and safe. Products and solutions are discussed in later sections.
+A Business is a virtual space that houses all the products and solutions of your organization in one place. A Business does not necessarily have to be a real-life company. Products and solutions are explained in later sections.
 TODO: Make a better description for a business
 ```
 
-TODO update the screen to be a full screnshot
+TODO update the screen to be a full screenshot
 ![image alt text](new_business_button.png)
 
 
 ## Create Product
 
-Next, you will need to create a product. The product you will create is the virtual representation of the BBG’s physical hardware and sensors that will send data to the platform. To create a new product:
+Next, you will need to create a product. The product you create is the virtual representation of the BBG’s physical hardware and sensors that will send data to the platform. To create a new product:
+
 1. Navigate to the following URL. Note: Product name cannot contain any capital letters. [https://www.exosite.io/business/products](https://www.exosite.io/business/products)
-1. Select start from scratch and then click the add button. In the next step you can use code to configure your product.
+
+1. Select *Start from scratch* and then click the "ADD" button. In the next step you can use code to configure your product.
 
 ```
-What is a Product?
+What is a Product within Murano?
 
-A Product is the device side of Murano. You can create a product definition which defines all of the avenues that your physical devices will communicate through. Example: If you have a thermoeter product, you would want all of your new devices to report a temperature back to murano. When you create a product definition with a temperature, every device added to that product will contain a temerature alias. in order to make this product definition easier to create, we will need some help from MrMurano, the command line tool for Murano.
+A Product encompasses the device side of Murano. Think of it as a virtual blueprint of definitions that will be applied to each connected device. The definitions will tell each product device how to talk to you. You can create a product definition which defines all the avenues your physical devices will communicate through. 
+
+Example: If you have a thermometer product, you would want all your new devices to report a temperature back to Murano. When you create a product definition with a temperature, every new device added to that product will contain the temerature alias. In order to make this product definition easier to create, we will need some help from Mr. Murano, the command-line tool for Murano.
 
 TODO expand this
 ```
@@ -168,7 +176,7 @@ TODO update this screenshot to be the full page
 ## Install Mr. Murano
 
 ```
-Mr Murano is the command line tool to interact with murano and make different tasks easier. TODO more
+Mr. Murano is the command line tool to interact with murano and make different tasks easier. TODO more
 ```
 
 Mr. Murano requires Ruby. 
@@ -297,7 +305,7 @@ TODO: words
 
 Follow the connection steps to connect to the BeagleBone’s Wi-Fi. The box has an informational sheet that includes details on how to accomplish this. 
 
-*IMPORTANT!!! After you have connected to Wi-Fi, write down your devices IP address.*
+**Note:** After you have connected to Wi-Fi, be sure to write down your device's IP address.
 
 If you need to reset your device:
 
@@ -346,7 +354,7 @@ ifconfig
 $ npm install -g node-red-contrib-exosite
 ```
 
-*At this point in the tutorial, your device’s software is up to date and ready to connect.
+At this point in the tutorial, your device’s software is up to date and ready to connect.
 
 ## Add Device
 
