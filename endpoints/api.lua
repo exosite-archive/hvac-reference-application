@@ -35,4 +35,5 @@ local r = Device.write({
   ['desired_temperature']=request.body['desired_temperature']
 })
 
+end
 return r
