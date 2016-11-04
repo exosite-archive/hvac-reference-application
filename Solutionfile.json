@@ -5,5 +5,14 @@
   "custom_api_hook": "_init",
   "modules": {
     "util": "modules/util.lua"
-  }
+  },
+  "event_handler": {
+    "device": {
+      "datapoint": "event_handler/device_datapoint.lua"
+    },
+    "timer": {
+      "timer": "event_handler/timer_timer.lua"
+    }
+  },
+  "cors": {"origin": ["http://localhost:*"]}
 }
