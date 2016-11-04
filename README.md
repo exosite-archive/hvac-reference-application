@@ -1,6 +1,6 @@
-# Getting-started Guide: Hackathon BeagleBone User Guide
+# Getting-started Guide: Prototype or Simulate an HVAC Monitoring and Control System with Murano
 
-This getting-started guide is an interactive tutorial that allows users to learn the core features of Murano from both a hardware and software perspective. 
+This getting-started guide is an interactive tutorial that allows users to learn the core features of Murano from both a hardware and software perspective. You will have the option to prototype or simulate the implementation of an HVAC monitoring system with simple controls using the Murano platform. 
 
 # Requirements
 
@@ -119,7 +119,7 @@ Auto-create datasources for connected sensors details
 In this section, you can walk through the process of connecting the BBG to a Murano solution. 
 
 ```
-Note the comments in boxes like these! This boxes provide great insite into the 'whys' to each of the steps and hopfully give you a better idea of how murano works.
+Watch for the comments in boxes like these! These notes will provide further insight to answer the "whys" along the way and hopefully give you a better idea of how Murano works.
 ```
 
 ## Features
@@ -138,9 +138,9 @@ To get started with this tutorial you will need to create an Exosite account.
 1. Once a business has been created, click on the business to switch to it.
 
 ```
-*What is a business within Murano?*
+What is a Business within Murano?
 
-A Business is a space that includes all of the products and solutions for a given business. A business does not necessarily have to be a true physical business, but rather a space to keep all of your solutions and businesses together and safe. Products and solutions are discussed in later sections.
+A Business is a virtual space that houses all the products and solutions of your organization in one place. A Business does not necessarily have to be a real-life company, but rather a space to keep all of your solutions and businesses together and safe. Products and solutions are discussed in later sections.
 TODO: Make a better description for a business
 ```
 
@@ -157,7 +157,7 @@ Next, you will need to create a product. The product you will create is the virt
 ```
 What is a Product?
 
-A product is the device side of murano. You can create a product definition which defines all of the avenues that your physical devices will communicate through. Example: If you have a thermoeter product, you would want all of your new devices to report a temperature back to murano. When you create a product definition with a temperature, every device added to that product will contain a temerature alias. in order to make this product definition easier to create, we will need some help from MrMurano, the command line tool for Murano.
+A Product is the device side of Murano. You can create a product definition which defines all of the avenues that your physical devices will communicate through. Example: If you have a thermoeter product, you would want all of your new devices to report a temperature back to murano. When you create a product definition with a temperature, every device added to that product will contain a temerature alias. in order to make this product definition easier to create, we will need some help from MrMurano, the command line tool for Murano.
 
 TODO expand this
 ```
