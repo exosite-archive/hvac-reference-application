@@ -40,12 +40,21 @@
         <div class="col-md-12 text-center">TEMPERATURE: 19c | HUMIDITY: 85%</div>
     </div>
     <div class="row">
-        <div class="col-md-12 text-center">DEVICE DATA: SOMETHING</div>
+        <div class="col-md-12 text-center">DEVICE SN: <span id="device-sn">--</span></div>
+    </div>
+    <hr />
+    <div class="form-group row">
+      <label for="thermostat-desired-temperature" class="col-md-2 col-form-label">Desired Temperature</label>
+      <div class="col-md-2">
+        <input class="form-control" type="number" value="21.3" id="thermostat-desired-temperature">
+      </div>
+        <div class="col-md-2 text-right">Heat: On/Off</div>
+        <div class="col-md-2 text-right">Cool: On/Off</div>
     </div>
     <hr />
     <div class="row">
         <div class="col-md-4 text-center">
-            <div><h2>TEMPERATURE</h2></div>
+            <div><h2>INTERNAL TEMPERATURE</h2></div>
             <div class="bignumber" id="big-temperature">--c</div>
         </div>
         <div class="col-md-8 graph">
@@ -54,11 +63,20 @@
     </div>
     <div class="row">
         <div class="col-md-4 text-center">
-            <div><h2>HUMIDITY</h2></div>
+            <div><h2>INTERNAL HUMIDITY</h2></div>
             <div class="bignumber" id="big-humidity">--%</div>
         </div>
         <div class="col-md-8 graph">
             <svg id="humidity"></svg>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4 text-center">
+            <div><h2>AMBIENT TEMPERATURE</h2></div>
+            <div class="bignumber" id="big-ambienttemperature">--c</div>
+        </div>
+        <div class="col-md-8 graph">
+            <svg id="ambient_temperature"></svg>
         </div>
     </div>
 

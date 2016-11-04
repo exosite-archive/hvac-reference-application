@@ -18,3 +18,11 @@ resources:
   format: float
 - alias: humidity
   format: float
+- alias: desired_temperature
+  format: float
+- alias: heat_on
+  format: integer
+- alias: ac_on
+  format: integer
+- alias: ambient_temperature
+  format: float

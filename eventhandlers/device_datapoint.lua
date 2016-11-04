@@ -29,7 +29,7 @@ function ts_write(metric, tags, fields, timestamp)
 	return s
 end
 
-if data.alias == "temperature" or data.alias == "humidity" then
+if data.alias == "temperature" or data.alias == "humidity" or data.alias == "ambient_temperature" then
 	local fields = {
 		[data.alias]=data.value[2]
     }

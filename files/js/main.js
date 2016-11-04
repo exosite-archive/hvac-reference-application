@@ -1,15 +1,17 @@
+var url_base = 'https://beaglebone-hvac-demo.apps.exosite.io/data'
 var data_url = 'https://beaglebone-hvac-demo.apps.exosite.io/data' // url for getting data - should be raw tsdb response
+var status_url = 'https://beaglebone-hvac-demo.apps.exosite.io/status'
+var get_temperature_url = 'https://beaglebone-hvac-demo.apps.exosite.io/get-temp'
 var omit_keys = ['pid', 'time'] // list of keys to not plot
-var timeout = 20; // timeout to refresh
-var force_current_timestamp = true;
+var TIMEOUT = 5; // timeout to refresh
+var force_current_timestamp = false;
 var units = {
     temperature: '*C',
     humidity: '%'
 }
 
-
 var chart;
-var plot_indices = {}
+var plot_indices = {};
 var charts = [];
 
 var c10 = d3.scale.category10();
@@ -33,7 +35,7 @@ function createChart(data, id) {
     var chart = nv.models.lineChart()
                   .margin({left: 100, right: 100})  //Adjust chart margins to give the x-axis some breathing room.
                   .useInteractiveGuideline(true)  //We want nice looking tooltips and a guideline!
-                  // .transitionDuration(350)  //how fast do you want the lines to transition?
+                  .duration(350)  //how fast do you want the lines to transition?
                   .showLegend(false)       //Show the legend, allowing users to turn on/off line series.
                   .showYAxis(true)        //Show the y-axis
                   .showXAxis(true)        //Show the x-axis
@@ -77,6 +79,9 @@ function makePlot(response) {
     var plot = [];
     var data = response.results[0].series
     _.each(data, function(series) {
+       if(series.tags.sn !== "00001") {
+        return;
+       }
       var time_index;
       _.each(series.columns, function(column, column_index) {
         if(column == 'time') {
@@ -115,17 +120,21 @@ function makePlot(response) {
         })
       })
     })
-
+    console.log("plots: ", plot)
     // if you want to display all data on a single plot, uncomment this line and comment the next ones out
     // the 2nd parameter is the ID of where to put the chart - must be a div in the html
     // createChart(plot, 'chart')
     _.each(plot, function(series) {
+
+    if(series.values.length) {
       createChart([series], series.key)
       var value = _.last(series.values).y;
       value = Math.round(value*100)/100
       value = value + units[series.key]
-      $("#big-"+series.key).html(value)
+      $("#big-"+series.key.replace("_","")).html(value)
+    }
     })
+
   }
 
   // make sure data is sorted
@@ -140,6 +149,11 @@ function makePlot(response) {
 
 }
 
+function updateStatus(response) {
+  if(response.results) {
+    console.log(response.results)
+  }
+}
 
 function getData() {
   var dataRequest = new Request(data_url);
@@ -149,10 +163,12 @@ function getData() {
       return response.json();
     })
     .then(function(response) {
+    console.log("Got response: ", response)
       makePlot(response)
     })
 }
 
+timeout = TIMEOUT;
 getData();
 
 var countdown = false;
@@ -171,7 +187,7 @@ function checkFetch() {
   if(timeout == 0) {
     getData();
     $("#refreshtime").text('refreshing');
-    timeout = 20;
+    timeout = TIMEOUT;
     counting = false;
   }
 }

@@ -24,3 +24,7 @@ font-size: 100px;
 font-size: 10px;
 }
 
+#thermostat-desired-temperature {
+font-size: 50px;
+height: 100px;
+}
