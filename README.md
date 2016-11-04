@@ -341,37 +341,47 @@ $ sudo apt-get install python-smbus
 
 ## Install GWE with GMQ on BeagleBone
 
-Open the link below to get to the GWE documentation opened and availble to utilize if needed (is this a required step? if so what else should be said about this?)
+Open the link below to access the GWE documentation and utilize as needed.
+
 [https://gateway-engine.exosite.io/](https://gateway-engine.exosite.io/)
 
-Write down mac address for adding the device later.
+Write down MAC address for adding the device later.
 
-Download, install and configure Gateway Engine onto your gateway.
+Download, install, and configure Gateway Engine onto your gateway.
 
 To download the latest version of the Public Release of Gateway Engine, follow these steps:
 
 Navigate to the Gateway Engine Release Packages section and follow the instructions to download Gateway Engine.
 Run these commands to copy Gateway Engine to your gateway (the actual filename in the command may differ):
 
+```
 ssh <USER>@<GATEWAY_IP> "mkdir /opt"
 scp GatewayEngine.v1-1-2.tar.gz <USER>@<GATEWAY_IP>:/opt
+```
+
 At this point, you have downloaded the latest release of Gateway Engine and copied it to your gateway.
 Run this command to untar the release package and install Gateway Engine onto your gateway:
 
+```
 ssh <USER>@<GATEWAY_IP> "cd /opt
    tar zxvf GatewayEngine.v1-1-2.tar.gz
    cd gateway-engine
    ./install.sh"
-Note
+   ```
+   
+**Note:** In some Linux environments, you will need to use Super-User permissions to run the installer. In this case, replace the ./install.sh command to:
 
-In some linux environments, you’ll need to use Super-User permissions to run the installer. In this case, replace the ./install.sh command to:
-
+```
 sudo ./install.sh
-Once the installation completes, you’ll need to configure Gateway Engine for your IoT solution and Exosite account. This will require one piece of information from your Murano account and you’ll need to make a decision about what serial number to use for your gateway.
+```
 
-In your Murano account, navigate to your Product and click on the Info tab. Copy the Product ID and use it in the commands, below, in place of <PRODUCT_ID>.
-Determine the serial number of your gateway. Gateway Engine is programmed to retrieve the MAC address from the internet interface of your choosing (e.g. eth0, wlan0, ppp0, etc.) when the --set-iface command-line switch is used. Or you can just specify any serial number you want with the --set-uuid command line switch.
-Once you’ve gathered this information and determined what serial number to use for your gateway (interface MAC address or custom serial number), run the following command to configure Gateway Engine:
+Once the installation completes, you will need to configure Gateway Engine for your IoT solution and Exosite account. This will require one piece of information from your Murano account, and you will need to make a decision about what serial number to use for your gateway.
+
+In your Murano account, navigate to your Product and click on the *INFO* tab. Copy the Product ID and use it in the commands, below, in place of <PRODUCT_ID>.
+
+Determine the serial number of your gateway. Gateway Engine is programmed to retrieve the MAC address from the internet interface of your choosing (e.g., eth0, wlan0, ppp0, etc.) when the --set-iface command-line switch is used. Or you can just specify any serial number you want with the --set-uuid command line switch.
+
+Once you have gathered this information and determined what serial number to use for your gateway (interface MAC address or custom serial number), run the following command to configure Gateway Engine:
 
 ssh <USER>@<GATEWAY_IP> "gwe --set-product-id <PRODUCT_ID> --set-iface <THE_INTERFACE>""
 Note
