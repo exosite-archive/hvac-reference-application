@@ -91,6 +91,7 @@ Details about the endpoints that exist in the solution.
 [https://freeboard.io/](https://freeboard.io/)
 
 Details about Freeboard and it is useful
+
 TODO: update this text 
 
 Auto-create datasources for connected sensors details.
@@ -145,7 +146,6 @@ To get started with this tutorial you will need to create an Exosite account.
 What is a Business within Murano?
 
 A Business is a virtual space that houses all the products and solutions of your organization in one place. A Business does not necessarily have to be a real-life company. Products and solutions are explained in later sections.
-TODO: Make a better description for a business
 ```
 
 TODO update the screen to be a full screenshot
@@ -158,7 +158,7 @@ Next, you will need to create a product. The product you create is the virtual r
 
 1. Navigate to the following URL. Note: Product name cannot contain any capital letters. [https://www.exosite.io/business/products](https://www.exosite.io/business/products)
 
-1. Select *Start from scratch* and then click the "ADD" button. In the next step you can use code to configure your product.
+1. Select *Start from scratch* and click the "ADD" button. In the next step you can use code to configure your product.
 
 ```
 What is a Product within Murano?
@@ -166,8 +166,6 @@ What is a Product within Murano?
 A Product encompasses the device side of Murano. Think of it as a virtual blueprint of definitions that will be applied to each connected device. The definitions will tell each product device how to talk to you. You can create a product definition which defines all the avenues your physical devices will communicate through. 
 
 Example: If you have a thermometer product, you would want all your new devices to report a temperature back to Murano. When you create a product definition with a temperature, every new device added to that product will contain the temerature alias. In order to make this product definition easier to create, we will need some help from Mr. Murano, the command-line tool for Murano.
-
-TODO expand this
 ```
 
 TODO update this screenshot to be the full page
@@ -176,7 +174,7 @@ TODO update this screenshot to be the full page
 ## Install Mr. Murano
 
 ```
-Mr. Murano is the command line tool to interact with murano and make different tasks easier. TODO more
+Mr. Murano is the command-line tool that interacts with Murano and makes different tasks easier. TODO more
 ```
 
 Mr. Murano requires Ruby. 
@@ -189,7 +187,9 @@ If you are new to Ruby, it is recommended to use RVM for development. If you are
 * [https://www.moncefbelyamani.com/how-to-install-xcode-homebrew-git-rvm-ruby-on-mac/](https://www.moncefbelyamani.com/how-to-install-xcode-homebrew-git-rvm-ruby-on-mac/) 
 ```
 
-Ruby may already be installed on your system. Check to see if it is installed first by opening up a terminal window and type the command  (always copy and paste what comes after the $).
+Ruby may already be installed on your system. Check to see if it is installed first by opening up a terminal window and type the command.  
+
+**Note:** Always copy and paste what comes after the $.
 
 ```
 $ which gem
@@ -212,6 +212,7 @@ $ sudo gem install MrMurano
 ## Check Out BBAE HVAC
 
 Check if Git is installed by running the command: 
+
 ```
 $ which git 
 ```
@@ -225,6 +226,7 @@ In a terminal window:
 ```
 $ git clone https://github.com/tadpol/ae-beaglebone-hvac-demo.git **Change
 ```
+
 Enter your GitHub username and password if prompted.
 
 Run command:
@@ -240,27 +242,29 @@ Before continuing you will need to find the ID of the product you created.
 
 3. Copy the Product ID on this page
 
-To configure your product, use the config command of the Mr. Murano tool.This command tells MrMurano what product to look use. 
+To configure your product, use the config command of the Mr. Murano tool. This command tells Mr. Murano which product to use. 
 
 ```
 $ mr config product.id <productid>
 ```
+
 Run the command below. This command will set the product definition for this example.
+
 ```
 $ mr product spec push --file spec/beaglebone-hvac-spec.yaml 
 ```
 
 At this point your product is configured and ready to start receiving data from the BBG.
 
-If you would like to review the spec file that was used to configure your product, it can be viewed at the following URL: [https://github.com/exosite/ae-beaglebone-hvac-demo/blob/master/spec/beaglebone-hvac-spec.yaml](https://github.com/exosite/ae-beaglebone-hvac-demo/blob/master/spec/beaglebone-hvac-spec.yaml)
+If you would like to review the spec file used to configure your product, it can be viewed at the following URL: [https://github.com/exosite/ae-beaglebone-hvac-demo/blob/master/spec/beaglebone-hvac-spec.yaml](https://github.com/exosite/ae-beaglebone-hvac-demo/blob/master/spec/beaglebone-hvac-spec.yaml)
 
 ## Create Solution
 
-Next you need a place to deploy the BBAE solution code. The steps for creating a solution can be found in the Murano documentation (we will add in here from the documentation). Please follow only Step 1 and be sure to "start from scratch" when creating the solution.
+Next you need a place to deploy the BBAE solution code. The steps for creating a solution can be found in the Murano documentation (we will add in here from the documentation). Please follow only Step 1 and be sure to *Start from scratch* when creating the solution.
 
 [http://docs.exosite.com/murano/get-started/solutions/exampleapp/](http://docs.exosite.com/murano/get-started/solutions/exampleapp/) 
 
-Once you have created a solution using the "start from scratch" option, you will need to find the Solution ID.
+Once you have created a solution using the *Start from scratch* option, you will need to find the Solution ID.
 
 [https://www.exosite.io/business/solutions](https://www.exosite.io/business/solutions) 
 
@@ -300,7 +304,6 @@ TODO: words
 
 ## Read BeagleBone Documentation
 
-
 [http://beagleboard.org/static/beaglebone/latest/README.htm](http://beagleboard.org/static/beaglebone/latest/README.htm)
 
 Follow the connection steps to connect to the BeagleBone’s Wi-Fi. The box has an informational sheet that includes details on how to accomplish this. 
@@ -333,11 +336,11 @@ $ sudo pip install pyserial --upgrade
 $ sudo apt-get install python-smbus
 ```
 
-## Install GWE w/GMQ on BeagleBone
+## Install GWE with GMQ on BeagleBone
 
 [https://gateway-engine.exosite.io/](https://gateway-engine.exosite.io/)
 
-You have already done Step 1 above. Start from Step 2. Write down mac address for adding the device later. 
+You have already done Step 1 above. Start from Step 2. Write down the MAC address for adding the device later. 
 
 TODO: take the steps from Step two and improve upon them. Send these steps to will for addition to the true documentation, if he can update these quickly we may not need to make our own steps in this guide.
 
@@ -366,7 +369,7 @@ At this point in the tutorial, your device’s software is up to date and ready 
 
 4. Click "+ NEW DEVICE"
 
-5. Add device with name and MAC Address
+5. Add a device with a name and MAC Address
 
 ## Enable Serial Number which is the MAC Address of the Device
 
@@ -384,7 +387,7 @@ GWE can be activated by passing information:
 $ gwe --set-product-id <PRODUCT_ID> --set-uuid <THE_SERIAL_NUMBER>
 ```
 
-*At this point in the tutorial, your device is now connected to the platform
+At this point in the tutorial, your device is now connected to the platform.
 
 ## Connect the Product to the Solution
 
@@ -406,7 +409,7 @@ Create widgets in freeboard
 
 Use Node-RED to connect sensors
 
-TODO: Add the code needed for this, then explain wha tthe code is doing. 
+TODO: Add the code needed for this, then explain what the code is doing. 
 
 ## Diagrams
 
