@@ -1,5 +1,7 @@
 # Getting-started Guide: Hackathon BeagleBone User Guide
 
+This getting-started guide is an interactive tutorial that allows users to learn the core features of Murano from both a hardware and software perspective. 
+
 # Requirements
 
 ## Hardware Setup
