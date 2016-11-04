@@ -14,34 +14,6 @@ SeeedStudio BeagleBone Green (BBG) is a low-cost, open-source, community-support
 
 [http://wiki.seeed.cc/BeagleBone_Green/](http://wiki.seeed.cc/BeagleBone_Green/) 
 
-**Technical Specifications**
-
-* Processor: AM335x 1GHz ARM® Cortex-A8
-
-* 512MB DDR3 RAM
-
-* 4GB 8-bit eMMC onboard flash storage
-
-* 3D graphics accelerator
-
-* NEON floating-point accelerator
-
-* 2x PRU 32-bit microcontrollers
-
-**Connectivity**
-
-* USB client for power & communications
-
-* USB host with 4-port hub
-
-* Wi-Fi 802.11 b/g/n 2.4GHz
-
-* Bluetooth 4.1 with BLE
-
-* 2x 46 pin headers
-
-* 2x Grove connectors (I2C and UART)
-
 ## Software Setup
 
 ### BeagleBone Green
@@ -267,10 +239,6 @@ Next you need a place to deploy the BBAE solution code. The steps for creating a
 
 [http://docs.exosite.com/murano/get-started/solutions/exampleapp/](http://docs.exosite.com/murano/get-started/solutions/exampleapp/) 
 
-![image alt text](assets/new_solution.png)
-
-![image alt text](assets/new_solution_popup.png)
-
 Once you have created a solution using the *Start from scratch* option, you will need to find the Solution ID.
 
 [https://www.exosite.io/business/solutions](https://www.exosite.io/business/solutions) 
@@ -280,8 +248,6 @@ Once you have created a solution using the *Start from scratch* option, you will
 2. Select the solution you just created
 
 3. Copy the Solution ID on this page
-
-![image alt text](assets/solutions_tab.png)
 
 To configure your solution, use the config command of the Mr. Murano tool.
 
