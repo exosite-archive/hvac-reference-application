@@ -6,5 +6,4 @@
   "modules": {
     "util": "modules/util.lua"
   }
-  }
 }
