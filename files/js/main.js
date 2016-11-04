@@ -1,10 +1,11 @@
-var data_url = 'https://strangeriothings.apps.exosite.io/data' // url for getting data - should be raw tsdb response TODO make this a config value
+var data_url = 'https://beaglebone-hvac-demo.apps.exosite.io/data' // url for getting data - should be raw tsdb response TODO make this a config value
 var omit_keys = ['pid', 'time'] // list of keys to not plot
 var TIMEOUT = 5; // timeout to refresh
 var force_current_timestamp = false;
 var units = {
     temperature: '*C',
-    humidity: '%'
+    humidity: '%',
+    ambient_temperature: '*C'
 }
 
 var chart;
@@ -126,9 +127,11 @@ function makePlot(response) {
     if(series.values.length) {
       createChart([series], series.key)
       var value = _.last(series.values).y;
+      console.log(value)
       value = Math.round(value*100)/100
       value = value + units[series.key]
-      $("#big-"+series.key.replace("_","")).html(value)
+      console.log(value)
+      $("#big-"+series.key).html(value)
     }
     })
 
