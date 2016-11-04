@@ -430,11 +430,17 @@ At this point in the tutorial, your device’s software is up to date and ready 
 
 1. In Murano select *Products*
 
+   ![image alt text](assets/products_tab.png)
+
 2. Select your product
 
 3. Select *DEVICES*
 
+   ![image alt text](assets/devices_tab.png)
+
 4. Click "+ NEW DEVICE"
+
+   ![image alt text](assets/new_device_popup.png)
 
 5. Add a device with a name and MAC Address
 
