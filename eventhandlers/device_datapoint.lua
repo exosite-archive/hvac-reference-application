@@ -1,45 +1,28 @@
 --#EVENT device datapoint
+--[[
 
-function table_to_idb(tbl)
-	if tbl == nil then
-		return ""
-	end
-	local building = {}
-	for k,v in pairs(tbl) do
-	  if type(v) == "number" then
-  		building[#building + 1] = tostring(k) .."=" .. string.format("%.f", v)
-		else
-  		building[#building + 1] = tostring(k) .."=" .. tostring(v)
-		end
-	end
-	return table.concat(building, ",")
-end
+  - EVENT TRIGGER -
 
----
--- Build a InfluxDB write command from lua tables.
-function ts_write(metric, tags, fields, timestamp)
-	local s = tostring(metric)
-	s = s .. ","
-	s = s .. table_to_idb(tags)
-	s = s .. " "
-	s = s .. table_to_idb(fields)
-	if timestamp ~= nil then
-		s = s .. " " .. timestamp
-	end
-	return s
-end
+  File in the eventhandlers folders are call at service event trigger. The file name needs to match 'servicealias'_'eventtype'.lua
 
-if data.alias == "temperature" or data.alias == "humidity" or data.alias == "ambient_temperature" then
-	local fields = {
-		[data.alias]=data.value[2]
-    }
+  In this example this script is triggered by the 'datapoint' event from the Device service. This event provides a 'data' parameters (http://docs.exosite.com/murano/services/device/#datapoint).
 
-	local tags = {
-		sn=data.device_sn,
-		pid=data.pid
-	}
+  All available Eventhandlers and parameters are documented under the events sections of the Murano service documentation (http://docs.exosite.com/murano/services).
 
-	local query = tostring(ts_write("data", tags, fields))
+]]--
 
-	Timeseries.write({query=query})
-end
+-- Your code here
+print(data.value)
+
+--[[
+
+  - CALL A SERVICE -
+
+  Murano offers many services to customize your script behavior.
+  For instance the Keystore service let you save and retrieve value across your solution.
+
+  The parameters detailed definition can be found in the Murano service documentation (http://docs.exosite.com/murano/services).
+--]]
+
+-- Example: To save the device message value in the key-store
+-- Keystore.set({key="latest", value=data.value})

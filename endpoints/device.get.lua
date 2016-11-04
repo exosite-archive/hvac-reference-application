@@ -1,6 +1,3 @@
---#ENDPOINT get /data
-response.message = Timeseries.query({q='select * from "data" WHERE timestamp > now() - 1d group by sn order by desc limit 1000'})
-
 --#ENDPOINT get /device
 local solutionConfig = Config.solution()
 if table.getn(solutionConfig.products) == 0 then
@@ -21,19 +18,6 @@ for k, device in pairs(devices) do
         device.controllerID = device.sn
         device.sn = nil
         -- ...except role_id, which doesn't make sense here
-
         table.insert(response, device)
 end
 return devices
-
---#ENDPOINT post /device/{sn}
-local pid = Config.solution().products[1]
-
-local r = Device.write({
-  pid=pid,
-  device_sn=request.parameters.sn,
-  ['desired_temperature']=request.body['desired_temperature']
-})
-
-end
-return r
