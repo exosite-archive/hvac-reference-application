@@ -305,7 +305,7 @@ TODO: words
 
 Follow the connection steps to connect to the BeagleBone’s Wi-Fi. The box has an informational sheet that includes details on how to accomplish this. 
 
-*IMPORTANT!!! After you have connected to Wi-Fi, write down your devices IP address.*
+**Note:** After you have connected to Wi-Fi, be sure to write down your device's IP address.
 
 If you need to reset your device:
 
@@ -354,7 +354,7 @@ ifconfig
 $ npm install -g node-red-contrib-exosite
 ```
 
-*At this point in the tutorial, your device’s software is up to date and ready to connect.
+At this point in the tutorial, your device’s software is up to date and ready to connect.
 
 ## Add Device
 
