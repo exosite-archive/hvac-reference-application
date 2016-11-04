@@ -62,7 +62,7 @@ ExositeReady™ Gateway Engine (GWE) is a Python-based application framework tha
 
 ### Mr. Murano
 
-Mr. Murano is a command line utility for working with Murano.
+Mr. Murano is a command-line utility for working with Murano.
 
 [https://github.com/tadpol/MrMurano#mrmurano](https://github.com/tadpol/MrMurano#mrmurano)
 
@@ -91,6 +91,7 @@ Details about the endpoints that exist in the solution
 [https://freeboard.io/](https://freeboard.io/)
 
 Details about Freeboard and it is useful
+TODO: update this text 
 
 Auto-create datasources for connected sensors details
 
@@ -124,7 +125,7 @@ Watch for the comments in boxes like these! These notes will provide further ins
 
 ## Features
 
-The code provided in this tutorial connects a BBG to Murano and allows data to be displayed with a simple example solution. This shoudl provide you with an easy starting point for connecting devices and creating solutions to visualize and inturpret your device's data.
+The code provided in this tutorial connects a BBG to Murano and allows data to be displayed with a simple example solution. This should provide you with an easy starting point for connecting devices and creating solutions to visualize and interpret your device's data.
 
 ## Constraints
 
@@ -133,8 +134,11 @@ The current solutions implemented by this tutorial ignore users and groups. Any 
 ## Create Business
 
 To get started with this tutorial you will need to create an Exosite account. 
+
 1. If you don't have an Exosite account, you can sign up here ([https://exosite.com/signup/](https://exosite.com/signup/))
+
 1. Once you have an active account and have logged in, you can navigate to the following URL to create a new business or switch to the business you would like to use. [https://www.exosite.io/business/memberships](https://www.exosite.io/business/memberships)
+
 1. Once a business has been created, click on the business to switch to it.
 
 ```
@@ -151,7 +155,9 @@ TODO update the screen to be a full screnshot
 ## Create Product
 
 Next, you will need to create a product. The product you will create is the virtual representation of the BBG’s physical hardware and sensors that will send data to the platform. To create a new product:
+
 1. Navigate to the following URL. Note: Product name cannot contain any capital letters. [https://www.exosite.io/business/products](https://www.exosite.io/business/products)
+
 1. Select start from scratch and then click the add button. In the next step you can use code to configure your product.
 
 ```
