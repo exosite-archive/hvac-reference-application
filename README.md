@@ -474,5 +474,6 @@ TODO: Add the code needed for this, then explain what the code is doing.
 
 ## Diagrams
 
-TODO: Dataflow from device to Fsolution
+![image alt text](assets/services_soutions_diagram.png)
+
 
