@@ -1,7 +1,4 @@
-var url_base = 'https://beaglebone-hvac-demo.apps.exosite.io/data'
-var data_url = 'https://beaglebone-hvac-demo.apps.exosite.io/data' // url for getting data - should be raw tsdb response
-var status_url = 'https://beaglebone-hvac-demo.apps.exosite.io/status'
-var get_temperature_url = 'https://beaglebone-hvac-demo.apps.exosite.io/get-temp'
+var data_url = 'https://strangeriothings.apps.exosite.io/data' // url for getting data - should be raw tsdb response TODO make this a config value
 var omit_keys = ['pid', 'time'] // list of keys to not plot
 var TIMEOUT = 5; // timeout to refresh
 var force_current_timestamp = false;
