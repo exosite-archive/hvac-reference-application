@@ -5,7 +5,7 @@ response.message = Timeseries.query({q='select * from "data" WHERE timestamp > n
 local solutionConfig = Config.solution()
 if table.getn(solutionConfig.products) == 0 then
         response.code = 400
-        response.message = 'Uh oh. No product has been associated with this solution. You can configure a prod$
+        response.message = 'Uh oh. No product has been associated with this solution.'
   return
 end
 local pid = solutionConfig.products[1]
