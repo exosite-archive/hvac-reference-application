@@ -1,0 +1,10 @@
+{
+  "default_page": "index.html",
+  "file_dir": "files",
+  "custom_api": "endpoints/api.lua",
+  "custom_api_hook": "_init",
+  "modules": {
+    "util": "modules/util.lua"
+  }
+  }
+}
