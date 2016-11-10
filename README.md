@@ -193,6 +193,24 @@ At this point your product is configured and ready to start receiving data from 
 
 If you would like to review the spec file used to configure your product, it can be viewed at the following URL: [https://github.com/exosite/ae-beaglebone-hvac-demo/blob/master/spec/beaglebone-hvac-spec.yaml](https://github.com/exosite/ae-beaglebone-hvac-demo/blob/master/spec/beaglebone-hvac-spec.yaml)
 
+## Add Device
+
+1. In Murano select *Products*
+
+   ![image alt text](assets/products_tab.png)
+
+2. Select your product
+
+3. Select *DEVICES*
+
+   ![image alt text](assets/devices_tab.png)
+
+4. Click "+ NEW DEVICE"
+
+   ![image alt text](assets/new_device_popup.png)
+
+5. Add a device with a name and MAC Address
+
 ## Create Solution
 
 Next you need a place to deploy the BBG HVAC solution code. The steps for creating a solution can be found in the Murano documentation (we will add in here from the documentation). Please follow only Step 1 and be sure to *Start from scratch* when creating the solution.
@@ -218,17 +236,17 @@ $ mr config solution.id <solutionid>
 ```
 What is a solution?
 
-TODO: a description
+TODO: A solution is a set of static files, modules, eventhandlers, and endpoints for interacting with your device's data and users.
 ```
 
 ## Use Mr. Murano to Sync Code
 
-At this point the product is created and the solution is ready to be deployed. In the BBAE repository directory, you can sync the code base. Ensure you are in the BBAE HVAC repository directory and then use the syncup command of Mr. Murano.
+At this point the product is created and the solution is ready to be deployed. In the BBG HVAC repository directory, you can sync the code base. Ensure you are in the BBG HVAC repository directory and then use the syncup command of Mr. Murano.
 
-```
+```sh
 $ cd ae-beaglebone-hvac-demo
 ```
-```
+```sh
 $ mr syncup -V
 ```
 
@@ -239,6 +257,10 @@ Mr. Murano looks at the directory structure of your local repository and syncs t
 ```
 
 ## Read BeagleBone Documentation
+
+```
+Note: If you are not using the BBG hardware, please skip ahead to the Simulator Setup section.
+```
 
 Next, the beaglebone doesn't come with all of the tools that are needed for reading sensors that are connected to it.
 
@@ -262,7 +284,7 @@ If you intend to use Cloud9, you can conenct at the following address: [http://1
 Now, to connect directly to the BBG, you can use ssh. At this point you can update the board to install a few needed libraries. The password for the BBG will be displayed after you initiate the ssh connection.
 
 ```
-$ ssh root@<IP Address>
+$ ssh debian@<IP Address>
 ```
 ```
 $ sudo apt-get update && sudo apt-get upgrade
@@ -279,9 +301,7 @@ $ sudo apt-get install python-smbus
 
 ## Install GWE with GMQ on BeagleBone
 
-Gateway engine is a TODO words
-
-To install follow 
+To install GWE follow the official documentation.
 
 [https://gateway-engine.exosite.io/](https://gateway-engine.exosite.io/)
 
@@ -357,27 +377,13 @@ $ npm install -g node-red-contrib-exosite
 
 At this point in the tutorial, your device’s software is up to date and ready to connect.
 
-## Add Device
-
-1. In Murano select *Products*
-
-   ![image alt text](assets/products_tab.png)
-
-2. Select your product
-
-3. Select *DEVICES*
-
-   ![image alt text](assets/devices_tab.png)
-
-4. Click "+ NEW DEVICE"
-
-   ![image alt text](assets/new_device_popup.png)
-
-5. Add a device with a name and MAC Address
-
 ## Enable Serial Number which is the MAC Address of the Device
 
 TODO Enable device words. I think this is a reboot of the beagle bone
+
+## Simulator Setup
+
+
 
 ## Connect the Product to the Solution
 
