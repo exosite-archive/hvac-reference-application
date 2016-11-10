@@ -36,7 +36,7 @@ The BBG comes standard with a useful set of software that will enable you to rap
 
 ExositeReady™ Gateway Engine (GWE) is a Python-based application framework that runs on embedded Linux gateway devices. GWE makes it easy to connect devices to a gateway and write applications on that gateway to interact with Exosite web services, including the Murano platform, Murano Edge, or both.
 
-In this example you will use GWE to allow sensors to communicate with the Murano platform.
+In this example you will use GWE to allow sensors to communicate with the Murano platform. Installation instructions are provided in a later section.
 
 ```
 Gateway Engine will be used to provision, or activate your physical hardware. If you intend on using the simulator you will not need to install GWE.
@@ -169,11 +169,11 @@ $ cd ae-beaglebone-hvac-demo
 
 Before continuing you will need to find the ID of the product you created.
 
-1. In Murano select *Products*
+1. In Murano select *Products*.
 
-2. Select the product you just created
+2. Select the product you just created.
 
-3. Copy the Product ID on this page
+3. Copy the Product ID on this page.
 
    ![product id](assets/product_id.png)
 
@@ -222,22 +222,24 @@ $ mr config solution.id <solutionid>
 ```
 
 ```
-What is a solution?
+What is a Solution within Murano?
 
 A solution is a set of static files, modules, eventhandlers, and endpoints for interacting with your device's data and users.
 ```
 
 ## Connect the Product to the Solution
 
-1. In your Murano solution, click on the *SERVICES* tab 
+1. In your Murano solution, click on the *SERVICES* tab. 
 
-2. Select *Product*
+2. Select *Product*.
 
-3. Select the settings icon 
+3. Select the settings icon. 
 
-4. Select the product(s) you want to include in the solution 
+4. Select the product(s) you want to include in the solution. 
 
-5. Click "APPLY"
+5. Click "APPLY".
+
+   ![solutions services](assets/solutions_services.png)
 
 ## Use Mr. Murano to Sync Code
 
@@ -251,9 +253,9 @@ $ mr syncup -V
 ```
 
 ```
-What is happening when I sync code?
+What is happening when you sync code?
 
-Mr. Murano looks at the directory structure of your local repository and syncs the appropriate files and configurations directly to your solution in Murano. Endpoints, event handles, static files, and modules are synced. If you make changes locally, a syncup command will ensure Murano matches your local changes. If you make changes using the Murano interface, a syncdown will ensure your local respository matches Murano.
+Mr. Murano looks at the directory structure of your local repository and syncs the appropriate files and configurations directly to your solution in Murano. Endpoints, event handles, static files, and modules are synced. If you make changes locally, a syncup command will ensure Murano matches your local changes. If you make changes using the Murano interface, a syncdown will ensure your local repository matches Murano.
 ```
 
 ## Read BeagleBone Documentation
@@ -262,15 +264,13 @@ Mr. Murano looks at the directory structure of your local repository and syncs t
 If you are not using the BBG hardware, please skip ahead to the Simulator Setup section.
 ```
 
-Next, the BBG doesn't come with all of the tools that are needed for reading sensors that are connected to it. Some intiial setup is required to send sensor data to Exosite.
+The BBG does not come with all the tools needed for reading sensors connected to it. Some initial setup is required to send sensor data to Exosite.
 
 [http://beagleboard.org/static/beaglebone/latest/README.htm](http://beagleboard.org/static/beaglebone/latest/README.htm)
 
-Follow the connection steps to connect to the BeagleBone’s Wi-Fi. The box has an informational sheet that includes details on how to accomplish this. 
+Follow the connection steps to connect to the BeagleBone’s Wi-Fi. The box has an informational sheet with details on how to accomplish this. 
 
-```
-After you have connected to Wi-Fi, be sure to write down your device's IP address.
-```
+**Note:** After you have connected to Wi-Fi, be sure to write down your device's IP address.
 
 If at some point you want to start over and need to reset your device, the software and steps can be found here:
 
@@ -304,7 +304,7 @@ $ sudo apt-get install python-smbus
 
 ## Install GWE with GMQ on BeagleBone
 
-To install GWE follow the official documentation.
+Follow the official documentation to install GWE.
 
 [https://gateway-engine.exosite.io/](https://gateway-engine.exosite.io/)
 
@@ -314,20 +314,20 @@ Write down the MAC address of the BBG for adding the device later.
 $ ifconfig -a
 ```
 
-Download, install, and configure Gateway Engine onto your gateway.
+Download, install, and configure GWE onto your gateway.
 
-To download the latest version of the Public Release of Gateway Engine, follow these steps:
+To download the latest version of the Public Release of GWE, follow these steps:
 
 Navigate to the Gateway Engine Release Packages section and follow the instructions to download Gateway Engine.
-Run these commands to copy Gateway Engine to your gateway (the actual filename in the command may differ):
+Run these commands to copy GWE to your gateway (the actual filename in the command may differ):
 
 ```
 ssh <USER>@<GATEWAY_IP> "mkdir /opt"
 scp GatewayEngine.v1-1-2.tar.gz <USER>@<GATEWAY_IP>:/opt
 ```
 
-At this point, you have downloaded the latest release of Gateway Engine and copied it to your gateway.
-Run this command to untar the release package and install Gateway Engine onto your gateway:
+At this point, you have downloaded the latest release of GWE and copied it to your gateway.
+Run this command to untar the release package and install GWE onto your gateway:
 
 ```
 ssh <USER>@<GATEWAY_IP> "cd /opt
@@ -342,13 +342,13 @@ ssh <USER>@<GATEWAY_IP> "cd /opt
 sudo ./install.sh
 ```
 
-Once the installation completes, you will need to configure Gateway Engine for your IoT solution and Exosite account. This will require one piece of information from your Murano account, and you will need to make a decision about what serial number to use for your gateway.
+Once the installation completes, you will need to configure GWE for your IoT solution and Exosite account. This will require one piece of information from your Murano account, and you will need to make a decision about what serial number to use for your gateway.
 
 In your Murano account, navigate to your Product and click on the *INFO* tab. Copy the Product ID and use it in the commands, below, in place of <PRODUCT_ID>.
 
-Determine the serial number of your gateway. Gateway Engine is programmed to retrieve the MAC address from the internet interface of your choosing (e.g., eth0, wlan0, ppp0, etc.) when the --set-iface command-line switch is used. Or you can just specify any serial number you want with the --set-uuid command line switch.
+Determine the serial number of your gateway. GWE is programmed to retrieve the MAC address from the Internet interface of your choosing (e.g., eth0, wlan0, ppp0, etc.) when the --set-iface command-line switch is used. Or you can just specify any serial number you want with the --set-uuid command-line switch.
 
-Once you have gathered this information and determined what serial number to use for your gateway (interface MAC address or custom serial number), run the following command to configure Gateway Engine:
+Once you have gathered this information and determined which serial number to use for your gateway (interface MAC address or custom serial number), run the following command to configure GWE:
 
 $ ssh <USER>@<GATEWAY_IP> "gwe --set-product-id <PRODUCT_ID> --set-iface <THE_INTERFACE>""
 Note
@@ -356,6 +356,7 @@ Note
 Example:
 
 $ ssh <USER>@<GATEWAY_IP> "gwe --set-product-id dubhxzv0r4e1m7vj --set-iface eth0"``
+
 Or if you want to just specify your own serial number:
 
 $ ssh <USER>@<GATEWAY_IP> "gwe --set-product-id <PRODUCT_ID> --set-uuid <THE_SERIAL_NUMBER>""
@@ -364,6 +365,7 @@ Note
 Example:
 
 $ ssh <USER>@<GATEWAY_IP> "gwe --set-product-id dubhxzv0r4e1m7vj --set-uuid 12345"
+
 To complete the installation you will need to reboot the gateway. To reboot, you can toggle the power or use the following command:
 
 $ ssh <USER>@<GATEWAY_IP> "reboot"
@@ -376,7 +378,8 @@ ssh root@<IP Adddress>
 ifconfig
 
 ## Install Node Modules 
-TODO, is this step needed
+
+TODO: is this step needed?
 
 ```sh
 $ npm install -g node-red-contrib-exosite
@@ -386,14 +389,13 @@ At this point in the tutorial, your device’s software is up to date and ready 
 
 ## Simulator Setup
 
-The simulator requires Python 3. You can ensure that Python 3 is available on your system by executing the following command.
+The simulator requires Python 3. You can ensure Python 3 is available on your system by executing the following command.
 
 ```sh
 $ which python3
 ```
 
-If Python 3 is not available, please follow the official documentation to get started.
-
+If Python 3 is not available, please follow the official documentation to get started:
 [https://www.python.org/downloads/](https://www.python.org/downloads/)
 
 In the `ae-beaglebone-hvac-demo` folder, install requirements. The only requirement for this simulator is `requests`. The requests library is used for executing HTTP requests to Exosite and the Weather Underground API.
@@ -403,9 +405,9 @@ $ cd ae-beaglebon-hvac-demo
 $ pip3 install -r requirements.txt
 ```
 
-Next we will need to obtain an API key from Weather Underground and configure the product scripts.
+Next you will need to obtain an API key from Weather Underground and configure the product scripts.
 
-Navigate to Weather Underground and login or sign up for an API key. All plans are free for development use, as such it makes sense to sign up for the ANVIL plan.
+Navigate to Weather Underground and log in or sign up for an API key. All plans are free for development use, as such it makes sense to sign up for the ANVIL plan.
 
 [https://www.wunderground.com/weather/api/](https://www.wunderground.com/weather/api/)
 
@@ -417,25 +419,25 @@ cik =
 wuapi = aen33n5235n235jkjh
 ```
 
-The cik value will be automatically added during the activation step below.
+The CIK value will be automatically added during the activation step below.
 
 ## Add Device
 
-1. In Murano select *Products*
+1. In Murano select *Products*.
 
    ![image alt text](assets/products_tab.png)
 
-2. Select your product
+2. Select your product.
 
-3. Select *DEVICES*
+3. Select *DEVICES*.
 
    ![image alt text](assets/devices_tab.png)
 
-4. Click "+ NEW DEVICE"
+4. Click "+ NEW DEVICE."
 
    ![image alt text](assets/new_device_popup.png)
 
-5. Add a device with a Name and Identity. The name can be any string to help remember which device it is. The Identity should either be the MAC Address of your BBG, or if you are using the simulator you can use `00001` for the purpose of testing.
+5. Add a device with a Name and Identity. The Name can be any string to help remember which device it is. The Identity should either be the MAC address of your BBG, or if you are using the simulator, you can use `00001` for the purpose of testing.
 
 ## Enable Serial Number which is the MAC Address of the Device
 
@@ -443,8 +445,7 @@ At this point, you will need to activate your device by either executing a comma
 
 ### GWE Activation
 
-The steps to activate your BBG using GWE can be found below:
-
+The steps to activate your BBG using GWE can be found here:
 [http://docs.exosite.com/gwe/getting_started/](http://docs.exosite.com/gwe/getting_started/)
 
 A summarized version of the steps are included here:
@@ -472,14 +473,14 @@ TODO: all the code
 
 TODO: add final steps. click the solution link. and watch the magic happen.
 
-TODO: Add the code needed for this, then explain what the code is doing. 
+TODO: add the code needed for this, then explain what the code is doing. 
 
-TODO: Add images of interface with details on each section.
+TODO: add images of interface with details on each section.
 
-There are many other services and features of Murano that were not covered in this example such as users, timeseries databases, email, SMS, and many more. Please visit [docs.exosite.com](docs.exosite.com) to explore additional features of Murano.
+There are many other services and features of Murano that were not covered in this example such as users, timeseries databases, email, SMS, and more. Please visit [docs.exosite.com](docs.exosite.com) to explore additional features of Murano.
 
 ## Diagrams
 
-![image alt text](assets/services_soutions_diagram.png)
+  ![image alt text](assets/services_soutions_diagram.png)
 
 
