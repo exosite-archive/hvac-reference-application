@@ -1,0 +1,30 @@
+body {
+background-color: rgb(73,196,218);
+}
+
+.navbar {
+background: rgb(35,39,53);
+color: rgp(200,200,200);
+}
+
+.main-content h1 {
+color: rgb(255,255,255);
+font-weight: 200;
+}
+
+.graph {
+height: 250px;
+}
+
+.bignumber {
+font-size: 100px;
+}
+
+#refreshtime {
+font-size: 10px;
+}
+
+#thermostat-desired-temperature {
+font-size: 50px;
+height: 100px;
+}

@@ -1,0 +1,6 @@
+.DS_Store
+.idea
+.mrmurano
+.mrmuranorc
+*.pyc
+config.db

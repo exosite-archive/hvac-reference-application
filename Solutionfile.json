@@ -1,0 +1,17 @@
+{
+  "default_page": "index.html",
+  "file_dir": "files",
+  "custom_api": "endpoints/api.lua",
+  "modules": {
+    "util": "modules/util.lua"
+  },
+  "event_handler": {
+    "device": {
+      "datapoint": "event_handler/device_datapoint.lua"
+    },
+    "timer": {
+      "timer": "event_handler/timer_timer.lua"
+    }
+  },
+  "cors": {"origin": ["http://localhost:*"]}
+}
