@@ -179,23 +179,23 @@ Before continuing you will need to find the ID of the product you created.
 
 To configure your product, use the config command of the Mr. Murano tool. This command tells Mr. Murano which product to use. 
 
-```
+```sh
 $ mr config product.id <productid>
 ```
 
-Run the command below. This command will set the product definition for this example.
+Executing the command below will set the product definition for this example as defined in the `beaglebone-hvac-spec.yaml` file.
 
 ```
 $ mr product spec push --file spec/beaglebone-hvac-spec.yaml 
 ```
 
-At this point your product is configured and ready to start receiving data from the BBG.
+At this point your product is configured and ready to start receiving data from the BBG or the simulator.
 
 If you would like to review the spec file used to configure your product, it can be viewed at the following URL: [https://github.com/exosite/ae-beaglebone-hvac-demo/blob/master/spec/beaglebone-hvac-spec.yaml](https://github.com/exosite/ae-beaglebone-hvac-demo/blob/master/spec/beaglebone-hvac-spec.yaml)
 
 ## Create Solution
 
-Next you need a place to deploy the BBAE solution code. The steps for creating a solution can be found in the Murano documentation (we will add in here from the documentation). Please follow only Step 1 and be sure to *Start from scratch* when creating the solution.
+Next you need a place to deploy the BBG HVAC solution code. The steps for creating a solution can be found in the Murano documentation (we will add in here from the documentation). Please follow only Step 1 and be sure to *Start from scratch* when creating the solution.
 
 [http://docs.exosite.com/murano/get-started/solutions/exampleapp/](http://docs.exosite.com/murano/get-started/solutions/exampleapp/) 
 
@@ -209,9 +209,9 @@ Once you have created a solution using the *Start from scratch* option, you will
 
 3. Copy the Solution ID on this page
 
-To configure your solution, use the config command of the Mr. Murano tool.
+To configure Mr. Murano to work with your newly created solution, use the config command of the Mr. Murano tool.
 
-```
+```sh
 $ mr config solution.id <solutionid>
 ```
 
@@ -235,7 +235,7 @@ $ mr syncup -V
 ```
 What is happening when I sync code?
 
-TODO: words
+Mr. Murano looks at the directory structure of your local repository and syncs the appropriate files and configurations directly to your solution in Murano. Endpoints, event handles, static files, and modules are synced. If you make changes locally, a syncup command will ensure Murano matches your local changes. If you make changes using the Murano interface, a syncdown will ensure your local respository matches Murano.
 ```
 
 ## Read BeagleBone Documentation
