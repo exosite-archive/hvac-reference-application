@@ -175,6 +175,8 @@ Before continuing you will need to find the ID of the product you created.
 
 3. Copy the Product ID on this page
 
+   ![product id](assets/product_id.png)
+
 To configure your product, use the config command of the Mr. Murano tool. This command tells Mr. Murano which product to use. 
 
 ```sh
@@ -193,19 +195,25 @@ If you would like to review the spec file used to configure your product, it can
 
 ## Create Solution
 
-Next you need a place to deploy the BBG HVAC solution code. The steps for creating a solution can be found in the Murano documentation (we will add in here from the documentation). Please follow only Step 1 and be sure to *Start from scratch* when creating the solution.
+Next you need a place to deploy the BBG HVAC solution code. 
 
-[http://docs.exosite.com/murano/get-started/solutions/exampleapp/](http://docs.exosite.com/murano/get-started/solutions/exampleapp/) 
+1. From the *Solutions* tab (https://www.exosite.io/business/solutions), click "+ NEW SOLUTION." 
 
-Once you have created a solution using the *Start from scratch* option, you will need to find the Solution ID.
+   ![new solution](assets/new_solution.png)
 
-[https://www.exosite.io/business/solutions](https://www.exosite.io/business/solutions) 
+2. Select *Start from scratch* and click the "ADD" button.
 
-1. In Murano select *Solutions*
+   ![new solution](assets/new_solution_popup.png)
 
-2. Select the solution you just created
+Once you have created a solution, you will need to find the Solution ID.
 
-3. Copy the Solution ID on this page
+1. In Murano select *Solutions*.
+
+2. Select the solution you just created.
+
+3. Copy the Solution ID on this page.
+
+   ![solutions tab](assets/solutions_tab.png)
 
 To configure Mr. Murano to work with your newly created solution, use the config command of the Mr. Murano tool.
 
@@ -216,7 +224,7 @@ $ mr config solution.id <solutionid>
 ```
 What is a solution?
 
-TODO: A solution is a set of static files, modules, eventhandlers, and endpoints for interacting with your device's data and users.
+A solution is a set of static files, modules, eventhandlers, and endpoints for interacting with your device's data and users.
 ```
 
 ## Connect the Product to the Solution
