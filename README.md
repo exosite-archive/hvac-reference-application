@@ -193,24 +193,6 @@ At this point your product is configured and ready to start receiving data from 
 
 If you would like to review the spec file used to configure your product, it can be viewed at the following URL: [https://github.com/exosite/ae-beaglebone-hvac-demo/blob/master/spec/beaglebone-hvac-spec.yaml](https://github.com/exosite/ae-beaglebone-hvac-demo/blob/master/spec/beaglebone-hvac-spec.yaml)
 
-## Add Device
-
-1. In Murano select *Products*
-
-   ![image alt text](assets/products_tab.png)
-
-2. Select your product
-
-3. Select *DEVICES*
-
-   ![image alt text](assets/devices_tab.png)
-
-4. Click "+ NEW DEVICE"
-
-   ![image alt text](assets/new_device_popup.png)
-
-5. Add a device with a name and MAC Address
-
 ## Create Solution
 
 Next you need a place to deploy the BBG HVAC solution code. The steps for creating a solution can be found in the Murano documentation (we will add in here from the documentation). Please follow only Step 1 and be sure to *Start from scratch* when creating the solution.
@@ -239,6 +221,18 @@ What is a solution?
 TODO: A solution is a set of static files, modules, eventhandlers, and endpoints for interacting with your device's data and users.
 ```
 
+## Connect the Product to the Solution
+
+1. In your Murano solution, click on the *SERVICES* tab 
+
+2. Select *Product*
+
+3. Select the settings icon 
+
+4. Select the product(s) you want to include in the solution 
+
+5. Click "APPLY"
+
 ## Use Mr. Murano to Sync Code
 
 At this point the product is created and the solution is ready to be deployed. In the BBG HVAC repository directory, you can sync the code base. Ensure you are in the BBG HVAC repository directory and then use the syncup command of Mr. Murano.
@@ -259,43 +253,46 @@ Mr. Murano looks at the directory structure of your local repository and syncs t
 ## Read BeagleBone Documentation
 
 ```
-Note: If you are not using the BBG hardware, please skip ahead to the Simulator Setup section.
+If you are not using the BBG hardware, please skip ahead to the Simulator Setup section.
 ```
 
-Next, the beaglebone doesn't come with all of the tools that are needed for reading sensors that are connected to it.
+Next, the BBG doesn't come with all of the tools that are needed for reading sensors that are connected to it. Some intiial setup is required to send sensor data to Exosite.
 
 [http://beagleboard.org/static/beaglebone/latest/README.htm](http://beagleboard.org/static/beaglebone/latest/README.htm)
 
 Follow the connection steps to connect to the BeagleBone’s Wi-Fi. The box has an informational sheet that includes details on how to accomplish this. 
 
-TODO: Add screenshots and steps for beaglebone setup
+```
+After you have connected to Wi-Fi, be sure to write down your device's IP address.
+```
 
-**Note:** After you have connected to Wi-Fi, be sure to write down your device's IP address.
-
-If you need to reset your device:
+If at some point you want to start over and need to reset your device, the software and steps can be found here:
 
 [http://elinux.org/Beagleboard:BeagleBoneBlack_Debian#microSD.2FStandalone:_.28iot.29_.28BeagleBone.2FBeagleBone_Black.2FBeagleBone_Green.29](http://elinux.org/Beagleboard:BeagleBoneBlack_Debian#microSD.2FStandalone:_.28iot.29_.28BeagleBone.2FBeagleBone_Black.2FBeagleBone_Green.29) 
 
-TODO: change this to just use cloud9
 If you intend to use Node-RED, you can connect at the following address: [http://192.168.11.xxx:1880/](http://192.168.11.xxx:1880/)
 
-If you intend to use Cloud9, you can conenct at the following address: [http://192.168.11.xxx:3000/](http://192.168.11.xxx:3000/)
+If you intend to use Cloud9, you can connect at the following address: [http://192.168.11.xxx:3000/](http://192.168.11.xxx:3000/)
 
 Now, to connect directly to the BBG, you can use ssh. At this point you can update the board to install a few needed libraries. The password for the BBG will be displayed after you initiate the ssh connection.
 
-```
+```sh
 $ ssh debian@<IP Address>
-```
-```
 $ sudo apt-get update && sudo apt-get upgrade
 ```
+
+After the upgrade completes, please restart the BBG before continuing the setup process.
+
 ```
+$ sudo reboot
+```
+
+After the reboot, ssh back into the BBG to finish upgrading libraries.
+
+```
+$ ssh debian@<IP Address>
 $ sudo pip install Adafruit_BBIO --upgrade
-```
-```
 $ sudo pip install pyserial --upgrade
-```
-```
 $ sudo apt-get install python-smbus
 ```
 
@@ -305,7 +302,11 @@ To install GWE follow the official documentation.
 
 [https://gateway-engine.exosite.io/](https://gateway-engine.exosite.io/)
 
-Write down MAC address for adding the device later.
+Write down the MAC address of the BBG for adding the device later.
+
+```
+$ ifconfig -a
+```
 
 Download, install, and configure Gateway Engine onto your gateway.
 
@@ -377,25 +378,55 @@ $ npm install -g node-red-contrib-exosite
 
 At this point in the tutorial, your device’s software is up to date and ready to connect.
 
-## Enable Serial Number which is the MAC Address of the Device
-
-TODO Enable device words. I think this is a reboot of the beagle bone
-
 ## Simulator Setup
 
+Python 3
+pip install requests
+pip install -r requirements.txt
+cd product
+config.ini
+exosite_python.py
+hvac-simulator.py
+
+## Add Device
+
+1. In Murano select *Products*
+
+   ![image alt text](assets/products_tab.png)
+
+2. Select your product
+
+3. Select *DEVICES*
+
+   ![image alt text](assets/devices_tab.png)
+
+4. Click "+ NEW DEVICE"
+
+   ![image alt text](assets/new_device_popup.png)
+
+5. Add a device with a Name and Identity. The name can be any string to help remember which device it is. The Identity should either be the MAC Address of your BBG, or if you are using the simulator you can use `00001` for the purpose of testing.
+
+## Enable Serial Number which is the MAC Address of the Device
+
+At this point, you will need to activate your device by either executing a command in GWE, or running the simulator code.
+
+### GWE Activation
+
+The steps to activate your BBG using GWE can be found below:
+
+[http://docs.exosite.com/gwe/getting_started/](http://docs.exosite.com/gwe/getting_started/)
+
+A summarized version of the steps are included here:
+
+```
+$ ssh debian@<IP Address>
+$ sudo gwe --set-product-id <Product ID> --set-uuid <MAC Address>
+$ sudo reboot
+```
+
+### Simulator Activation and Execution
 
 
-## Connect the Product to the Solution
-
-1. In your Murano solution, click on the *SERVICES* tab 
-
-2. Select *Product*
-
-3. Select the settings icon 
-
-4. Select the product(s) you want to include in the solution 
-
-5. Click "APPLY"
 
 ## Coding the sensors
 
