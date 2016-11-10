@@ -1,2 +1,1 @@
-# apt install python-gdbm
 requests==2.11.1

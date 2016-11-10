@@ -372,7 +372,7 @@ ifconfig
 ## Install Node Modules 
 TODO, is this step needed
 
-```
+```sh
 $ npm install -g node-red-contrib-exosite
 ```
 
@@ -380,13 +380,38 @@ At this point in the tutorial, your device’s software is up to date and ready 
 
 ## Simulator Setup
 
-Python 3
-pip install requests
-pip install -r requirements.txt
-cd product
-config.ini
-exosite_python.py
-hvac-simulator.py
+The simulator requires Python 3. You can ensure that Python 3 is available on your system by executing the following command.
+
+```sh
+$ which python3
+```
+
+If Python 3 is not available, please follow the official documentation to get started.
+
+[https://www.python.org/downloads/](https://www.python.org/downloads/)
+
+In the ae-beaglebone-hvac-demo folder, install requirements. The only requirement for this simulator is `requests`. The requests library is used for executing HTTP requests to Exosite and the Weather Underground API.
+
+```sh
+$ cd ae-beaglebon-hvac-demo
+$ pip3 install -r requirements.txt
+```
+
+Next we will need to obtain an API key from Weather Underground and configure the product scripts.
+
+Navigate to Weather Underground and login or sign up for an API key. All plans are free for development use, as such it makes sense to sign up for the ANVIL plan.
+
+[https://www.wunderground.com/weather/api/](https://www.wunderground.com/weather/api/)
+
+Once you obtain your API, add it to the `config.ini` file in the `product` folder.
+
+```
+[main]
+cik =
+wuapi = aen33n5235n235jkjh
+```
+
+The cik value will be automatically added during the activation step below.
 
 ## Add Device
 
@@ -426,7 +451,10 @@ $ sudo reboot
 
 ### Simulator Activation and Execution
 
-
+```
+$ cd product
+$ python3 ./hvac-simulaor.py <product_id> <device_id>
+```
 
 ## Coding the sensors
 
