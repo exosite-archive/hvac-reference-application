@@ -50,15 +50,15 @@ Mr. Murano is a command-line utility for working with Murano. Think of it as a w
 
 ### Git
 
-Git is required to check out the source code used in this tutorial. Git is a source control tool that is widely used in the software industry. 
+Git is required to check out the source code used in this tutorial. Git is a source control tool widely used in the software industry. 
 
-To install Git on your computer please visit the link below and follow the instructions.
+To install Git on your computer, please visit the link below and follow the instructions.
 
 [https://git-scm.com/downloads](https://git-scm.com/downloads)
 
 ### Python 3
 
-All code written for the simulator in this tutorial has been written to work with Python 3.
+All code written for the simulator in this tutorial has been written to work with Python 3, which can be downloaded from the [Python website](https://www.python.org/).
 
 # Getting Started
 
@@ -66,7 +66,7 @@ In this section, you will walk through the process of setting up your account wi
 
 ## Create Business
 
-To get started with this tutorial you will need to create an Exosite account. 
+To get started with this tutorial, you will need to create an Exosite account. 
 
 1. If you do not have an Exosite account, you can sign up here ([https://exosite.com/signup/](https://exosite.com/signup/)).
 
@@ -74,7 +74,7 @@ To get started with this tutorial you will need to create an Exosite account.
    
    ![welcome](assets/business_welcome.png)
 
-1. Once you have an active account and have logged in, you can navigate to the following URL to see your newly created business  [https://www.exosite.io/business/memberships](https://www.exosite.io/business/memberships).
+1. Once you have an active account and have logged in, you can navigate to the following URL to see your newly created business [https://www.exosite.io/business/memberships](https://www.exosite.io/business/memberships).
 
    ![new business](assets/new_business.png)
 
@@ -83,7 +83,7 @@ To get started with this tutorial you will need to create an Exosite account.
 ```
 What is a Business within Murano?
 
-A Business is a virtual space that houses all the products and solutions created by your organization in one place. A Business does not necessarily have to be a real-life company. A business could be a development or testing space for trying out new innovations. The business page is the place to manage your account, user access, products, solutions, billing and payments, and more.
+A Business is a virtual space that houses all the products and solutions created by your organization. A Business does not necessarily have to be a real-life company. A business could be a development or testing space for trying out new innovations. The business page is the place to manage your account, user access, products, solutions, billing and payments, and more.
 
 Products and solutions will be explained in later sections.
 ```
@@ -92,7 +92,7 @@ Products and solutions will be explained in later sections.
 
 Next, you will need to create a product. The product you create is the virtual representation of the BBG’s physical hardware and sensors that will send data to the Murano platform. To create a new product:
 
-1. Navigate to the following URL. Note: Product name cannot contain any capital letters. [https://www.exosite.io/business/products](https://www.exosite.io/business/products)
+1. Navigate to the following URL. Note: Your product name cannot contain any capital letters. [https://www.exosite.io/business/products](https://www.exosite.io/business/products)
 
    ![new product](assets/new_product.png)
 
@@ -105,7 +105,7 @@ What is a Product within Murano?
 
 A Product encompasses the device side of Murano. Think of it as a virtual blueprint of definitions that will be applied to each connected device. The definitions will tell each new product device how to talk to Murano. 
 
-Example: If you have a thermometer product, you would want all your new devices to report a temperature back to Murano. When you create a product definition with a temperature, every new device added to that product will contain the temerature alias. The Mr Murano tool will be used to make this product definition easier to create.
+Example: If you have a thermometer product, you would want all your new devices to report a temperature back to Murano. When you create a product definition with a temperature, every new device added to that product will contain the temerature alias. The Mr. Murano tool will be used to make this product definition easier to create.
 ```
 
 ## Install Mr. Murano
@@ -114,25 +114,23 @@ Example: If you have a thermometer product, you would want all your new devices 
 Mr. Murano is the command-line tool that interacts with Murano and makes different tasks easier. Mr Murano makes it easy to deploy code to a solution, import many product definitions at once, set up endpoints and APIs, and more. 
 ```
 
-Mr. Murano is a Ruby based command line interface Ruby. Mr. Murano will be used to for most actions throughout the rest of this tutorial.
+Mr. Murano is a Ruby based command-line interface. Mr. Murano will be used to for most actions throughout the rest of this tutorial.
 
-Ruby is most likely already installed on your system. Check to see if Ruby is installed first by opening up a terminal window and type the command.  
-
+Ruby is most likely already installed on your system. Check to see if Ruby is installed first by opening up a terminal window and typing the following command.  
 **Note:** Always copy and paste what comes after the $.
 
 ```sh
 $ which gem
 ```
 
-If you see /usr/bin/gem, then Ruby is already installed. 
+If you see `/usr/bin/gem`, then Ruby is already installed. 
 
 ```
-If you do not have Ruby installed, the official Ruby docs will help you get it installed.
-
+If you do not have Ruby installed, the official Ruby docs will help you get it installed:
 [https://www.ruby-lang.org/en/documentation/installation/](https://www.ruby-lang.org/en/documentation/installation/) 
 ```
 
-Once Ruby is installed, you can install Mr. Murano by running this command.
+Once Ruby is installed, install Mr. Murano by running this command:
 
 ```sh
 $ sudo gem install MrMurano
@@ -147,8 +145,7 @@ $ which git
 ```
 
 ```
-If you do not have Git installed, the official Git docs will help you get it installed.
-
+If you do not have Git installed, the official Git docs will help you get it installed:
 [https://git-scm.com/book/en/v2/Getting-Started-Installing-Git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)
 ```
 
@@ -164,7 +161,8 @@ $ git clone https://github.com/exosite/ae-beaglebone-hvac-demo.git
 
 Enter your GitHub username and password if prompted.
 
-Run command:
+Run this command:
+
 ```sh
 $ cd ae-beaglebone-hvac-demo
 ```
