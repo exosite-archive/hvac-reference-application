@@ -460,7 +460,7 @@ $ sudo reboot
 
 ```
 $ cd product
-$ python3 ./hvac-simulaor.py <product_id> <device_id>
+$ python3 ./hvac-simulator.py <product_id> <device_id>
 ```
 
 The script will now pull historical data from the Weather Underground API to simulate weather. The "building" will heat and cool relative to the ambient temperature. After the temperature reaches a certain level, either the AC or HEAT will be activated. Adjustments to the temperature settings can be made from the solution interface in the **NEXT SECTION** section below.
