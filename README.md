@@ -390,7 +390,7 @@ If Python 3 is not available, please follow the official documentation to get st
 
 [https://www.python.org/downloads/](https://www.python.org/downloads/)
 
-In the ae-beaglebone-hvac-demo folder, install requirements. The only requirement for this simulator is `requests`. The requests library is used for executing HTTP requests to Exosite and the Weather Underground API.
+In the `ae-beaglebone-hvac-demo` folder, install requirements. The only requirement for this simulator is `requests`. The requests library is used for executing HTTP requests to Exosite and the Weather Underground API.
 
 ```sh
 $ cd ae-beaglebon-hvac-demo
@@ -456,6 +456,8 @@ $ cd product
 $ python3 ./hvac-simulaor.py <product_id> <device_id>
 ```
 
+The script will now pull historical data from the Weather Underground API to simulate weather. The "building" will heat and cool relative to the ambient temperature. After the temperature reaches a certain level, either the AC or HEAT will be activated. Adjustments to the temperature settings can be made from the solution interface in the **NEXT SECTION** section below.
+
 ## Coding the sensors
 
 TODO: all the code
@@ -465,6 +467,8 @@ TODO: all the code
 TODO: add final steps. click the solution link. and watch the magic happen.
 
 TODO: Add the code needed for this, then explain what the code is doing. 
+
+TODO: Add images of interface with details on each section.
 
 There are many other services and features of Murano that were not covered in this example such as users, timeseries databases, email, SMS, and many more. Please visit [docs.exosite.com](docs.exosite.com) to explore additional features of Murano.
 
