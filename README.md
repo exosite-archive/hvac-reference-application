@@ -10,7 +10,7 @@ Watch for the comments in boxes like these! These notes will provide further ins
 
 # Requirements
 
-## Hardware Setup (If using the Beaglebone Green. If using the simulator you can skip this step.)
+## Hardware Setup (If using the simulator, you can skip this step.)
 
 ### SeeedStudio BeagleBone Green Wireless
 
@@ -20,7 +20,7 @@ SeeedStudio BeagleBone Green (BBG) is a low-cost, open-source, community-support
 
 [http://wiki.seeed.cc/BeagleBone_Green/](http://wiki.seeed.cc/BeagleBone_Green/) 
 
-## Software Setup (If using the Beaglebone Green. If using the simulator you can skip this step.)
+## Software Setup 
 
 ### BeagleBone Green
 
@@ -34,7 +34,7 @@ The BBG comes standard with a useful set of software that will enable you to rap
 
 * Node-RED ([http://nodered.org/](http://nodered.org/))
 
-### Gateway Engine with GMQ (If using the Beaglebone Green. If using the simulator you can skip this step.)
+### Gateway Engine with GMQ (If using the BeagleBone Green, you can skip this step.)
 
 ExositeReady™ Gateway Engine (GWE) is a Python-based application framework that runs on embedded Linux gateway devices. GWE makes it easy to connect devices to a gateway and write applications on that gateway to interact with Exosite web services, including the Murano platform, Murano Edge, or both.
 
