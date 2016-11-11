@@ -94,15 +94,16 @@ Products and solutions will be explained in later sections.
 
 Next, you will need to create a product. The product you create is the virtual representation of the BBG’s physical hardware and sensors that will send data to the Murano platform. To create a new product:
 
-1. Navigate to the following URL. Note: Your product name cannot contain any capital letters. [https://www.exosite.io/business/products](https://www.exosite.io/business/products)
+1. Navigate to the following URL: 
+   [https://www.exosite.io/business/products](https://www.exosite.io/business/products)
 
    ![new product](assets/new_product.png)
 
-1. Click on "+New Product" 
+1. Click on "+ NEW PRODUCT." 
 
-1. Name your product. It must be all lower case, no spaces. 
+1. Name your product. Note: Your product name cannot contain any capital letters. 
 
-1. Open the "Choose Starting Point" dropdown menu and select *Start from scratch* and click the "ADD" button. In the next step you can use code to configure your product.
+1. Open the *Choose Starting Point* dropdown, select *Start from scratch*, and click the "ADD" button. In the next step you can use code to configure your product.
 
    ![new product](assets/new_product_popup.png)
 
@@ -113,13 +114,13 @@ A Product encompasses the device side of Murano. Think of it as a virtual bluepr
 
 Example: If you have a thermometer product, you would want all your new thermometers to report a temperature back to Murano. When you create a product definition with a temperature, every new device added to that product will contain the temerature alias. The Mr. Murano tool will be used to make this product definition easier to create. 
 
-You can always create or change a product definition through the murano website.
+You can always create or change a product definition through the Murano website.
 ```
 
 ## Install Mr. Murano
 
 ```
-Mr. Murano is the command-line tool that interacts with Murano and makes tasks easier. Mr Murano makes it simple to deploy code to a solution, import many product definitions at once, set up endpoints and APIs, and more. 
+Mr. Murano is the command-line tool that interacts with Murano and makes tasks easier. Mr. Murano makes it simple to deploy code to a solution, import many product definitions at once, set up endpoints and APIs, and more. 
 ```
 
 Mr. Murano is a Ruby based command-line interface. Mr. Murano will be used to for most actions throughout the rest of this tutorial.
@@ -145,7 +146,7 @@ Once Ruby is installed, install Mr. Murano by running this command:
 $ sudo gem install MrMurano
 ```
 
-If prompted, please enter your local computer password
+If prompted, please enter your local computer password.
 
 ## Check Out the HVAC Demo Code
 
@@ -284,15 +285,15 @@ Plug in your BBG and sensor as shown below:
 
    ![wiring setup](assets/bbg_wiring_setup.jpg)
 
-Using a smart phone or computer,
+Using a smartphone or computer,
 
-1.  Go to your wifi settings
+1.  Go to your Wi-Fi settings.
 
-2.  Connect to the wifi signal named 'Beaglebone <xxxx>'
+2.  Connect to the Wi-Fi signal named "Beaglebone <xxxx>".
 
-3.  Follow the instructions on the screen to connect the BBG to your wifi network
+3.  Follow the instructions on the screen to connect the BBG to your Wi-Fi network.
 
-4.  IMPORTANT write down your BBG's IP address when the screen below is shown
+4.  Write down your BBG's IP address when the screen below is shown:
 
    ![solutions services](assets/bbg_wireless_screens.png)
    
@@ -306,7 +307,6 @@ The BBG does not come with all the tools needed for reading sensors connected to
 If at some point you want to start over and need to reset your device, the software and steps can be found here:
 
 [http://elinux.org/Beagleboard:BeagleBoneBlack_Debian#microSD.2FStandalone:_.28iot.29_.28BeagleBone.2FBeagleBone_Black.2FBeagleBone_Green.29](http://elinux.org/Beagleboard:BeagleBoneBlack_Debian#microSD.2FStandalone:_.28iot.29_.28BeagleBone.2FBeagleBone_Black.2FBeagleBone_Green.29) 
-
 ```
 
 Now, to connect directly to the BBG, you can use ssh. At this point you can update the board to install a few needed libraries. The password for the BBG will be displayed after you initiate the ssh connection.
@@ -330,18 +330,19 @@ $ sudo pip install Adafruit_BBIO --upgrade
 $ sudo pip install pyserial --upgrade
 $ sudo apt-get install python-smbus
 ```
+
 ## Install GWE with GMQ on BeagleBone
 
-Next install Exosite Ready Gateway Engine on to the BBG. 
+Next install GWE on the BBG. 
 
 ```
 What is GWE?
 
-In the context of IoT, a 'gateway' can be loosely defined as any device that serves as a communication broker for other devices. Gateways, in this context, often bridge the gap between an IoT platform (Exosite) and some collection of devices that don't posses the ability of communicating on the Internet. Sometimes the ‘devices’ that are generating the data you want on the Internet aren't devices, per se, but data from other networks the gateway can access such as modbus and CAN. Either way, the purpose of any gateway is to move local data to an external agent on the Internet.
+In the context of IoT, a "gateway" can be loosely defined as any device that serves as a communication broker for other devices. Gateways, in this context, often bridge the gap between an IoT platform (Exosite) and some collection of devices that do not possess the ability to communicate on the Internet. Sometimes the devices generating the data you want on the Internet are not devices, per se, but data from other networks the gateway can access such as modbus and CAN. Either way, the purpose of any gateway is to move local data to an external agent on the Internet.
 
 Since using gateways is common throughout so many industrial applications, Exosite created Gateway Engine as an out-of-the-box developer and deployment tool for Internet-connected gateways.
 
-For more information check out the GWE docs site [http://docs.exosite.com/gwe/](http://docs.exosite.com/gwe/)
+For more information, check out the GWE docs site [http://docs.exosite.com/gwe/](http://docs.exosite.com/gwe/).
 ```
 
 First write down the MAC address of the BBG for adding the device later.
@@ -352,7 +353,7 @@ $ ssh <USER>@<GATEWAY_IP> "ifconfig -a"
 
 To download the latest version of the Public Release of GWE, follow these steps:
 
-Navigate to the Gateway Engine Release Packages section and follow the instructions to download Gateway Engine.
+Navigate to the Gateway Engine Release Packages section and follow the instructions to download GWE.
 Run these commands to copy GWE to your gateway (the actual filename in the command may differ):
 
 ```
@@ -462,7 +463,7 @@ At this point, you will need to activate your device by either executing a comma
 
 ### GWE Activation
 
-*Run this step only if you are using a BBG*
+**Note:** Run this step only if you are using a BBG.
 
 The steps to activate your BBG using GWE can be found here:
 [http://docs.exosite.com/gwe/getting_started/](http://docs.exosite.com/gwe/getting_started/)
@@ -477,7 +478,7 @@ $ sudo reboot
 
 ### Simulator Activation and Execution
 
-*Run this step only if you are using the python simulator*
+**Note:** Run this step only if you are using the Python simulator.
 
 ```
 $ cd product
@@ -490,7 +491,7 @@ The script will now pull historical data from the Weather Underground API to sim
 
 The BBG needs to be able to talk to the Temp/Humidity sensor.
 
-In a web browser, type in the IP address of the BBG in the following format
+In a web browser, type in the IP address of the BBG in the following format:
 
 ```
 http://xxx.xxx.xxx.xxx:3000/
