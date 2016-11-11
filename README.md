@@ -105,7 +105,9 @@ What is a Product within Murano?
 
 A Product encompasses the device side of Murano. Think of it as a virtual blueprint of definitions that will be applied to each connected device. The definitions will tell each new product device how to talk to Murano. 
 
-Example: If you have a thermometer product, you would want all your new devices to report a temperature back to Murano. When you create a product definition with a temperature, every new device added to that product will contain the temerature alias. The Mr. Murano tool will be used to make this product definition easier to create.
+Example: If you have a thermometer product, you would want all your new thermometers to report a temperature back to Murano. When you create a product definition with a temperature, every new device added to that product will contain the temerature alias. The Mr. Murano tool will be used to make this product definition easier to create. 
+
+You can always create or change a product definition through the murano website.
 ```
 
 ## Install Mr. Murano
@@ -183,11 +185,12 @@ To configure your product, use the config command of the Mr. Murano tool. This c
 $ mr config product.id <productid>
 ```
 
-Executing the command below will set the product definition for this example as defined in the `beaglebone-hvac-spec.yaml` file.
+Executing the command below will set the product definition for this example as defined in the `beaglebone-hvac-spec.yaml` file. 
 
 ```
 $ mr product spec push --file spec/beaglebone-hvac-spec.yaml 
 ```
+This command sets up all of the data aliases that we will use in this example. You can now see them by going to [https://www.exosite.io/business/products](https://www.exosite.io/business/products) and clicking the 'Definition' tab. Many of the aliases are used by Gateway Engine which will be covered later. Notice the aliases like 'ambient_temperature', 'desired_temperature', and 'heat_on'. These are all the different dataports that will used for this HVAC example. 
 
 At this point your product is configured and ready to start receiving data from the BBG or the simulator.
 
@@ -224,10 +227,14 @@ $ mr config solution.id <solutionid>
 ```
 What is a Solution within Murano?
 
-A solution is a set of static files, modules, eventhandlers, and endpoints for interacting with your device's data and users.
+A solution is a set of static files, modules, eventhandlers, and endpoints for interacting with your device's data and users. Murano will host these files within the platform and serve them on your solution's domain. Murano also gives this hosted site access to all of the services available within murano such as email, timeseries database, and more. A solution can also be connected to your products to allow interaction between the hosted site and your devices. 
+
+If this seems overwhelming don't worry. The solution is what brings everything in Murano together, there may be a lot of connections to learn about, but learning how to implement them is easy. Check out more advanced examples or the Murano documentation for more information. {docs.exosite.com}(docs.exosite.com)
 ```
 
 ## Connect the Product to the Solution
+
+Next you will want to allow your product and solution to be able to communicate with one another. This is done through the service menu in your solution's settings. 
 
 1. In your Murano solution, click on the *SERVICES* tab. 
 
@@ -258,7 +265,7 @@ What is happening when you sync code?
 Mr. Murano looks at the directory structure of your local repository and syncs the appropriate files and configurations directly to your solution in Murano. Endpoints, event handles, static files, and modules are synced. If you make changes locally, a syncup command will ensure Murano matches your local changes. If you make changes using the Murano interface, a syncdown will ensure your local repository matches Murano.
 ```
 
-## Read BeagleBone Documentation
+## BeagleBone Setup
 
 ```
 If you are not using the BBG hardware, please skip ahead to the Simulator Setup section.
@@ -304,17 +311,23 @@ $ sudo apt-get install python-smbus
 
 ## Install GWE with GMQ on BeagleBone
 
-Follow the official documentation to install GWE.
-
-[https://gateway-engine.exosite.io/](https://gateway-engine.exosite.io/)
-
-Write down the MAC address of the BBG for adding the device later.
+Next install Exosite Ready Gateway Engine on to the BBG. 
 
 ```
-$ ifconfig -a
+What is GWE?
+
+In the context of IoT, a 'gateway' can be loosely defined as any device that serves as a communication broker for other devices. Gateways, in this context, often bridge the gap between an IoT platform (Exosite) and some collection of devices that don't posses the ability of communicating on the Internet. Sometimes the ‘devices’ that are generating the data you want on the Internet aren't devices, per se, but data from other networks the gateway can access such as modbus and CAN. Either way, the purpose of any gateway is to move local data to an external agent on the Internet.
+
+Since using gateways is common throughout so many industrial applications, Exosite created Gateway Engine as an out-of-the-box developer and deployment tool for Internet-connected gateways.
+
+For more information check out the GWE docs site [http://docs.exosite.com/gwe/](http://docs.exosite.com/gwe/)
 ```
 
-Download, install, and configure GWE onto your gateway.
+First write down the MAC address of the BBG for adding the device later.
+
+```
+$ ssh <USER>@<GATEWAY_IP> "ifconfig -a"
+```
 
 To download the latest version of the Public Release of GWE, follow these steps:
 
@@ -322,64 +335,45 @@ Navigate to the Gateway Engine Release Packages section and follow the instructi
 Run these commands to copy GWE to your gateway (the actual filename in the command may differ):
 
 ```
-ssh <USER>@<GATEWAY_IP> "mkdir /opt"
-scp GatewayEngine.v1-1-2.tar.gz <USER>@<GATEWAY_IP>:/opt
+$ ssh <USER>@<GATEWAY_IP> "mkdir /opt"
+$ scp GatewayEngine.v1-1-2.tar.gz <USER>@<GATEWAY_IP>:/opt
 ```
 
 At this point, you have downloaded the latest release of GWE and copied it to your gateway.
 Run this command to untar the release package and install GWE onto your gateway:
 
 ```
-ssh <USER>@<GATEWAY_IP> "cd /opt
-   tar zxvf GatewayEngine.v1-1-2.tar.gz
-   cd gateway-engine
-   ./install.sh"
-   ```
+$ ssh <USER>@<GATEWAY_IP> 
+$ cd /opt
+$ tar zxvf GatewayEngine.v1-1-2.tar.gz
+$ cd gateway-engine
+$ ./install.sh"
+```
    
 **Note:** In some Linux environments, you will need to use Super-User permissions to run the installer. In this case, replace the ./install.sh command to:
 
 ```
-sudo ./install.sh
+$ sudo ./install.sh
 ```
 
-Once the installation completes, you will need to configure GWE for your IoT solution and Exosite account. This will require one piece of information from your Murano account, and you will need to make a decision about what serial number to use for your gateway.
+Once the installation completes, you will need to configure GWE for your IoT solution and Exosite account. This will require one piece of information from your Murano account.
 
 In your Murano account, navigate to your Product and click on the *INFO* tab. Copy the Product ID and use it in the commands, below, in place of <PRODUCT_ID>.
 
-Determine the serial number of your gateway. GWE is programmed to retrieve the MAC address from the Internet interface of your choosing (e.g., eth0, wlan0, ppp0, etc.) when the --set-iface command-line switch is used. Or you can just specify any serial number you want with the --set-uuid command-line switch.
-
-Once you have gathered this information and determined which serial number to use for your gateway (interface MAC address or custom serial number), run the following command to configure GWE:
-
-$ ssh <USER>@<GATEWAY_IP> "gwe --set-product-id <PRODUCT_ID> --set-iface <THE_INTERFACE>""
+$ ssh <USER>@<GATEWAY_IP> "gwe --set-product-id <PRODUCT_ID> --set-iface wlan0""
 Note
 
 Example:
 
 $ ssh <USER>@<GATEWAY_IP> "gwe --set-product-id dubhxzv0r4e1m7vj --set-iface eth0"``
 
-Or if you want to just specify your own serial number:
-
-$ ssh <USER>@<GATEWAY_IP> "gwe --set-product-id <PRODUCT_ID> --set-uuid <THE_SERIAL_NUMBER>""
-Note
-
-Example:
-
-$ ssh <USER>@<GATEWAY_IP> "gwe --set-product-id dubhxzv0r4e1m7vj --set-uuid 12345"
-
 To complete the installation you will need to reboot the gateway. To reboot, you can toggle the power or use the following command:
 
 $ ssh <USER>@<GATEWAY_IP> "reboot"
 
-Important
-
-Gateway Engine uses supervisord to start itself on boot and once it starts, it will start Gateway Engine as well as all other installed Custom Gateway Applications.
-
-ssh root@<IP Adddress>
-ifconfig
-
 ## Install Node Modules 
 
-TODO: is this step needed?
+The next step will install the development tools needed to communicate with the BBG.
 
 ```sh
 $ npm install -g node-red-contrib-exosite
@@ -422,6 +416,8 @@ wuapi = aen33n5235n235jkjh
 The CIK value will be automatically added during the activation step below.
 
 ## Add Device
+
+Now you will add your device to your product in Murano
 
 1. In Murano select *Products*.
 
