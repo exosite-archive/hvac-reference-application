@@ -98,7 +98,11 @@ Next, you will need to create a product. The product you create is the virtual r
 
    ![new product](assets/new_product.png)
 
-1. Select *Start from scratch* and click the "ADD" button. In the next step you can use code to configure your product.
+1. Click on "+New Product" 
+
+1. Name your product. It must be all lower case, no spaces. 
+
+1. Open the "Choose Starting Point" dropdown menu and select *Start from scratch* and click the "ADD" button. In the next step you can use code to configure your product.
 
    ![new product](assets/new_product_popup.png)
 
@@ -115,12 +119,13 @@ You can always create or change a product definition through the murano website.
 ## Install Mr. Murano
 
 ```
-Mr. Murano is the command-line tool that interacts with Murano and makes different tasks easier. Mr Murano makes it easy to deploy code to a solution, import many product definitions at once, set up endpoints and APIs, and more. 
+Mr. Murano is the command-line tool that interacts with Murano and makes tasks easier. Mr Murano makes it simple to deploy code to a solution, import many product definitions at once, set up endpoints and APIs, and more. 
 ```
 
 Mr. Murano is a Ruby based command-line interface. Mr. Murano will be used to for most actions throughout the rest of this tutorial.
 
 Ruby is most likely already installed on your system. Check to see if Ruby is installed first by opening up a terminal window and typing the following command.  
+
 **Note:** Always copy and paste what comes after the $.
 
 ```sh
@@ -139,6 +144,8 @@ Once Ruby is installed, install Mr. Murano by running this command:
 ```sh
 $ sudo gem install MrMurano
 ```
+
+If prompted, please enter your local computer password
 
 ## Check Out the HVAC Demo Code
 
