@@ -2,13 +2,15 @@
 
 This getting-started guide is an interactive tutorial that allows users to learn the core features of Murano from both a hardware and software perspective. You will have the option to prototype or simulate the implementation of an HVAC monitoring system with simple controls using the Murano platform.
 
+There are two paths for this demo, using a simulator to act as a device or using a Beaglebone Green with a temperature sensor. Both paths are explained in these steps.
+
 ```
 Watch for the comments in boxes like these! These notes will provide further insight to answer the "whys" along the way and hopefully give you a better idea of how Murano works.
 ```
 
 # Requirements
 
-## Hardware Setup (Optional)
+## Hardware Setup (If using the Beaglebone Green. If using the simulator you can skip this step.)
 
 ### SeeedStudio BeagleBone Green Wireless
 
@@ -18,7 +20,7 @@ SeeedStudio BeagleBone Green (BBG) is a low-cost, open-source, community-support
 
 [http://wiki.seeed.cc/BeagleBone_Green/](http://wiki.seeed.cc/BeagleBone_Green/) 
 
-## Software Setup
+## Software Setup (If using the Beaglebone Green. If using the simulator you can skip this step.)
 
 ### BeagleBone Green
 
@@ -32,7 +34,7 @@ The BBG comes standard with a useful set of software that will enable you to rap
 
 * Node-RED ([http://nodered.org/](http://nodered.org/))
 
-### Gateway Engine with GMQ (Optional)
+### Gateway Engine with GMQ (If using the Beaglebone Green. If using the simulator you can skip this step.)
 
 ExositeReady™ Gateway Engine (GWE) is a Python-based application framework that runs on embedded Linux gateway devices. GWE makes it easy to connect devices to a gateway and write applications on that gateway to interact with Exosite web services, including the Murano platform, Murano Edge, or both.
 
@@ -138,7 +140,7 @@ Once Ruby is installed, install Mr. Murano by running this command:
 $ sudo gem install MrMurano
 ```
 
-## Check Out BBG HVAC Code
+## Check Out the HVAC Demo Code
 
 Git is required for this next step. Check if Git is installed by running the command: 
 
@@ -271,21 +273,34 @@ Mr. Murano looks at the directory structure of your local repository and syncs t
 If you are not using the BBG hardware, please skip ahead to the Simulator Setup section.
 ```
 
+Plug in your BBG and sensor as shown below:
+
+   ![wiring setup](assets/bbg_wiring_setup.jpg)
+
+Using a smart phone or computer,
+
+1.  Go to your wifi settings
+
+2.  Connect to the wifi signal named 'Beaglebone <xxxx>'
+
+3.  Follow the instructions on the screen to connect the BBG to your wifi network
+
+4.  IMPORTANT write down your BBG's IP address when the screen below is shown
+
+   ![solutions services](assets/bbg_wireless_screens.png)
+   
+   ![solutions services](assets/bbg_wifi_setup.png)
+
 The BBG does not come with all the tools needed for reading sensors connected to it. Some initial setup is required to send sensor data to Exosite.
 
 [http://beagleboard.org/static/beaglebone/latest/README.htm](http://beagleboard.org/static/beaglebone/latest/README.htm)
 
-Follow the connection steps to connect to the BeagleBone’s Wi-Fi. The box has an informational sheet with details on how to accomplish this. 
-
-**Note:** After you have connected to Wi-Fi, be sure to write down your device's IP address.
-
+```
 If at some point you want to start over and need to reset your device, the software and steps can be found here:
 
 [http://elinux.org/Beagleboard:BeagleBoneBlack_Debian#microSD.2FStandalone:_.28iot.29_.28BeagleBone.2FBeagleBone_Black.2FBeagleBone_Green.29](http://elinux.org/Beagleboard:BeagleBoneBlack_Debian#microSD.2FStandalone:_.28iot.29_.28BeagleBone.2FBeagleBone_Black.2FBeagleBone_Green.29) 
 
-If you intend to use Node-RED, you can connect at the following address: [http://192.168.11.xxx:1880/](http://192.168.11.xxx:1880/)
-
-If you intend to use Cloud9, you can connect at the following address: [http://192.168.11.xxx:3000/](http://192.168.11.xxx:3000/)
+```
 
 Now, to connect directly to the BBG, you can use ssh. At this point you can update the board to install a few needed libraries. The password for the BBG will be displayed after you initiate the ssh connection.
 
@@ -308,7 +323,6 @@ $ sudo pip install Adafruit_BBIO --upgrade
 $ sudo pip install pyserial --upgrade
 $ sudo apt-get install python-smbus
 ```
-
 ## Install GWE with GMQ on BeagleBone
 
 Next install Exosite Ready Gateway Engine on to the BBG. 
@@ -441,6 +455,8 @@ At this point, you will need to activate your device by either executing a comma
 
 ### GWE Activation
 
+*Run this step only if you are using a BBG*
+
 The steps to activate your BBG using GWE can be found here:
 [http://docs.exosite.com/gwe/getting_started/](http://docs.exosite.com/gwe/getting_started/)
 
@@ -454,6 +470,8 @@ $ sudo reboot
 
 ### Simulator Activation and Execution
 
+*Run this step only if you are using the python simulator*
+
 ```
 $ cd product
 $ python3 ./hvac-simulator.py <product_id> <device_id>
@@ -463,7 +481,15 @@ The script will now pull historical data from the Weather Underground API to sim
 
 ## Coding the sensors
 
-TODO: all the code
+The BBG needs to be able to talk to the Temp/Humidity sensor.
+
+In a web browser, type in the IP address of the BBG in the following format
+
+```
+http://xxx.xxx.xxx.xxx:3000/
+```
+
+Copy the code from TH02.py into the code area and click run.
 
 ## Final Steps
 
