@@ -1,45 +1,38 @@
 --#EVENT device datapoint
+-- luacheck: globals data (magic variable from Murano)
 
-function table_to_idb(tbl)
-	if tbl == nil then
-		return ""
-	end
-	local building = {}
-	for k,v in pairs(tbl) do
-	  if type(v) == "number" then
-  		building[#building + 1] = tostring(k) .."=" .. string.format("%.f", v)
-		else
-  		building[#building + 1] = tostring(k) .."=" .. tostring(v)
-		end
-	end
-	return table.concat(building, ",")
+-- Get the timestamp for this data if a record action.
+-- Otherwise use default (now)
+local stamped = nil
+if data.api == "record" then
+  stamped = tostring(data.value[1]) .. 's'
 end
 
----
--- Build a InfluxDB write command from lua tables.
-function ts_write(metric, tags, fields, timestamp)
-	local s = tostring(metric)
-	s = s .. ","
-	s = s .. table_to_idb(tags)
-	s = s .. " "
-	s = s .. table_to_idb(fields)
-	if timestamp ~= nil then
-		s = s .. " " .. timestamp
-	end
-	return s
-end
+-- If the alias is for GWE, store those in some Keystore lists
+-- Instead append them to the KV logs.
+if table.contains(GWE.Fields, data.alias) then
+  local key = string.gsub(data.alias .. "." .. data.device_sn, '[^%w@.-]', '-')
+  Keystore.command{
+    key = key,
+    command = 'lpush',
+    args = { data.value[2] }
+  }
+  Keystore.command{
+    key = key,
+    command = 'ltrim',
+    args = { 0, 20 }
+  }
 
-if data.alias == "temperature" or data.alias == "humidity" or data.alias == "ambient_temperature" then
-	local fields = {
-		[data.alias]=data.value[2]
+else
+  -- One of the HVAC resoruces; it goes in TSDB.
+  -- well, if it is a number. (and they're all numbers.)
+  if type(data.value[2]) == 'number' then
+    Tsdb.write{
+      tags = {sn=data.device_sn},
+      metrics = {[data.alias] = data.value[2]},
+      ts = stamped
     }
-
-	local tags = {
-		sn=data.device_sn,
-		pid=data.pid
-	}
-
-	local query = tostring(ts_write("data", tags, fields))
-
-	Timeseries.write({query=query})
+  end
 end
+
+-- vim: set et ai sw=2 ts=2 :
