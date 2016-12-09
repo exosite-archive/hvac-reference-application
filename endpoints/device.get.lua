@@ -1,23 +1,46 @@
 --#ENDPOINT get /device
+-- ?offset=#
+-- luacheck: globals request response (magic variables from Murano)
 local solutionConfig = Config.solution()
-if table.getn(solutionConfig.products) == 0 then
-        response.code = 400
-        response.message = 'Uh oh. No product has been associated with this solution.'
-  return
+if #solutionConfig.products == 0 then
+	response.code = 500
+	response.message = 'Uh oh. No product has been associated with this solution.'
+	return
 end
 local pid = solutionConfig.products[1]
+local offset = tonumber(request.parameters.offset)
 
 -- get the list of devices for this product
-local devices = Device.list({pid=pid})
+local devices = Device.list{pid=pid, offset=offset}
 local response = {}
-for k, device in pairs(devices) do
-        device.state = util.getStates('controllerID', device.sn)
-        -- this is deprecated
-        device.rid = nil
-        -- for consistency, match output of getUserAccessibleItems
-        device.controllerID = device.sn
-        device.sn = nil
-        -- ...except role_id, which doesn't make sense here
-        table.insert(response, device)
+for _, device in pairs(devices) do
+
+	-- Get the most recent data in the last 5m window.
+	local data = Tsdb.query{
+		tags={sn=device.sn},
+		metrics = {
+			'temperature',
+			'humidity',
+			'ambient_temperature',
+			'desired_temperature',
+			'heat_on',
+			'ac_on',
+		},
+		limit = 1,
+		sampling_size = '5m',
+	}
+
+	local values = data.values[1]
+	table.insert(response, {
+		controllerID = device.sn,
+			temperature = (values[1] or 0),
+			humidity = (values[2] or 0),
+			ambient_temperature = (values[3] or 0),
+			desired_temperature = (values[4] or 0),
+			heat_on = (values[5] or 0),
+			ac_on = (values[6] or 0),
+	})
 end
-return devices
+return response
+
+-- vim: set ai sw=2 ts=2 :
