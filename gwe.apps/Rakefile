@@ -2,58 +2,31 @@ require 'digest/sha1'
 require 'date'
 
 ##############################################################################
-bb_less_cloud_vers = 1
-bb_less_cloud_file = "bb_less_cloud.v#{bb_less_cloud_vers}.tar.gz"
-file bb_less_cloud_file => ['bb_less_cloud/install.sh'] do |t|
-  Dir.chdir('bb_less_cloud') do
-    basenamed = t.prerequisites.map{|i| File.basename(i)}
-    sh %{tar zcvf ../#{t.name} #{basenamed.join(' ')}}
-  end
-end
-task :bb_less_cloud_clean do
-  [bb_less_cloud_file].each do |file|
-    File.unlink(file) if File.exist? file
-  end
-end
-task :clean => [:bb_less_cloud_clean]
+def gwe_app_rules(appdir, appvers=1)
+  appfile = "#{appdir}.v#{appvers}.tar.gz"
+  files = Dir["#{appdir}/**"]
 
-desc "Build GWE app to turn off cloud9, node-red and other services."
-task :bb_less_cloud => [:bb_less_cloud_clean, bb_less_cloud_file]
-task :default => [bb_less_cloud_file]
-task :upload => [bb_less_cloud_file]
-
-##############################################################################
-th02_vers = 1
-th02_file = "th02.v#{th02_vers}.tar.gz"
-th02_bins = ['th02/th02.py']
-
-file th02_file => th02_bins + ['th02/install.sh','th02/supervisor.conf'] do |t|
-  Dir.chdir('th02') do
-    basenamed = t.prerequisites.map{|i| File.basename(i)}
-    sh %{tar zcvf ../#{t.name} #{basenamed.join(' ')}}
-  end
-end
-file "th02/install.sh" => th02_bins do |t|
-  File.open(t.name, 'w') do |io|
-    io << "#!/bin/sh\n"
-    io << "mkdir -p /usr/local/bin\n"
-    th02_bins.each do |bin|
-      io << "cp -f #{File.basename(bin)} /usr/local/bin/\n"
+  file appfile => files do |t|
+    Dir.chdir(appdir) do
+      basenamed = t.prerequisites.map{|i| File.basename(i)}
+      sh %{tar zcvf ../#{t.name} #{basenamed.join(' ')}}
     end
   end
-  File.chmod(0755, t.name)
-end
-task :th02_clean do
-  ["th02/install.sh", th02_file].each do |file|
-    File.unlink(file) if File.exist? file
+  task "#{appdir}_clean" do
+    File.unlink(appfile) if File.exist? appfile
   end
-end
-task :clean => [:th02_clean]
+  task :clean => ["#{appdir}_clean"]
 
-desc "Build GWE app to periodically poll th02 sensor"
-task :th02 => [:th02_clean, th02_file]
-task :default => [th02_file]
-task :upload => [th02_file]
+  desc "Build GWE app #{appdir}"
+  task appdir => ["#{appdir}_clean", appfile]
+  task :default => [appfile]
+  task :upload => [appfile]
+end
+
+##############################################################################
+gwe_app_rules('bb_less_cloud', 1)
+gwe_app_rules('th02', 1)
+gwe_app_rules('coh', 1)
 
 
 ##############################################################################
