@@ -2,7 +2,8 @@
 import subprocess
 import time
 
-import requests
+#import requests
+from exo.api import ExositeAPI
 
 from Adafruit_I2C import Adafruit_I2C
 
@@ -27,6 +28,7 @@ class I2C_TH02():
     def __init__(self):
         self.i2c = Adafruit_I2C(ADDR_TH02, BUS_TH02)
         self.cik = subprocess.Popen(["gwe", "-C"], stdout=subprocess.PIPE).communicate()[0].rstrip()
+        self.api = ExositeAPI(cik=self.cik)
 
     def conv_temp(self):
         self.i2c.write8(REG_ADDR_CONFIG, 0x11)
@@ -67,8 +69,9 @@ class I2C_TH02():
 
     def upload_data(self, temp, humi):
         data = {'temperature': temp, 'humidity': humi}
-        headers = {'X-Exosite-CIK': self.cik}
-        exo_req = requests.post('https://m2.exosite.com/onep:v1/stack/alias?state', data=data, headers=headers)
+        self.api.http_write_multiple(data)
+        #headers = {'X-Exosite-CIK': self.cik}
+        #exo_req = requests.post('https://m2.exosite.com/onep:v1/stack/alias?state', data=data, headers=headers)
 
 if __name__=="__main__":
     th02 = I2C_TH02()
