@@ -32,4 +32,5 @@ resources:
   format: integer
 - alias: ac_on
   format: integer
-
+- alias: change
+  format: integer
