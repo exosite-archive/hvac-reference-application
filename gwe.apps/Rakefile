@@ -27,7 +27,7 @@ th02_vers = 1
 th02_file = "th02.v#{th02_vers}.tar.gz"
 th02_bins = ['th02/th02.py']
 
-file th02_file => th02_bins do |t|
+file th02_file => th02_bins + ['th02/install.sh','th02/supervisor.conf'] do |t|
   Dir.chdir('th02') do
     basenamed = t.prerequisites.map{|i| File.basename(i)}
     sh %{tar zcvf ../#{t.name} #{basenamed.join(' ')}}
