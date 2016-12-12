@@ -26,15 +26,15 @@ class I2C_HDC1000():
 
     def readTempHum(self):
         self.i2c.bus.write_byte(HDC1000_ADDR, HDC1000_TEMP)
-        sleep(0.02) # Atleast 20ms.
-        data = i2c.bus.read_byte(HDC1000_ADDR) << 8
-        data += i2c.bus.read_byte(HDC1000_ADDR)
+        time.sleep(0.02) # Atleast 20ms.
+        data = self.i2c.bus.read_byte(HDC1000_ADDR) << 8
+        data += self.i2c.bus.read_byte(HDC1000_ADDR)
         temp = data/65536.0 * 165.0 - 40.0
 
         self.i2c.bus.write_byte(HDC1000_ADDR, HDC1000_HUMI)
-        sleep(0.02) # Atleast 20ms.
-        data = i2c.bus.read_byte(HDC1000_ADDR) << 8
-        data += i2c.bus.read_byte(HDC1000_ADDR)
+        time.sleep(0.02) # Atleast 20ms.
+        data = self.i2c.bus.read_byte(HDC1000_ADDR) << 8
+        data += self.i2c.bus.read_byte(HDC1000_ADDR)
         humi = data/65536.0 * 100.0
 
         return (temp, humi)
