@@ -7,79 +7,48 @@ from exo.api import ExositeAPI
 
 from Adafruit_I2C import Adafruit_I2C
 
-ADDR_TH02 = 0x40
-BUS_TH02 = 2
+HDC1000_ADDR=0x40
 
-REG_ADDR_STATUS = 0x00
-REG_ADDR_CONFIG = 0x03
-REG_ADDR_DATAH = 0x01
-REG_ADDR_DATAL = 0x02
-REG_ADDR_ALERT = 0x01
-REG_ADDR_LIMITL = 0x03
-REG_ADDR_LIMITH = 0x04
-REG_ADDR_HYST = 0x05
+HDC1000_TEMP=0x00
+HDC1000_HUMI=0x01
+HDC1000_CONFIG=0x02
 
-getData = int()
-analogVal = int()
+BUS_ID = 2
 
-
-
-class I2C_TH02():
+class I2C_HDC1000():
     def __init__(self):
-        self.i2c = Adafruit_I2C(ADDR_TH02, BUS_TH02)
+        self.i2c = Adafruit_I2C(HDC1000_ADDR, BUS_ID)
+        # Configure with Heater on, Read Temp and Humidity.
+        self.i2c.writeList(HDC1000_CONFIG, [0x30,0])
+        #
         self.cik = subprocess.Popen(["gwe", "-C"], stdout=subprocess.PIPE).communicate()[0].rstrip()
         self.api = ExositeAPI(cik=self.cik)
 
-    def conv_temp(self):
-        self.i2c.write8(REG_ADDR_CONFIG, 0x11)
-        time.sleep(0.25)
-        while self.conv_ready == False:
-            pass
-        d1 = self.i2c.readU8(REG_ADDR_DATAH) << 8
-        d2 = self.i2c.readU8(REG_ADDR_DATAL)
-        temp = d1 | d2
-        temp = temp >> 2
-        temp /= 32
-        temp -= 50
-        return temp
+    def readTempHum(self):
+        self.i2c.bus.write_byte(HDC1000_ADDR, HDC1000_TEMP)
+        sleep(0.02) # Atleast 20ms.
+        data = i2c.bus.read_byte(HDC1000_ADDR) << 8
+        data += i2c.bus.read_byte(HDC1000_ADDR)
+        temp = data/65536.0 * 165.0 - 40.0
 
-    def conv_humidity(self):
-        self.i2c.write8(REG_ADDR_CONFIG, 0x01)
-        time.sleep(0.25)
-        while self.conv_ready == False:
-            pass
-        d1 = self.i2c.readU8(REG_ADDR_DATAH) << 8
-        d2 = self.i2c.readU8(REG_ADDR_DATAL)
-        humi = d1 | d2
-        humi = humi >> 4
-        humi /= 16
-        humi -= 24
-        return humi
+        self.i2c.bus.write_byte(HDC1000_ADDR, HDC1000_HUMI)
+        sleep(0.02) # Atleast 20ms.
+        data = i2c.bus.read_byte(HDC1000_ADDR) << 8
+        data += i2c.bus.read_byte(HDC1000_ADDR)
+        humi = data/65536.0 * 100.0
 
-    def conv_ready(self):
-        conv_status = self.i2c.read8(REG_ADDR_STATUS)
-        if conv_status == 0:
-            return True
-        else:
-            return False
-
-    def read_adc(self):
-        data = self.i2c.readS16(REG_ADDR_RESULT)
-        return data
+        return (temp, humi)
 
     def upload_data(self, temp, humi):
         data = {'temperature': temp, 'humidity': humi}
-        self.api.http_write_multiple(data)
-        #headers = {'X-Exosite-CIK': self.cik}
-        #exo_req = requests.post('https://m2.exosite.com/onep:v1/stack/alias?state', data=data, headers=headers)
+        return self.api.http_write_multiple(data)
 
 if __name__=="__main__":
-    th02 = I2C_TH02()
+    hdc = I2C_HDC1000()
     while True:
-        temp = th02.conv_temp()
-        print("{}c".format(temp))
-        humi = th02.conv_humidity()
-        print("{}%".format(humi))
-        exo_req = th02.upload_data(temp, humi)
+        th = hdc.readTempHum()
+        print(th)
+        exo_req = hdc.upload_data(th[0], th[1])
         time.sleep(5)
 
+#  vim: set ai et sw=4 ts=8 :
