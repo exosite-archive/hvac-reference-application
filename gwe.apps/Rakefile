@@ -24,7 +24,7 @@ def gwe_app_rules(appdir, appvers=1)
 end
 
 ##############################################################################
-gwe_app_rules('bb_less_cloud', 1)
+#gwe_app_rules('bb_less_cloud', 1)
 gwe_app_rules('th02', 1)
 gwe_app_rules('coh', 1)
 
