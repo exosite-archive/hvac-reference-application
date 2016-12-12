@@ -14,7 +14,7 @@ $(function(){
 
     function updateTemperature(thermostatData) {
         console.log(thermostatData);
-        temperature = thermostatData['results'][0]['series'][0]['values'][0][2];
+        temperature = thermostatData['desired_temperature'];
         console.log(temperature);
 		$('#thermostat-desired-temperature').val(temperature);
 		}
@@ -25,7 +25,7 @@ $(function(){
 	function getThermostat() {
 		var params = {
 			method: 'GET',
-			url: 'https://strangeriothings.apps.exosite.io/device',
+			url: '/device',
 			success: function(data) {
 				allThermostats = data;
 				render(allThermostats);
@@ -41,7 +41,7 @@ $(function(){
 	function getThermostatState(sn) {
 	    var params = {
 			method: 'GET',
-			url: 'https://strangeriothings.apps.exosite.io/device/' + sn + '/temperature',
+			url: '/device/' + sn,
 			success: function(data) {
 				thermostatData = data;
 				updateTemperature(thermostatData);
@@ -58,7 +58,7 @@ $(function(){
     function setThermostatState(sn, state) {
         $.ajax({
           method: 'POST',
-          url: 'https://strangeriothings.apps.exosite.io/device/' + sn,
+          url: '/device/' + sn,
           data: '{"desired_temperature":"' + state + '"}',
           headers: {
             'Content-Type': 'application/json'

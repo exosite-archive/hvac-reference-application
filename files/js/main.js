@@ -1,4 +1,4 @@
-var data_url = 'https://strangeriothings.apps.exosite.io/data' // url for getting data - should be raw tsdb response TODO make this a config value
+var data_url = '/data' // url for getting data - should be raw tsdb response TODO make this a config value
 var omit_keys = ['pid', 'time'] // list of keys to not plot
 var TIMEOUT = 5; // timeout to refresh
 var force_current_timestamp = false;
@@ -194,3 +194,5 @@ function checkFetch() {
 setInterval(function() {
   checkFetch();
 }, 1000)
+
+//vim: set sw=2 ts=2 :
