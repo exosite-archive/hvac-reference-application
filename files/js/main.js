@@ -195,4 +195,4 @@ setInterval(function() {
   checkFetch();
 }, 1000)
 
-//vim: set sw=2 ts=2 :
+//vim: set ai et sw=2 ts=2 :
