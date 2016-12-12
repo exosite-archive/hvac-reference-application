@@ -51,4 +51,4 @@ if __name__=="__main__":
         exo_req = hdc.upload_data(th[0], th[1])
         time.sleep(5)
 
-#  vim: set ai et sw=4 ts=8 :
+#  vim: set ai et sw=4 ts=4 :
