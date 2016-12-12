@@ -22,14 +22,15 @@ class CoolOrHeat():
   def readData(self):
     return self.api.http_read(['ac_on','heat_on'])
 
-  def twiddleBits(data):
-    d = urlparse.urlparse(data.body)
-    if heat_on in d:
-      if d[u'heat_on'] == u'1':
+  def twiddleBits(self, data):
+    d = urlparse.parse_qs(data.body)
+    if u'heat_on' in d:
+      if u'1' in d[u'heat_on']:
         GPIO.output(HEAT_PIN, GPIO.HIGH)
       else:
         GPIO.output(HEAT_PIN, GPIO.LOW)
-      if d[u'ac_on'] == u'1':
+    if u'ac_on' in d:
+      if u'1' in d[u'ac_on']:
         GPIO.output(COOL_PIN, GPIO.HIGH)
       else:
         GPIO.output(COOL_PIN, GPIO.LOW)
@@ -38,6 +39,10 @@ class CoolOrHeat():
 if __name__=="__main__":
   ch = CoolOrHeat()
   print("Begin")
+  ret = ch.readData()
+  print(ret)
+  if ret.code == 200:
+    ch.twiddleBits(ret)
   while True:
     ret = ch.waitForData()
     print(ret)
