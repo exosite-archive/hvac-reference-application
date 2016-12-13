@@ -25,14 +25,11 @@ if table.contains(GWE.Fields, data.alias) then
 
 else
   -- One of the HVAC resoruces; it goes in TSDB.
-  -- well, if it is a number. (and they're all numbers.)
-  if type(data.value[2]) == 'number' then
-    Tsdb.write{
-      tags = {sn=data.device_sn},
-      metrics = {[data.alias] = data.value[2]},
-      ts = stamped
-    }
-  end
+  Tsdb.write{
+    tags = {sn=data.device_sn},
+    metrics = {[data.alias] = tonumber(data.value[2])},
+    ts = stamped
+  }
 end
 
 -- vim: set et ai sw=2 ts=2 :

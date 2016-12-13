@@ -1,0 +1,47 @@
+require 'digest/sha1'
+require 'date'
+
+##############################################################################
+def gwe_app_rules(appdir, appvers=1)
+  appfile = "#{appdir}.v#{appvers}.tar.gz"
+  files = Dir["#{appdir}/**"]
+
+  file appfile => files do |t|
+    Dir.chdir(appdir) do
+      basenamed = t.prerequisites.map{|i| File.basename(i)}
+      sh %{tar zcvf ../#{t.name} #{basenamed.join(' ')}}
+    end
+  end
+  task "#{appdir}_clean" do
+    File.unlink(appfile) if File.exist? appfile
+  end
+  task :clean => ["#{appdir}_clean"]
+
+  desc "Build GWE app #{appdir}"
+  task appdir => ["#{appdir}_clean", appfile]
+  task :default => [appfile]
+  task :upload => [appfile]
+end
+
+##############################################################################
+#gwe_app_rules('bb_less_cloud', 1)
+gwe_app_rules('hdc', 1)
+gwe_app_rules('coh', 1)
+
+
+##############################################################################
+desc "Clean up"
+task :clean
+
+##############################################################################
+desc "Upload gwe apps"
+task :upload do |t|
+  t.prerequisites.each do |file|
+    sha1 = Digest::SHA1.file(file).hexdigest
+    ts = Time.now.to_datetime.iso8601
+    #puts %{mr content upload #{file} #{file} --meta "SHA1:#{sha1};#{ts}"}
+    sh %{mr content upload #{file} #{file} --meta "SHA1:#{sha1};#{ts}"}
+  end
+end
+
+#  vim: set ai et sw=2 ts=2 :

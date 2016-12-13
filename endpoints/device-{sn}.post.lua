@@ -18,6 +18,13 @@ local dr = Device.write{
 	ac_on=request.body.ac_on,
 }
 ret.device = dr
+-- Do this as two seperate write to make sure data is ready to read before change
+-- is marked.
+ret.change = Device.write{
+	pid=pid,
+	device_sn=sn,
+	change = 1
+}
 
 local tr = Tsdb.write{
 	tags = {sn=sn},

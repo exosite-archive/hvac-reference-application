@@ -9,6 +9,7 @@
           integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/nvd3/1.8.2/nv.d3.min.css"/>
     <link rel="stylesheet" type="text/css" href="css/main.css">
+    <link sizes="64x64" href="favicon.ico" type="image/x-icon" rel="shortcut icon" />
 </head>
 <body>
 <nav class="navbar navbar-default navbar-static-top">
@@ -48,8 +49,16 @@
       <div class="col-md-2">
         <input class="form-control" type="number" value="21.3" id="thermostat-desired-temperature">
       </div>
-        <div class="col-md-2 text-right">Heat: On/Off</div>
-        <div class="col-md-2 text-right">Cool: On/Off</div>
+      <div class="led-box">
+        <label for="thermostat-heat-on" class="col-md-2 col-form-label">Heat:</label>
+        <div id="thermostat-heat-on-text" class="col-md-2 text-right"></div>
+        <div id="thermostat-heat-on" class="led-red"></div>
+      </div>
+      <div class="led-box">
+        <label for="thermostat-ac-on" class="col-md-2 col-form-label">Cool:</label>
+        <div id="thermostat-ac-on-text" class="col-md-2 text-right"></div>
+        <div id="thermostat-ac-on" class="led-blue"></div>
+      </div>
     </div>
     <hr />
     <div class="row">
