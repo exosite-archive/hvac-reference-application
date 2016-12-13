@@ -8,15 +8,16 @@ local got = Tsdb.query{
 	metrics = {
 		'temperature',
 		'humidity',
-		'ambient_temperature',
-		'desired_temperature',
-		'heat_on',
-		'ac_on',
+		--'ambient_temperature',
+		--'desired_temperature',
+		--'heat_on',
+		--'ac_on',
 	},
 	limit = 1000,
 	relative_start = '-1d',
-	--sampling_size = '1m',
+	sampling_size = '1m',
 	epoch = 's',
+	fill = 'null',
 }
 
 return got
