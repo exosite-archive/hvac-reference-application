@@ -1,11 +1,12 @@
+$( document ).ready(function() {
 var data_url = window.location.href + 'device' // url for getting data - should be raw tsdb response TODO make this a config value
 var omit_keys = ['pid', 'time'] // list of keys to not plot
 var TIMEOUT = 5; // timeout to refresh
 var force_current_timestamp = false;
 var units = {
-    temperature: '*C',
+    temperature: '&#8451;',
     humidity: '%',
-    ambient_temperature: '*C'
+    ambient_temperature: '&#8451;'
 }
 
 var chart;
@@ -77,9 +78,6 @@ function makePlot(response) {
     var plot = [];
     var data = response.results[0].series
     _.each(data, function(series) {
-       if(series.tags.sn !== "00001") {
-        return;
-       }
       var time_index;
       _.each(series.columns, function(column, column_index) {
         if(column == 'time') {
@@ -123,16 +121,15 @@ function makePlot(response) {
     // the 2nd parameter is the ID of where to put the chart - must be a div in the html
     // createChart(plot, 'chart')
     _.each(plot, function(series) {
-
-    if(series.values.length) {
-      createChart([series], series.key)
-      var value = _.last(series.values).y;
-      console.log(value)
-      value = Math.round(value*100)/100
-      value = value + units[series.key]
-      console.log(value)
-      $("#big-"+series.key).html(value)
-    }
+      if(series.values.length) {
+        createChart([series], series.key);
+        var value = _.last(series.values).y;
+        console.log(value);
+        value = Math.round(value*100)/100;
+        value = value + units[series.key];
+        console.log(value);
+        $("#big-"+series.key).html(value);
+      }
     })
 
   }
@@ -164,7 +161,7 @@ function getData() {
     })
     .then(function(response) {
     console.log("Got response: ", response)
-      makePlot(response)
+      makePlot(response[0])
     })
 }
 
@@ -191,6 +188,9 @@ function checkFetch() {
     counting = false;
   }
 }
+
 setInterval(function() {
   checkFetch();
-}, 1000)
+}, 1000);
+
+});

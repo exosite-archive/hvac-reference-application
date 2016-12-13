@@ -19,28 +19,19 @@ for _, device in pairs(devices) do
 	local data = Tsdb.query{
 		tags={sn=device.sn},
 		metrics = {
-			'temperature',
-			'humidity',
+			'ac_on',
 			'ambient_temperature',
 			'desired_temperature',
 			'heat_on',
-			'ac_on',
+			'humidity',
+			'temperature'
 		},
-    fill = 0,
-		limit = 1,
-		sampling_size = '5m',
+    fill = "null",
+    limit = 5,
+		sampling_size = '5m'
 	}
 
-	local values = data.values[1]
-	table.insert(response, {
-		controllerID = device.sn,
-			temperature = (values[1] or 0),
-			humidity = (values[2] or 0),
-			ambient_temperature = (values[3] or 0),
-			desired_temperature = (values[4] or 0),
-			heat_on = (values[5] or 0),
-			ac_on = (values[6] or 0),
-	})
+	table.insert(response, _G.util.parse_results{sn=device.sn, data=data})
 end
 return response
 

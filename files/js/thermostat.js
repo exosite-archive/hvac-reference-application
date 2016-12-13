@@ -1,8 +1,10 @@
 $(function(){
 	var muranoToken = null;
-	var thermostatID = [];
 
-	/* render the locks on the screen */
+  function default_value(value, default_val) {
+    return value !== 'null' ? value : default_val;
+  }
+
 	function render(thermostat) {
 	    console.log(thermostat);
 		var thermostatID = thermostat[0]['controllerID'];
@@ -14,27 +16,29 @@ $(function(){
 
     function updateTemperature(thermostatData) {
       console.log(thermostatData);
-      temperature = thermostatData['ambient_temperature'];
+      temperature = default_value(thermostatData['results'][0]['series'][0]['values'][0][2], 0);
       console.log(temperature);
       $('#thermostat-desired-temperature').val(temperature);
 		}
 
     function updateHeatCoolState(thermostatData) {
-      var heat_on = thermostatData['heat_on'],
-        ac_on = thermostatData['ac_on'];
-      if (heat_on !== 0) {
-        $('#thermostat-heat-on').addClass("led-red-blink");
-        $('#thermostat-heat-on-text').text("On");
-      } else {
+      /* Value order is alphabetic based on column name */
+      
+      var heat_on = default_value(thermostatData['results'][0]['series'][0]['values'][0][4], 0),
+        ac_on = default_value(thermostatData['results'][0]['series'][0]['values'][0][1], 0);
+      if (heat_on === 0) {
         $('#thermostat-heat-on').removeClass("led-red-blink");
         $('#thermostat-heat-on-text').text("Off");
-      }
-      if (ac_on !== 0) {
-        $('#thermostat-ac-on').addClass("led-blue-blink");
-        $('#thermostat-ac-on-text').text("On");
       } else {
+        $('#thermostat-heat-on').addClass("led-red-blink");
+        $('#thermostat-heat-on-text').text("On");
+      }
+      if (ac_on === 0) {
         $('#thermostat-ac-on').removeClass("led-blue-blink");
         $('#thermostat-ac-on-text').text("Off");
+      } else {
+        $('#thermostat-ac-on').addClass("led-blue-blink");
+        $('#thermostat-ac-on-text').text("On");
       }
     }
 
@@ -61,8 +65,7 @@ $(function(){
 	    var params = {
 			method: 'GET',
 			url: window.location.href + 'device/' + sn,
-			success: function(data) {
-				thermostatData = data;
+			success: function(thermostatData) {
 				updateTemperature(thermostatData);
 				updateHeatCoolState(thermostatData);
 			},
