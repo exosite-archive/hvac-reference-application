@@ -125,10 +125,16 @@ function makePlot(response) {
         createChart([series], series.key);
         var value = _.first(series.values).y;
         console.log(value);
-        value = Math.round(value*100)/100;
-        value = value + units[series.key];
-        console.log(value);
-        $("#big-"+series.key).html(value);
+        if (series.key === 'heat_on') {
+          updateHeatDisplay(value);
+        } else if (series.key === 'ac_on') {
+          updateAcDisplay(value);
+        } else {
+          value = Math.round(value*100)/100;
+          value = value + units[series.key];
+          console.log(value);
+          $("#big-"+series.key).html(value);
+        }
       }
     })
 
@@ -177,7 +183,7 @@ function checkFetch() {
       _.each(charts, function(chart) {
         var min = chart.forceX()[0];
         chart.forceX([min, new Date().valueOf()])
-        chart.update();
+        typeof(chart.update) === "function" && chart.update();
       })
     }
   }
@@ -192,5 +198,114 @@ function checkFetch() {
 setInterval(function() {
   checkFetch();
 }, 1000);
+
+
+/**
+ * Thermostat related code
+ */
+var muranoToken = null;
+
+function default_value(value, default_val) {
+  return value !== 'null' ? value : default_val;
+}
+
+function render(thermostat) {
+    console.log(thermostat);
+  var thermostatID = thermostat[0]['controllerID'];
+  $('#device-sn').text(thermostatID);
+  getThermostatState(thermostatID);
+  $('#thermostat-desired-temperature').change(function() {
+    setThermostatState(thermostatID, $(this).val());
+  });
+}
+
+  function updateTemperature(thermostatData) {
+    console.log(thermostatData);
+    /* Value order is alphabetic based on column name */
+    temperature = default_value(thermostatData['results'][0]['series'][0]['values'][0][3], 0);
+    console.log(temperature);
+    $('#thermostat-desired-temperature').val(temperature);
+  }
+
+  function updateHeatDisplay(state) {
+    console.log("XXX Setting Heat to " + state);
+    if (state === 0) {
+      $('#thermostat-heat-on').removeClass("led-red-blink");
+      $('#thermostat-heat-on-text').text("Off");
+    } else {
+      $('#thermostat-heat-on').addClass("led-red-blink");
+      $('#thermostat-heat-on-text').text("On");
+    }
+  }
+
+  function updateAcDisplay(state) {
+    console.log("XXX Setting AC to " + state);
+    if (state === 0) {
+      $('#thermostat-ac-on').removeClass("led-blue-blink");
+      $('#thermostat-ac-on-text').text("Off");
+    } else {
+      $('#thermostat-ac-on').addClass("led-blue-blink");
+      $('#thermostat-ac-on-text').text("On");
+    }
+  }
+
+  function updateHeatCoolState(thermostatData) {
+    /* Value order is alphabetic based on column name */
+    var heat_on = default_value(thermostatData['results'][0]['series'][0]['values'][0][4], 0),
+      ac_on = default_value(thermostatData['results'][0]['series'][0]['values'][0][1], 0);
+    updateHeatDisplay(heat_on);
+    updateAcDisplay(ac_on);
+  }
+
+/* Get all of the thermostat historical data. */
+function getThermostat() {
+  var params = {
+    method: 'GET',
+    url: window.location.href + 'device',
+    success: function(data) {
+      allThermostats = data;
+      render(allThermostats);
+    },
+    error: function(xhr, textStatus, errorThrown) {
+      alert(xhr.responseText + ' (' + errorThrown + ')')
+      alert(xhr.responseText)
+    }
+  };
+  $.ajax(params);
+}
+
+function getThermostatState(sn) {
+    var params = {
+    method: 'GET',
+    url: window.location.href + 'device/' + sn,
+    success: function(thermostatData) {
+      updateTemperature(thermostatData);
+      updateHeatCoolState(thermostatData);
+    },
+    error: function(xhr, textStatus, errorThrown) {
+      alert(xhr.responseText + ' (' + errorThrown + ')')
+      alert(xhr.responseText)
+    }
+  };
+  $.ajax(params);
+}
+/* Set the desired temperature for a device. */
+  function setThermostatState(sn, state) {
+      $.ajax({
+        method: 'POST',
+        url: window.location.href + 'device/' + sn,
+        data: '{"desired_temperature":"' + state + '"}',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        success: function() {
+                  console.log('Set the thermostat state');
+        },
+        error: function(xhr, textStatus, errorThrown) {
+          alert(errorThrown);
+        }
+      });
+  }
+  getThermostat();
 
 });

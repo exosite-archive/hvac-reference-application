@@ -93,7 +93,7 @@ class Thermostat(object):
 
     def check_temperature(self):
         if self.ac_on:
-            print("Cooling the buidling")
+            print("Cooling the building")
             self.temperature -= self.cooling_rate
             if self.temperature < self.desired_temperature:
                 print("Building is sufficiently cooled, turning off AC")
