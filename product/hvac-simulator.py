@@ -40,7 +40,7 @@ class Weather(object):
                                                   0, 0, 0)
             try:
                 wr = requests.get(
-                    'http://api.wunderground.com/api/{wuapi}/history_{yyyy}{mm}{dd}/q/MN/Minneapolis.json'.format(
+                    'http://api.wunderground.com/api/{wuapi}/history_{yyyy:04d}{mm:02d}{dd:02d}/q/MN/Minneapolis.json'.format(
                         wuapi=self.wuapi,
                         yyyy=self.current_date.year,
                         mm=self.current_date.month,
@@ -54,7 +54,7 @@ class Weather(object):
                 self.min_humi = float(wr.json()['history']['dailysummary'][0]['minhumidity'])
                 self.max_humi = float(wr.json()['history']['dailysummary'][0]['maxhumidity'])
             except Exception as e:
-                print("ERROR: Unable to obtain new weather data")
+                print("ERROR: Unable to obtain new weather data: {}".format(e))
                 pass
 
         minutes = (current_datetime - self.current_date).seconds / 60.0
