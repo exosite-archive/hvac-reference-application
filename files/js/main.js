@@ -123,7 +123,7 @@ function makePlot(response) {
     _.each(plot, function(series) {
       if(series.values.length) {
         createChart([series], series.key);
-        var value = _.last(series.values).y;
+        var value = _.first(series.values).y;
         console.log(value);
         value = Math.round(value*100)/100;
         value = value + units[series.key];
