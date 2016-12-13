@@ -17,6 +17,7 @@ local data = Tsdb.query{
 		'heat_on',
 		'ac_on',
 	},
+  fill = 0,
 	limit = 1,
 	sampling_size = '5m',
 }
