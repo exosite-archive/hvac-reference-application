@@ -21,6 +21,17 @@ local data = Tsdb.query{
 	sampling_size = '5m',
 }
 
-return _G.util.parse_results{sn=sn, data=data}
+local tsd = util.parse_results{sn=sn, data=data}
+local dtemp = Tsdb.query{
+    tags={sn=sn},
+    metrics = {
+        'desired_temperature'
+    },
+    limit = 1
+}
+if dtemp.values ~= nil then
+  tsd.desired_temperature = dtemp.values[1][2]
+end
+return tsd
 
 -- vim: set ai sw=2 ts=2 :

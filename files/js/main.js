@@ -211,8 +211,10 @@ function default_value(value, default_val) {
 
 function render(thermostat) {
     console.log(thermostat);
-  var thermostatID = thermostat[0]['controllerID'];
+  var thermostatID = thermostat[0]['controllerID'],
+    desired_temperature = thermostat[0]['desired_temperature'];
   $('#device-sn').text(thermostatID);
+  $('#thermostat-desired-temperature').val(desired_temperature);
   getThermostatState(thermostatID);
   $('#thermostat-desired-temperature').change(function() {
     setThermostatState(thermostatID, $(this).val());
@@ -222,7 +224,7 @@ function render(thermostat) {
   function updateTemperature(thermostatData) {
     console.log(thermostatData);
     /* Value order is alphabetic based on column name */
-    temperature = default_value(thermostatData['results'][0]['series'][0]['values'][0][3], 0);
+    var temperature = thermostatData['desired_temperature'];
     console.log(temperature);
     $('#thermostat-desired-temperature').val(temperature);
   }

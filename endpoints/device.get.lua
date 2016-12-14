@@ -31,7 +31,19 @@ for _, device in pairs(devices) do
 		sampling_size = '5m'
 	}
 
-	table.insert(response, _G.util.parse_results{sn=device.sn, data=data})
+  -- Merge last desired temperature
+  local tsd = util.parse_results{sn=device.sn, data=data}
+  local dtemp = Tsdb.query{
+      tags={sn=sn},
+      metrics = {
+          'desired_temperature'
+      },
+      limit = 1
+  }
+  if dtemp.values ~= nil then
+    tsd.desired_temperature = dtemp.values[1][2]
+  end
+	table.insert(response, tsd)
 end
 return response
 

@@ -1,7 +1,9 @@
-_G.util = {}
+util = {}
+---
 -- Parse the Tsdb output and return as Timeseries compatible
 -- { sn=<device_serial>, data=<data_table> }
-_G.util.parse_results = function(opts)
+-- \returns table
+util.parse_results = function(opts)
   -- Results are returned in alphabetic order by column
   local result = {}
   local series = {}
