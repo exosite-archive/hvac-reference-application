@@ -36,12 +36,16 @@ height: 100px;
   float: left;
 }
 
-.led-red {
-  margin: 0 auto;
+.led-red, .led-blue {
+  float: left;
+  margin: 0 10px 0 auto;
   width: 24px;
   height: 24px;
-  background-color: #441313;
   border-radius: 50%;
+}
+
+.led-red {
+  background-color: #441313;
   box-shadow: rgba(0, 0, 0, 0.2) 0 -1px 7px 1px, inset #441313 0 -1px 9px, rgba(255, 0, 0, 0.5) 0 2px 12px;
 }
 
@@ -80,11 +84,7 @@ height: 100px;
 }
 
 .led-blue {
-  margin: 0 auto;
-  width: 24px;
-  height: 24px;
   background-color: #006;
-  border-radius: 50%;
   box-shadow: rgba(0, 0, 0, 0.2) 0 -1px 7px 1px, inset #006 0 -1px 9px, #3F8CFF 0 2px 14px;
 }
 
