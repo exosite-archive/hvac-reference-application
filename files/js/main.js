@@ -228,7 +228,6 @@ function render(thermostat) {
   }
 
   function updateHeatDisplay(state) {
-    console.log("XXX Setting Heat to " + state);
     if (state === 0) {
       $('#thermostat-heat-on').removeClass("led-red-blink");
       $('#thermostat-heat-on-text').text("Off");
@@ -239,7 +238,6 @@ function render(thermostat) {
   }
 
   function updateAcDisplay(state) {
-    console.log("XXX Setting AC to " + state);
     if (state === 0) {
       $('#thermostat-ac-on').removeClass("led-blue-blink");
       $('#thermostat-ac-on-text').text("Off");
