@@ -206,7 +206,7 @@ setInterval(function() {
 var muranoToken = null;
 
 function default_value(value, default_val) {
-  return value !== 'null' ? value : default_val;
+  return typeof value !== 'undefined' && value !== 'null' ? value : default_val;
 }
 
 function render(thermostat) {
