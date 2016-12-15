@@ -166,8 +166,10 @@ function getData() {
       return response.json();
     })
     .then(function(response) {
-    console.log("Got response: ", response)
-      makePlot(response[0])
+      console.log("Got response");
+      console.log(response);
+      makePlot(response[0]);
+      render(response);
     })
 }
 
@@ -210,7 +212,7 @@ function default_value(value, default_val) {
 }
 
 function render(thermostat) {
-    console.log(thermostat);
+  console.log(thermostat);
   var thermostatID = thermostat[0]['controllerID'],
     desired_temperature = thermostat[0]['desired_temperature'];
   $('#device-sn').text(thermostatID);
