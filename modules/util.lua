@@ -11,8 +11,10 @@ util.parse_results = function(opts)
   entry.tags = {sn=opts.sn}
   entry.columns = opts.data.columns
   local values = {}
-  for valueIndex = 1, #opts.data.values do
-    table.insert(values, opts.data.values[valueIndex])
+  if opts.data["values"] ~= nil then
+    for valueIndex = 1, #opts.data.values do
+      table.insert(values, opts.data.values[valueIndex])
+    end
   end
   entry.values = values
 	table.insert(series, entry)
