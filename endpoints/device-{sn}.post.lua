@@ -15,7 +15,7 @@ local dr = Device.write{
 	device_sn=sn,
 	desired_temperature=request.body.desired_temperature,
 	heat_on=request.body.heat_on,
-	ac_on=request.body.ac_on,
+	ac_on=request.body.ac_on
 }
 ret.device = dr
 -- Do this as two seperate write to make sure data is ready to read before change
@@ -31,7 +31,7 @@ local tr = Tsdb.write{
 	metrics = {
 		desired_temperature=request.body.desired_temperature,
 		heat_on=request.body.heat_on,
-		ac_on=request.body.ac_on,
+		ac_on=request.body.ac_on
 	}
 }
 if tr.error ~= nil then
