@@ -1,6 +1,21 @@
 .DS_Store
-.idea
-.mrmurano
-.mrmuranorc
-*.pyc
-config.db
+.AppleDouble
+.LSOverride
+Icon
+*.sw[a-z]
+tags
+
+.mrmurano/
+.mrmuranorc*
+.env
+.jiramulerc
+
+bb_less_cloud.v*.tar.gz
+
+# Thumbnails
+._*
+
+# Files that might appear on external disk
+.Spotlight-V100
+.Trashes
+

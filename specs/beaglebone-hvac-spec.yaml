@@ -1,5 +1,6 @@
 ---
 resources:
+# GWE resources.
 - alias: usage_report
   format: string
 - alias: engine_report
@@ -14,15 +15,22 @@ resources:
   format: string
 - alias: sensors_report
   format: string
+
+# HVAC Demo Resources
+# Device to cloud
 - alias: temperature
   format: float
 - alias: humidity
   format: float
+- alias: ambient_temperature
+  format: float
+
+# Cloud to Device
 - alias: desired_temperature
   format: float
 - alias: heat_on
   format: integer
 - alias: ac_on
   format: integer
-- alias: ambient_temperature
-  format: float
+- alias: change
+  format: integer

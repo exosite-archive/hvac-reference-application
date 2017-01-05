@@ -28,3 +28,127 @@ font-size: 10px;
 font-size: 50px;
 height: 100px;
 }
+
+.led-box {
+  height: 30px;
+  width: 25%;
+  margin: 10px 0;
+  float: left;
+}
+
+.led-red, .led-blue {
+  float: left;
+  margin: 0 10px 0 auto;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+}
+
+.led-red {
+  background-color: #441313;
+  box-shadow: rgba(0, 0, 0, 0.2) 0 -1px 7px 1px, inset #441313 0 -1px 9px, rgba(255, 0, 0, 0.5) 0 2px 12px;
+}
+
+.led-red-blink {
+  -webkit-animation: blinkRed 0.5s infinite;
+  -moz-animation: blinkRed 0.5s infinite;
+  -ms-animation: blinkRed 0.5s infinite;
+  -o-animation: blinkRed 0.5s infinite;
+  animation: blinkRed 0.5s infinite;
+}
+
+@-webkit-keyframes blinkRed {
+    from { background-color: #F00; }
+    50% { background-color: #A00; box-shadow: rgba(0, 0, 0, 0.2) 0 -1px 7px 1px, inset #441313 0 -1px 9px, rgba(255, 0, 0, 0.5) 0 2px 0;}
+    to { background-color: #F00; }
+}
+@-moz-keyframes blinkRed {
+    from { background-color: #F00; }
+    50% { background-color: #A00; box-shadow: rgba(0, 0, 0, 0.2) 0 -1px 7px 1px, inset #441313 0 -1px 9px, rgba(255, 0, 0, 0.5) 0 2px 0;}
+    to { background-color: #F00; }
+}
+@-ms-keyframes blinkRed {
+    from { background-color: #F00; }
+    50% { background-color: #A00; box-shadow: rgba(0, 0, 0, 0.2) 0 -1px 7px 1px, inset #441313 0 -1px 9px, rgba(255, 0, 0, 0.5) 0 2px 0;}
+    to { background-color: #F00; }
+}
+@-o-keyframes blinkRed {
+    from { background-color: #F00; }
+    50% { background-color: #A00; box-shadow: rgba(0, 0, 0, 0.2) 0 -1px 7px 1px, inset #441313 0 -1px 9px, rgba(255, 0, 0, 0.5) 0 2px 0;}
+    to { background-color: #F00; }
+}
+@keyframes blinkRed {
+    from { background-color: #F00; }
+    50% { background-color: #A00; box-shadow: rgba(0, 0, 0, 0.2) 0 -1px 7px 1px, inset #441313 0 -1px 9px, rgba(255, 0, 0, 0.5) 0 2px 0;}
+    to { background-color: #F00; }
+}
+
+.led-blue {
+  background-color: #006;
+  box-shadow: rgba(0, 0, 0, 0.2) 0 -1px 7px 1px, inset #006 0 -1px 9px, #3F8CFF 0 2px 14px;
+}
+
+.led-blue-blink {
+  -webkit-animation: blinkBlue 0.5s infinite;
+  -moz-animation: blinkBlue 0.5s infinite;
+  -ms-animation: blinkBlue 0.5s infinite;
+  -o-animation: blinkBlue 0.5s infinite;
+  animation: blinkBlue 0.5s infinite;
+}
+
+@-webkit-keyframes blinkBlue {
+    from { background-color: #24E0FF; }
+    50% { background-color: #00A; box-shadow: rgba(0, 0, 0, 0.2) 0 -1px 7px 1px, inset #3F8CFF 0 -1px 9px, rgba(0, 0, 0, 0.2) 0 2px 0;}
+    to { background-color: #24E0FF; }
+}
+@-moz-keyframes blinkBlue {
+    from { background-color: #24E0FF; }
+    50% { background-color: #00A; box-shadow: rgba(0, 0, 0, 0.2) 0 -1px 7px 1px, inset #3F8CFF 0 -1px 9px, rgba(0, 0, 0, 0.2) 0 2px 0;}
+    to { background-color: #24E0FF; }
+}
+@-ms-keyframes blinkBlue {
+    from { background-color: #24E0FF; }
+    50% { background-color: #00A; box-shadow: rgba(0, 0, 0, 0.2) 0 -1px 7px 1px, inset #3F8CFF 0 -1px 9px, rgba(0, 0, 0, 0.2) 0 2px 0;}
+    to { background-color: #24E0FF; }
+}
+@-o-keyframes blinkBlue {
+    from { background-color: #24E0FF; }
+    50% { background-color: #00A; box-shadow: rgba(0, 0, 0, 0.2) 0 -1px 7px 1px, inset #3F8CFF 0 -1px 9px, rgba(0, 0, 0, 0.2) 0 2px 0;}
+    to { background-color: #24E0FF; }
+}
+@keyframes blinkBlue {
+    from { background-color: #24E0FF; }
+    50% { background-color: #00A; box-shadow: rgba(0, 0, 0, 0.2) 0 -1px 7px 1px, inset #3F8CFF 0 -1px 9px, rgba(0, 0, 0, 0.2) 0 2px 0;}
+    to { background-color: #24E0FF; }
+}
+
+.handle-counter { overflow: hidden; }
+
+.handle-counter .counter-minus,  .handle-counter .counter-plus,  .handle-counter input {
+  float: left;
+  text-align: center;
+}
+
+.handle-counter .counter-minus,  .handle-counter .counter-plus { text-align: center; }
+
+.handle-counter input {
+  width: 50px;
+  border-width: 1px;
+  border-left: none;
+  border-right: none;
+}
+
+.btn {
+  padding: 6px 12px;
+  border: 1px solid transparent;
+  color: #fff;
+}
+
+.btn:disabled, .btn:disabled:hover {
+  background-color: darkgrey;
+  cursor: not-allowed;
+}
+
+.btn-primary { background-color: #009dda; }
+
+.btn-primary:hover, .btn-primary:focus { background-color: #0486b9; }

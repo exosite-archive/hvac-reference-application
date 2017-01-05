@@ -1,29 +1,25 @@
 util = {}
--- get all the states for this device from the hash
-util.getStates = function(parm_name, parm_value)
-	-- http://redis.io/commands/hgetall
-	return Keystore.command({
-		command = 'hgetall',
-		key = 'state:' .. parm_name .. ':' .. parm_value
-	}).value
+---
+-- Parse the Tsdb output and return as Timeseries compatible
+-- { sn=<device_serial>, data=<data_table> }
+-- \returns table
+util.parse_results = function(opts)
+  -- Results are returned in alphabetic order by column
+  local result = {}
+  local series = {}
+  local entry = {}
+  entry.tags = {sn=opts.sn}
+  entry.columns = opts.data.columns
+  local values = {}
+  if opts.data["values"] ~= nil then
+    for valueIndex = 1, #opts.data.values do
+      table.insert(values, opts.data.values[valueIndex])
+    end
+  end
+  entry.values = values
+	table.insert(series, entry)
+	table.insert(result, {series=series})
+	return {results=result, controllerID=opts.sn}
 end
 
--- set one or more states for a given lock or dwelling
--- parm_name is 'lockID' or 'dwellingID', parm_value is the ID
--- states is a table like {field1, value1, field2, value2, ...}
-util.setStates = function(parm_name, parm_value, states)
-	-- http://redis.io/commands/hmset
-  return Keystore.command({
-		command = 'hmset',
-		key = 'state:' .. parm_name .. ':' .. parm_value,
-		args = states
-	})
-end
-
--- remove all state specific lock or dwelling
--- parm_name is 'lockID' or 'dwellingID', parm_value is the ID
-util.deleteState = function(parm_name, parm_value)
-	return Keystore.delete({
-		key = 'state:' .. parm_name .. ':' .. parm_value
-	})
-end
+-- vim: set ai sw=2 ts=2 :
