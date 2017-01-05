@@ -2,7 +2,6 @@
 import subprocess
 import time
 
-#import requests
 from exo.api import ExositeAPI
 
 from Adafruit_I2C import Adafruit_I2C
