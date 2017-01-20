@@ -1,11 +1,12 @@
 #!/bin/sh
 
-# Install requirements for BLE in python
-apt-get install -y build-essential bluetooth bluez libbluetooth-dev libudev-dev
-npm install -g noble async
+# Install requirements for BLE in node.
+apt-get install -y build-essential bluetooth bluez libbluetooth-dev libudev-dev libcap2-bin
+
+# Allow non-root nodejs to scan BLE
+setcap cap_net_raw+eip $(eval readlink -f `which node`)
 
 # install
-mkdir -p /usr/local/bin
+npm install -g .
 
-#cp -f th02.py /usr/local/bin/
-
+#  vim: set sw=4 ts=4 :
