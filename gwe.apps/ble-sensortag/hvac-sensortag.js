@@ -1,9 +1,10 @@
+#!/usr/bin/env node
 //
 "use strict";
 var SensorTag = require('sensortag');
 //var async = require('async');
 
-
+console.log("Begins.");
 var Tags = [];
 SensorTag.discoverAll(function(st) {
 	console.log("Discovered: ", st.type, " - ", st.id);
@@ -11,6 +12,7 @@ SensorTag.discoverAll(function(st) {
 		if (err) {
 			console.log("Failed to connect and setup tag: ", err);
 		} else {
+			console.log("Setup complete for ", st.id);
 			st.on('humidityChange', function(temperature, humidity) {
 				console.log("UPDATE: ", temperature, humidity);
 			});
@@ -18,13 +20,18 @@ SensorTag.discoverAll(function(st) {
 				if (err) {
 					console.log("Failed to connect and setup tag: ", err);
 				} else {
-					st.setHumidityPeriod(10, function(err){
+					console.log("Humidity enabled for ", st.id);
+					st.setHumidityPeriod(5000, function(err){
 						if (err) {
 							console.log("Failed to set period: ", err);
+						} else {
+							console.log("Period set");
 						}
-						st.nofifyHumidity(function(err){
+						st.notifyHumidity(function(err){
 							if (err) {
 								console.log("Failed to enable notify: ", err);
+							} else {
+								console.log("Notify enabled");
 							}
 						});
 					});
