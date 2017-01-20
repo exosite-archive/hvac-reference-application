@@ -4,15 +4,43 @@
 var SensorTag = require('sensortag');
 var exec = require('child_process').exec;
 var async = require('async');
+var https = require("follow-redirects").https;
+var urllib = require("url");
+var querystring = require("querystring");
 
 var CIK = null;
 var Tags = [];
+var productID = "";
+
+function sendUp(temperature, humidity) {
+	var opts = urllib.parse('https://'+productID+'m2.exosite.com/onep:v1/stack/alias');
+	opts.method = 'POST';
+	opts.headers = {};
+	opts.headers['X-Exosite-CIK'] = CIK;
+	opts.headers['content-type'] = 'application/x-www-form-urlencoded; charset=utf-8';
+
+	var payload = querystring.stringify({temperature: temperature, humidity: humidity});
+	opts.headers['content-length'] = Buffer.byteLength(payload);
+
+	console.log("Sending:", productID, ">>", payload);
+
+	var req = https.request(opts, function(result){
+		result.on('data', function (chunk) {});
+		result.on('end',function() {
+		});
+	});
+	req.on('error',function(err) {
+		console.log("http write error: ", err);
+	});
+	req.write(payload);
+	req.end();
+}
 
 console.log("Begins.");
 
 async.series([
 	function(callback) {
-		exec("gwe -C", function(err, stderr, stdout){
+		exec("gwe -C", function(err, stdout, stderr){
 			if (err) {
 				return callback(err, null);
 			}
@@ -29,7 +57,8 @@ async.series([
 				} else {
 					console.log("Setup complete for ", st.id);
 					st.on('humidityChange', function(temperature, humidity) {
-						console.log("UPDATE: ", temperature, humidity);
+						//console.log("UPDATE: ", temperature, humidity);
+						sendUp(temperature, humidity);
 					});
 					st.enableHumidity(function(err){
 						if (err) {
