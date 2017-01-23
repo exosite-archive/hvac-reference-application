@@ -1,5 +1,5 @@
 //
-"use strict";
+'use strict';
 var NobleDevice = require('noble-device');
 
 // UUIDs
@@ -31,7 +31,7 @@ SmartConnect.prototype.onEnvChange = function(data) {
 
 	// emit data for listeners.
 	this.emit('envChange', temperature, pressure, uv, humidity);
-}
+};
 
 SmartConnect.prototype.notifyEnvionment = function(callback) {
 	this.notifyCharacteristic(SmartConnectService_UUID, SmartConnectEnvData_UUID,
@@ -50,7 +50,7 @@ SmartConnect.prototype.setEnvionmentDataRate = function(rate, callback) {
 };
 
 /********************************************************/
-SmartConnect.prototype.onLowBatteryChange = function(data) {
+SmartConnect.prototype.onLowBatteryChange = function() {
 	this.emit('lowBattery');
 };
 
