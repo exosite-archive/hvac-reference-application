@@ -10,29 +10,41 @@ var SmartConnectEnvODR_UUID = 'F05ABAD1393611E587A60002A5D5C51B';
 var SmartConnect = function(peripheral){
 
 	NobleDevice.call(this, peripheral);
+
+	this.onEnvChangeBinded = this.onEnvChange.bind(this);
 };
 
 SmartConnect.SCAN_UUIDS = [SmartConnectService_UUID];
 
-/*
-// and/or specify method to check peripheral (optional)
-SmartConnect.is = function(peripheral) {
-	return (peripheral.advertisement.localName === 'My Thing\'s Name');
-};
-*/
+/********************************************************/
+SmartConnect.prototype.onEnvChange = function(data) {
+	// Unpack data
+	// These values are all in offset fixed format.
+	var temperature = data.readInt16LE(0) * 0.01;  // ºC
+	var pressure = data.readInt16LE(2) * 1.0;  // mbar
+	var uv = data.readInt32LE(4) * 100000.0;  // lx
+	var humidity = data.readInt8(8) * 1.0;  // %RH
+
+	// emit data for listeners.
+	this.emit('envChange', temperature, pressure, uv, humidity);
+}
 
 SmartConnect.prototype.notifyEnvionment = function(callback) {
-	// TODO:
-}
+	this.notifyCharacteristic(SmartConnectService_UUID, SmartConnectEnvData_UUID,
+		true, this.onEnvChangeBinded, callback);
+};
 
 SmartConnect.prototype.unnotifyEnvionment = function(callback) {
-	// TODO:
-}
+	this.notifyCharacteristic(SmartConnectService_UUID, SmartConnectEnvData_UUID,
+		false, this.onEnvChangeBinded, callback);
+};
 
 SmartConnect.prototype.setEnvionmentDataRate = function(rate, callback) {
-	// TODO:
-	this.writeUint8Characteristic(SmartConnectService_UUID, SmartConnectEnvODR_UUID, 1, callback);
-}
+	// Data is index of values.
+	// We want the slowest, which is index 0 for 1Hz sampling.
+	this.writeUint8Characteristic(SmartConnectService_UUID, SmartConnectEnvODR_UUID, 0, callback);
+};
+
 
 
 
