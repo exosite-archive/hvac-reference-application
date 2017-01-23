@@ -7,11 +7,15 @@ var SmartConnectService_UUID = 'F05ABAC0393611E587A60002A5D5C51B';
 var SmartConnectEnvData_UUID = 'F05ABAD0393611E587A60002A5D5C51B';
 var SmartConnectEnvODR_UUID = 'F05ABAD1393611E587A60002A5D5C51B';
 
+var SmartConnectLowBattery_UUID = 'F05ABADC393611E587A60002A5D5C51B';
+
+
 var SmartConnect = function(peripheral){
 
 	NobleDevice.call(this, peripheral);
 
 	this.onEnvChangeBinded = this.onEnvChange.bind(this);
+	this.onLowBatteryChangeBinded = this.onLowBatteryChange.bind(this);
 };
 
 SmartConnect.SCAN_UUIDS = [SmartConnectService_UUID];
@@ -45,16 +49,32 @@ SmartConnect.prototype.setEnvionmentDataRate = function(rate, callback) {
 	this.writeUint8Characteristic(SmartConnectService_UUID, SmartConnectEnvODR_UUID, 0, callback);
 };
 
+/********************************************************/
+SmartConnect.prototype.onLowBatteryChange = function(data) {
+	this.emit('lowBattery');
+};
 
+SmartConnect.prototype.notifyLowBattery = function(callback) {
+	this.notifyCharacteristic(SmartConnectService_UUID, SmartConnectLowBattery_UUID,
+		true, this.onLowBatteryChangeBinded, callback);
+};
 
+SmartConnect.prototype.unnotifyLowBattery = function(callback) {
+	this.notifyCharacteristic(SmartConnectService_UUID, SmartConnectLowBattery_UUID,
+		false, this.onLowBatteryChangeBinded, callback);
+};
 
+/********************************************************/
 // inherit noble device
 NobleDevice.Util.inherits(SmartConnect, NobleDevice);
 
 // you can mixin other existing service classes here too,
 // noble device provides battery and device information,
 // add the ones your device provides
-NobleDevice.Util.mixin(SmartConnect, NobleDevice.BatteryService);
+
+// XXX looks like Atmel didn't use the BatteryService Standard for this demo.
+//NobleDevice.Util.mixin(SmartConnect, NobleDevice.BatteryService);
+
 NobleDevice.Util.mixin(SmartConnect, NobleDevice.DeviceInformationService);
 
 // export your device
