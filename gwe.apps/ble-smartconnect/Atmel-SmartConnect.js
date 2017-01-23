@@ -30,15 +30,15 @@ SmartConnect.prototype.onEnvChange = function(data) {
 	var humidity = data.readInt8(8) * 1.0;  // %RH
 
 	// emit data for listeners.
-	this.emit('envChange', temperature, pressure, uv, humidity);
+	this.emit('environmentChange', temperature, pressure, uv, humidity);
 };
 
-SmartConnect.prototype.notifyEnvionment = function(callback) {
+SmartConnect.prototype.notifyEnvironment = function(callback) {
 	this.notifyCharacteristic(SmartConnectService_UUID, SmartConnectEnvData_UUID,
 		true, this.onEnvChangeBinded, callback);
 };
 
-SmartConnect.prototype.unnotifyEnvionment = function(callback) {
+SmartConnect.prototype.unnotifyEnvironment = function(callback) {
 	this.notifyCharacteristic(SmartConnectService_UUID, SmartConnectEnvData_UUID,
 		false, this.onEnvChangeBinded, callback);
 };
