@@ -16,7 +16,7 @@ resources:
 - alias: sensors_report
   format: string
 
-# HVAC Demo Resources
+# HVAC Resources
 # Device to cloud
 - alias: temperature
   format: float
