@@ -161,7 +161,7 @@ If you do not have Git installed, the official Git docs will help you get it ins
 [https://git-scm.com/book/en/v2/Getting-Started-Installing-Git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)
 ```
 
-In this step you will use the beaglebone-hvac spec file to configure your product.
+In this step you will use the product spec file to configure your product.
 
 The following repository includes everything you need to configure the product you just created and deploy a solution. Get started by checking out the code.
 
@@ -195,16 +195,16 @@ To configure your product, use the config command of the Mr. Murano tool. This c
 $ mr config product.id <productid>
 ```
 
-Executing the command below will set the product definition for this example as defined in the `beaglebone-hvac-spec.yaml` file. 
+Executing the command below will set the product definition for this example as defined in the `resources.yaml` file. 
 
 ```
-$ mr product spec push --file spec/beaglebone-hvac-spec.yaml 
+$ mr syncup --spec
 ```
 This command sets up all of the data aliases that we will use in this example. You can now see them by going to [https://www.exosite.io/business/products](https://www.exosite.io/business/products) and clicking the 'Definition' tab. Many of the aliases are used by Gateway Engine which will be covered later. Notice the aliases like 'ambient_temperature', 'desired_temperature', and 'heat_on'. These are all the different dataports that will used for this HVAC example. 
 
 At this point your product is configured and ready to start receiving data from the BBG or the simulator.
 
-If you would like to review the spec file used to configure your product, it can be viewed at the following URL: [https://github.com/exosite/hvac-reference-application/blob/master/spec/beaglebone-hvac-spec.yaml](https://github.com/exosite/hvac-reference-application/blob/master/spec/beaglebone-hvac-spec.yaml)
+If you would like to review the spec file used to configure your product, it can be viewed at the following URL: [https://github.com/exosite/hvac-reference-application/blob/master/spec/resources.yaml](https://github.com/exosite/hvac-reference-application/blob/master/spec/resources.yaml)
 
 ## Create Solution
 
@@ -413,14 +413,14 @@ The simulator requires Python 3. You can ensure Python 3 is available on your sy
 $ which python3
 ```
 
-If Python 3 is not available, please follow the official documentation to get started:
+If Python is not available, please follow the official documentation to get started:
 [https://www.python.org/downloads/](https://www.python.org/downloads/)
 
 In the `hvac-reference-application` folder, install requirements. The only requirement for this simulator is `requests`. The requests library is used for executing HTTP requests to Exosite and the Weather Underground API.
 
 ```sh
-$ cd ae-beaglebon-hvac-demo
-$ pip3 install -r requirements.txt
+$ cd hvac-reference-application
+$ pip install -r requirements.txt
 ```
 
 Next you will need to obtain an API key from Weather Underground and configure the product scripts.
