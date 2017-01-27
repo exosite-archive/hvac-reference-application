@@ -168,7 +168,7 @@ The following repository includes everything you need to configure the product y
 In a terminal window, navigate to your development working directory and execute the following:
 
 ```sh
-$ git clone https://github.com/exosite/ae-beaglebone-hvac-demo.git
+$ git clone https://github.com/exosite/hvac-reference-application.git
 ```
 
 Enter your GitHub username and password if prompted.
@@ -176,7 +176,7 @@ Enter your GitHub username and password if prompted.
 Run this command:
 
 ```sh
-$ cd ae-beaglebone-hvac-demo
+$ cd hvac-reference-application
 ```
 
 Before continuing you will need to find the ID of the product you created.
@@ -204,7 +204,7 @@ This command sets up all of the data aliases that we will use in this example. Y
 
 At this point your product is configured and ready to start receiving data from the BBG or the simulator.
 
-If you would like to review the spec file used to configure your product, it can be viewed at the following URL: [https://github.com/exosite/ae-beaglebone-hvac-demo/blob/master/spec/beaglebone-hvac-spec.yaml](https://github.com/exosite/ae-beaglebone-hvac-demo/blob/master/spec/beaglebone-hvac-spec.yaml)
+If you would like to review the spec file used to configure your product, it can be viewed at the following URL: [https://github.com/exosite/hvac-reference-application/blob/master/spec/beaglebone-hvac-spec.yaml](https://github.com/exosite/hvac-reference-application/blob/master/spec/beaglebone-hvac-spec.yaml)
 
 ## Create Solution
 
@@ -263,7 +263,7 @@ Next you will want to allow your product and solution to be able to communicate 
 At this point the product is created and the solution is ready to be deployed. In the BBG HVAC repository directory, you can sync the code base. Ensure you are in the BBG HVAC repository directory and then use the syncup command of Mr. Murano.
 
 ```sh
-$ cd ae-beaglebone-hvac-demo
+$ cd hvac-reference-application
 ```
 ```sh
 $ mr syncup -V
@@ -416,7 +416,7 @@ $ which python3
 If Python 3 is not available, please follow the official documentation to get started:
 [https://www.python.org/downloads/](https://www.python.org/downloads/)
 
-In the `ae-beaglebone-hvac-demo` folder, install requirements. The only requirement for this simulator is `requests`. The requests library is used for executing HTTP requests to Exosite and the Weather Underground API.
+In the `hvac-reference-application` folder, install requirements. The only requirement for this simulator is `requests`. The requests library is used for executing HTTP requests to Exosite and the Weather Underground API.
 
 ```sh
 $ cd ae-beaglebon-hvac-demo
