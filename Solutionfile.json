@@ -1,0 +1,18 @@
+{
+  "assets": "files",
+  "default_page": "index.html",
+  "services": {
+    "device": {
+      "datapoint": "../eventhandlers/device_datapoint.lua"
+    },
+    "timer": {
+      "timer": "../eventhandlers/timer_timer.lua"
+    }
+  },
+  "modules": {
+    "GWE": "../modules/GWE.lua",
+    "table": "../modules/table.util.lua",
+    "util": "../modules/util.lua"
+  },
+  "routes": "routes.lua"
+}
