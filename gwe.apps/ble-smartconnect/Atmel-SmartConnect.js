@@ -59,7 +59,7 @@ SmartConnect.prototype.unnotifyEnvironment = function(callback) {
 SmartConnect.prototype.setEnvionmentDataRate = function(rate, callback) {
 	// Data is index of values.
 	// We want the slowest, which is index 0 for 1Hz sampling.
-	this.writeUint8Characteristic(SmartConnectService_UUID, SmartConnectEnvODR_UUID, 0, callback);
+	this.writeUInt8Characteristic(SmartConnectService_UUID, SmartConnectEnvODR_UUID, 0, callback);
 };
 
 /********************************************************/
