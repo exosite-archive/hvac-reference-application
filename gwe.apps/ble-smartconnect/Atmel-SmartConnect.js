@@ -18,7 +18,9 @@ var SmartConnect = function(peripheral){
 	this.onLowBatteryChangeBinded = this.onLowBatteryChange.bind(this);
 };
 
-SmartConnect.SCAN_UUIDS = [SmartConnectService_UUID];
+SmartConnect.is = function(peripheral) {
+	return (peripheral.advertisement.localName === 'AT-WBLE');
+};
 
 /********************************************************/
 // inherit noble device
