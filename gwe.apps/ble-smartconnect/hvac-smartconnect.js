@@ -34,6 +34,31 @@ function sendUp(temperature, humidity) {
 	req.end();
 }
 
+function buildConnectAndSetupCallback(st, callback) {
+	return function(err){
+		if (err) {
+			console.log('Failed to connect and setup tag: ', err);
+			callback(err, null);
+		} else {
+			console.log('Setup complete for ', st.id);
+			st.on('environmentChange', function(temperature, pressure, uv, humidity) {
+				console.log('UPDATE: ', temperature, pressure, uv, humidity);
+				sendUp(temperature, humidity);
+			});
+			st.notifyEnvironment(function(err){
+				if (err) {
+					console.log('Failed to enable notify: ', err);
+					callback(err, null);
+				} else {
+					console.log('Notify enabled');
+					callback(null, 'ok');
+				}
+			});
+			Tags.push(st);
+		}
+	};
+}
+
 console.log('Begins.');
 
 async.series([
@@ -46,41 +71,20 @@ async.series([
 				console.log('GWE stderr: ', stderr);
 			}
 			CIK = stdout.trim();
+			console.log('CIK fetched.');
 			callback(null, CIK);
 		});
 	},
 	function(callback) {
+		console.log('Starting discovery…');
 		SmartConnect.discoverAll(function(st) {
 			console.log('Discovered: ', st.type, ' - ', st.id);
-			st.connectAndSetup(function(err){
-				if (err) {
-					console.log('Failed to connect and setup tag: ', err);
-					callback(err, null);
-				} else {
-					console.log('Setup complete for ', st.id);
-					st.on('environmentChange', function(temperature, pressure, uv, humidity) {
-						console.log('UPDATE: ', temperature, pressure, uv, humidity);
-						sendUp(temperature, humidity);
-					});
-					st.setEnvionmentDataRate(0, function(err){
-						if (err) {
-							console.log('Failed to set data rate: ', err);
-						} else {
-							console.log('Data rate set');
-						}
-						st.notifyEnvironment(function(err){
-							if (err) {
-								console.log('Failed to enable notify: ', err);
-								callback(err, null);
-							} else {
-								console.log('Notify enabled');
-								callback(null, 'ok');
-							}
-						});
-					});
-					Tags.push(st);
-				}
+
+			st.on('disconnect', function() {
+				console.log('we got disconnected! ', st.id);
 			});
+
+			st.connectAndSetup(buildConnectAndSetupCallback(st, callback));
 		});
 	}
 ]);
