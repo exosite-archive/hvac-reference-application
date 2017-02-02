@@ -29,7 +29,7 @@ gwe_app_rules('hdc', 1)
 gwe_app_rules('th02', 1)
 gwe_app_rules('coh', 1)
 gwe_app_rules('ble-sensortag', 1)
-gwe_app_rules('ble-smartconnect', 1)
+gwe_app_rules('ble-smartconnect', 2)
 
 
 ##############################################################################
