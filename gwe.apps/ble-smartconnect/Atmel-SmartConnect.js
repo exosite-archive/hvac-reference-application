@@ -3,11 +3,11 @@
 var NobleDevice = require('noble-device');
 
 // UUIDs
-var SmartConnectService_UUID = 'F05ABAC0393611E587A60002A5D5C51B';
-var SmartConnectEnvData_UUID = 'F05ABAD0393611E587A60002A5D5C51B';
-var SmartConnectEnvODR_UUID = 'F05ABAD1393611E587A60002A5D5C51B';
+var SmartConnectService_UUID = 'f05abac0393611e587a60002a5d5c51b';
+var SmartConnectEnvData_UUID = 'f05abad0393611e587a60002a5d5c51b';
+var SmartConnectEnvODR_UUID = 'f05abad1393611e587a60002a5d5c51b';
 
-var SmartConnectLowBattery_UUID = 'F05ABADC393611E587A60002A5D5C51B';
+var SmartConnectLowBattery_UUID = 'f05abadc393611e587a60002a5d5c51b';
 
 
 var SmartConnect = function(peripheral){
