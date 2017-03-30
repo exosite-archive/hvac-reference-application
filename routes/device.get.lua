@@ -12,7 +12,7 @@ local offset = tonumber(request.parameters.offset)
 
 -- get the list of devices for this product
 local devices = Device.list{pid=pid, offset=offset}
-local response = {}
+local response = setmetatable({}, {['__type']='slice'})
 for _, device in pairs(devices) do
 
 	-- Get the most recent data in the last 5m window.
@@ -26,23 +26,17 @@ for _, device in pairs(devices) do
 			'humidity',
 			'temperature'
 		},
-    fill = "null",
-    limit = 5,
+		fill = "null",
+		limit = 5,
 		sampling_size = '5m'
 	}
 
-  -- Merge last desired temperature
-  local tsd = util.parse_results{sn=device.sn, data=data}
-  local dtemp = Tsdb.query{
-      tags={sn=sn},
-      metrics = {
-          'desired_temperature'
-      },
-      limit = 1
-  }
-  if dtemp.values ~= nil then
-    tsd.desired_temperature = dtemp.values[1][2]
-  end
+	-- Merge last desired temperature
+	local tsd = util.parse_results{sn=device.sn, data=data}
+	local clm_idx = table.find(data.columns, 'desired_temperature')
+	if clm_idx > 0 and #data.values > 0 then
+		tsd.desired_temperature = data.values[1][clm_idx]
+	end
 	table.insert(response, tsd)
 end
 return response

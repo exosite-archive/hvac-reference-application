@@ -10,5 +10,6 @@ globals = {
 	'from_json',
 	-- Included modules (which are visible from all scripts)
 	'GWE',
+	'util',
 }
 -- vim: set ft=lua ai sw=2 ts=2 :
