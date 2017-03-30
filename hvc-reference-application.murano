@@ -1,0 +1,76 @@
+---
+info:
+  name: hvac-reference-application
+  summary: An interactive tutorial on the core Murano features
+  description: |
+    This HVAC Reference Application is an interactive tutorial that allows users to
+    learn the core features of Murano from both a hardware and software perspective.
+    You will have the option to prototype or simulate the implementation of an HVAC
+    monitoring system with simple controls using the Murano platform.
+
+  authors:
+    - "Exosite Support"
+  version: 1.0.0
+
+
+####
+#
+# The sections routes, assets, modules, and services are all optional.
+#
+# They all have defaults values that should work for a majority of the projects out
+# there.  But they are all fully configurable to fit the way you want your project
+# to be.
+#
+# Examples follow.
+#
+#
+#routes:
+#  #Start off with the directory name we want to keep everything in.
+#  location: routes
+#
+#  #Then use globs to find all of the files that can contain route code.
+#  #If using single glob, then can be just the string.
+#  include: ['{,../endpoints}/*.lua', '{,../endpoints}/*/*.lua']
+#  #include: '**/*.lua'
+#
+#  #Then remove all that match these globs. Again, if a single, can drop the array.
+#  #If not excluding, use empty array [], or empty node.
+#  exclude: ['*_test.lua', '*_spec.lua', '**/.*']
+#
+#  #That leaves a list of files with API routes in them.  Each Route file can
+#  #contain one or more actual routes that are synced with Murano.
+#
+#
+#  #If you are hosting your website somewhere other than on Murano, and you want to
+#  #tighten up what Cross Origin calls are allowed, you can set that here.
+#
+#  #Either point to a YAML file
+#  cors: "cors.yaml"
+#  #Or include it directly
+#  cors: {"origin":true,"methods":["HEAD","GET","POST","PUT","DELETE","OPTIONS","PATCH"],"headers":["Content-Type","Cookie","Authorization"],"credentials":true}
+#
+#assets:
+#  location: assets
+#  include: '**/*'
+#  exclude:
+#  default_page: index.html
+#
+#modules:
+#  location: modules
+#  include: ['*.lua', '*/*.lua']
+#  exclude: ['*_test.lua', '*_spec.lua', '**/.*']
+#
+#services:
+#  location: services
+#  include:
+#    - '*.lua'
+#    - '*/*.lua'
+#    - '{../eventhandlers,../event_handler}/*.lua'
+#    - '{../eventhandlers,../event_handler}/*/*.lua'
+#  exclude: ['*_test.lua', '*_spec.lua', '**/.*']
+
+
+# The format version of this file. This is required.
+formatversion: 1.0.0
+
+# vim: set et sw=2 ts=2 :
