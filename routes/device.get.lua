@@ -26,7 +26,7 @@ for _, device in pairs(devices) do
 			'humidity',
 			'temperature'
 		},
-		fill = "null",
+		fill = 0,
 		limit = 5,
 		sampling_size = '5m'
 	}
