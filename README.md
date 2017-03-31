@@ -81,7 +81,8 @@ Ruby is most likely already installed on your system. Check to see if Ruby is in
 
 **Note:** Always copy and paste what comes after the $.
 
-TODO: Alternate instructios for Windows EXE.
+If you are running Windows, you can opt to use the MuranoCLI-Setup.exe to install
+the CLI as a single Windows executable.
 
 ```sh
 $ which gem
@@ -250,7 +251,7 @@ $ murano assign set
 Before moving on to hardware, all of the configuration needs to be synced up to Murano.
 
 ```sh
-$ murano syncup --all
+$ murano syncup --verbose
 ```
 
 ```
@@ -462,7 +463,7 @@ $ sudo gwe --set-product-id <Product ID> --set-uuid <MAC Address> --set-update-i
 $ sudo reboot
 ```
 
-## Coding the sensors
+## Installing a GWE application
 
 The BBG needs to be able to talk to the Temp/Humidity sensor.
 
@@ -473,8 +474,8 @@ We will use the OTA features of GWE to install the th02.py script.
 ```sh
 $ cd gwe.apps/th02
 $ tar zcvf ../th02.v1.tar.gz install.sh supervisor.conf th02.py
+$ cd ..
 $ murano content upload th02.v1.tar.gz th02.v1.tar.gz
-
 $ murano product device write <mac address> engine_fetch \{\"install\":\[\{\"name\":\"th02.v1.tar.gz\"\}\]
 ```
 
