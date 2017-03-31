@@ -23,11 +23,11 @@ The CC3200 device is a complete platform solution including software, sample app
 
 ## Software
 
-### MrMurano CLI
+### Murano CLI
 
-MrMurano CLI is a command-line utility for working with Murano. Think of it as a way to simplify and automate repetitious tasks for those who are comfortable with the command-line interface. 
+Murano CLI is a command-line utility for working with Murano. Think of it as a way to simplify and automate repetitious tasks for those who are comfortable with the command-line interface. 
 
-[https://github.com/tadpol/MrMurano#mrmurano](https://github.com/tadpol/MrMurano#mrmurano)
+[https://github.com/exosite/MuranoCLI](https://github.com/exosite/MuranoCLI#murano-command-line-interface-cli)
 
 ### Git
 
@@ -67,19 +67,21 @@ To get started with this tutorial, you will need to create an Exosite account us
 
 1. Click on your business to access your business page. 
    
-## Install MrMurano CLI
+## Install Murano CLI
 
-Exosite offers a command line tool that allows you to efficiently work with the project in this tutorial. Even though everything in this tutorial can be accomplished using a the Web UI, feel free to install the MrMurano CLI.
+Exosite offers a command line tool that allows you to efficiently work with the project in this tutorial. Even though everything in this tutorial can be accomplished using a the Web UI, feel free to install the Murano CLI.
 
 ```
-MrMurano CLI is the command-line tool that interacts with Murano and makes tasks easier. MrMurano CLI makes it simple to deploy code to a solution, import many product definitions at once, set up endpoints and APIs, and more. 
+Murano CLI is the command-line tool that interacts with Murano and makes tasks easier. Murano CLI makes it simple to deploy code to a solution, import many product definitions at once, set up endpoints and APIs, and more. 
 ```
 
-MrMurano CLI is a Ruby based command-line interface. MrMurano CLI will be used for most actions throughout the rest of this tutorial.
+Murano CLI is a Ruby based command-line interface. Murano CLI will be used for most actions throughout the rest of this tutorial.
 
 Ruby is most likely already installed on your system. Check to see if Ruby is installed first by opening up a terminal window and typing the following command.  
 
 **Note:** Always copy and paste what comes after the $.
+
+TODO: Alternate instructios for Windows EXE.
 
 ```sh
 $ which gem
@@ -92,10 +94,10 @@ If you do not have Ruby installed, the official Ruby docs will help you get it i
 [https://www.ruby-lang.org/en/documentation/installation/](https://www.ruby-lang.org/en/documentation/installation/) 
 ```
 
-Once Ruby is installed, install MrMurano CLI by running this command:
+Once Ruby is installed, install Murano CLI by running this command:
 
 ```sh
-$ sudo gem install MrMurano
+$ sudo gem install MuranoCLI
 ```
 
 If prompted, please enter your local computer password.
@@ -155,23 +157,15 @@ Once you have created a solution, you will need to find the Solution ID.
 
    ![solutions tab](assets/solutions_tab.png)
 
-### MrMurano CLI
+### Murano CLI
 
-To create a solution using the MrMurano CLI:
-
-```sh
-$ mr solution create <name>
-```
-
-This command will return the ID of your solution for the next step.
-
-### Configure Your Solution
-
-To configure MrMurano CLI to work with your newly created solution, use the config command of the MrMurano CLI tool.
+To create a solution using the Murano CLI:
 
 ```sh
-$ mr config solution.id <solutionid>
+$ murano solution create <name> --save
 ```
+
+This command will return the ID of your solution and save it to the config file.
 
 ## Create a Product
 
@@ -205,29 +199,24 @@ Before continuing you will need to find the ID of the product you created.
    ![product id](assets/product_id.png)
 
 
-### MrMurano CLI
+### Murano CLI
 
-To create a new product using the MrMurano CLI:
+To create a new product using the Murano CLI:
 
 ```sh
-$ mr product create <name>
+$ murano product create <name> --save
 ```
 
 This command will return the ID of your product for the next step.
 
 ## Configure Your Product
 
-To configure your product you can use the config command of the MrMurano CLI tool. This command tells MrMurano CLI which product to use. 
-
-```sh
-$ mr config product.id <productid>
-```
-
 Executing the command below will set the product definition for this example as defined in the `specs/resources.yaml` file. 
 
+```sh
+$ murano syncup --specs
 ```
-$ mr syncup --specs
-```
+
 This command sets up all of the data aliases that we will use in this example. You can now see them by going to [https://www.exosite.io/business/products](https://www.exosite.io/business/products) and clicking the 'Definition' tab. Many of the aliases are used by Gateway Engine. Notice the aliases like 'ambient_temperature', 'desired_temperature', and 'heat_on'. These are all the different resources that will used for this HVAC tutorial. 
 
 ## Connect Product to Solution
@@ -248,12 +237,12 @@ Next, you will need to link your product with your solution. Linking allows your
 
    ![solutions services](assets/solutions_services.png)
 
-### MrMurano CLI
+### Murano CLI
 
-To connect a product with a solution using the MrMurano CLI:
+To connect a product with a solution using the Murano CLI:
 
 ```sh
-$ mr assign set <product>
+$ murano assign set
 ```
 
 ## Sync Your Solution
@@ -261,13 +250,13 @@ $ mr assign set <product>
 Before moving on to hardware, all of the configuration needs to be synced up to Murano.
 
 ```sh
-$ mr syncup --all
+$ murano syncup --all
 ```
 
 ```
 What is happening when you sync code?
 
-MrMurano CLI looks at the directory structure of your local repository and syncs the appropriate files and configurations directly to your solution in Murano. Endpoints, event handles, static files, and modules are synced. If you make changes locally, a syncup command will ensure Murano matches your local changes. If you make changes using the Murano interface, a syncdown will ensure your local repository matches Murano.
+Murano CLI looks at the directory structure of your local repository and syncs the appropriate files and configurations directly to your solution in Murano. Endpoints, event handles, static files, and modules are synced. If you make changes locally, a syncup command will ensure Murano matches your local changes. If you make changes using the Murano interface, a syncdown will ensure your local repository matches Murano.
 ```
 
 At this point your product and solution is configured and ready to start receiving data from your hardware of choice or the simulator. You can see the solution interface at this point by clicking the DOMAIN link on the Solution page.
@@ -346,13 +335,13 @@ $ sudo apt-get update && sudo apt-get upgrade
 
 After the upgrade completes, please restart the BBG before continuing the setup process.
 
-```
+```sh
 $ sudo reboot
 ```
 
 After the reboot, ssh back into the BBG to finish upgrading libraries.
 
-```
+```sh
 $ ssh debian@<IP Address>
 $ sudo pip install Adafruit_BBIO --upgrade
 $ sudo pip install pyserial --upgrade
@@ -375,7 +364,7 @@ For more information, check out the GWE docs site [http://docs.exosite.com/gwe/]
 
 First write down the MAC address of the BBG for adding the device later.
 
-```
+```sh
 $ ssh <USER>@<GATEWAY_IP> "ifconfig -a"
 ```
 
@@ -384,7 +373,7 @@ To download the latest version of the Public Release of GWE, follow these steps:
 Navigate to the Gateway Engine Release Packages section and follow the instructions to download GWE.
 Run these commands to copy GWE to your gateway (the actual filename in the command may differ):
 
-```
+```sh
 $ ssh <USER>@<GATEWAY_IP> "mkdir /opt"
 $ scp GatewayEngine.v1-1-2.tar.gz <USER>@<GATEWAY_IP>:/opt
 ```
@@ -392,7 +381,7 @@ $ scp GatewayEngine.v1-1-2.tar.gz <USER>@<GATEWAY_IP>:/opt
 At this point, you have downloaded the latest release of GWE and copied it to your gateway.
 Run this command to untar the release package and install GWE onto your gateway:
 
-```
+```sh
 $ ssh <USER>@<GATEWAY_IP> 
 $ cd /opt
 $ tar zxvf GatewayEngine.v1-1-2.tar.gz
@@ -402,7 +391,7 @@ $ ./install.sh"
    
 **Note:** In some Linux environments, you will need to use Super-User permissions to run the installer. In this case, replace the ./install.sh command to:
 
-```
+```sh
 $ sudo ./install.sh
 ```
 
@@ -410,19 +399,19 @@ Once the installation completes, you will need to configure GWE for your IoT sol
 
 In your Murano account, navigate to your Product and click on the *INFO* tab. Copy the Product ID and use it in the commands, below, in place of <PRODUCT_ID>.
 
-```
+```sh
 $ ssh <USER>@<GATEWAY_IP> "gwe --set-product-id <PRODUCT_ID> --set-iface wlan0""
 ```
 
 Example:
 
-```
+```sh
 $ ssh <USER>@<GATEWAY_IP> "gwe --set-product-id dubhxzv0r4e1m7vj --set-iface eth0"``
 ```
 
 To complete the installation you will need to reboot the gateway. To reboot, you can toggle the power or use the following command:
 
-```
+```sh
 $ ssh <USER>@<GATEWAY_IP> "reboot"
 ```
 
@@ -431,6 +420,8 @@ At this point in the tutorial, your device’s software is up to date and ready 
 ## Add Device
 
 Now you will add your device to your product in Murano
+
+### Web UI
 
 1. In Murano select *Products*.
 
@@ -448,7 +439,13 @@ Now you will add your device to your product in Murano
 
 5. Add a device with a Name and Identity. The Name can be any string to help remember which device it is. The Identity should be the MAC address of your BBG.
 
-## Enable Serial Number which is the MAC Address of the Device
+### Murano CLI
+
+```sh
+$ murano product device endable <mac address of BBG>
+```
+
+## Activate Serial Number which is the MAC Address of the Device
 
 At this point, you will need to activate your device by executing a command in GWE.
 
@@ -459,9 +456,9 @@ The steps to activate your BBG using GWE can be found here:
 
 A summarized version of the steps are included here:
 
-```
+```sh
 $ ssh debian@<IP Address>
-$ sudo gwe --set-product-id <Product ID> --set-uuid <MAC Address>
+$ sudo gwe --set-product-id <Product ID> --set-uuid <MAC Address> --set-update-interval 300
 $ sudo reboot
 ```
 
@@ -469,13 +466,17 @@ $ sudo reboot
 
 The BBG needs to be able to talk to the Temp/Humidity sensor.
 
-In a web browser, type in the IP address of the BBG in the following format:
+We will use the OTA features of GWE to install the th02.py script.
 
-```
-http://xxx.xxx.xxx.xxx:3000/
-```
+ This will read data from the temperature and humidity sensor and send the data to your Murano solution.
 
-Copy the code from TH02.py into the code area and click run. This will read data from the temperature and humidity sensor and send the data to your Murano solution.
+```sh
+$ cd gwe.apps/th02
+$ tar zcvf ../th02.v1.tar.gz install.sh supervisor.conf th02.py
+$ murano content upload th02.v1.tar.gz th02.v1.tar.gz
+
+$ murano product device write <mac address> engine_fetch \{\"install\":\[\{\"name\":\"th02.v1.tar.gz\"\}\]
+```
 
 # Python Simulator
 
@@ -525,6 +526,7 @@ The CIK value will be automatically added during the activation step below.
 
 Now you will add your device to your product in Murano
 
+### Web UI
 1. In Murano select *Products*.
 
    ![image alt text](assets/products_tab.png)
@@ -541,11 +543,16 @@ Now you will add your device to your product in Murano
 
 5. Add a device with a Name and Identity. The Name can be any string to help remember which device it is. The Identity can be `00001` for the purpose of testing with the Python simulator.
 
+### Murano CLI
+```sh
+$ murano product device enable 00001
+```
+
 ### Simulator Activation and Execution
 
 At this point, you will need to activate your device by running the simulator code.
 
-```
+```sh
 $ cd product
 $ python3 ./hvac-simulator.py <product_id> <device_id>
 ```
