@@ -193,8 +193,8 @@ $(document).ready(function () {
   getData();
 
   function checkFetch() {
+    timeout -= 1;
     if (countdown) {
-      timeout -= 1;
       $("#refreshtime").text(timeout);
       if (force_current_timestamp) {
         _.each(charts, function (chart) {
@@ -304,3 +304,4 @@ $(document).ready(function () {
   getThermostat();
 
 });
+//  vim: set sw=2 ts=2 :

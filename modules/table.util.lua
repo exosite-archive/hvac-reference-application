@@ -27,11 +27,23 @@ function table.contains(table, element)
 	return false
 end
 
+---
+-- Get the index of an element in a list
+function table.find(tbl, item)
+	if type(tbl) ~= 'table' then return 0 end
+	for i,v in ipairs(tbl) do
+		if v == item then
+			return i
+		end
+	end
+	return 0
+end
+
 
 ---
 -- Find a table in a list of tables.
 -- \returns idx, table found; nil if not found
-function table.find(tbl, key, value)
+function table.find_table(tbl, key, value)
 	if type(key) == 'nil' then return nil, nil end
 	for i,v in ipairs(tbl) do
 		if type(v) == 'table' then
@@ -44,9 +56,9 @@ function table.find(tbl, key, value)
 end
 
 ---
--- Replace a table
+-- Replace a table in a list of tables.
 function table.replacingAdd(tbl, key, newitem)
-	local idx, _ = table.find(tbl, key, newitem[key])
+	local idx, _ = table.find_table(tbl, key, newitem[key])
 	if idx == nil then
 		table.insert(tbl, newitem)
 	else

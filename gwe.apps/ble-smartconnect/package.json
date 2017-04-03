@@ -1,0 +1,33 @@
+{
+	"name": "hvac-smartconnect",
+	"version": "0.0.2",
+	"description": "Use SmartConnect for the Temperature and Humidity sensors in the HVAC demo",
+	"main": "hvac-smartconnect",
+
+	"bin": {
+		"hvac-smartconnect": "hvac-smartconnect.js"
+	},
+
+	"author": "Michael Conrad Tadpol Tilstra <miketilstra@exosite.com>",
+	"license": "MIT",
+	"repository": {
+	},
+	"bugs": {
+		"url": "https://github.com/exosite/hvac-reference-application/issues"
+	},
+	"keywords": [
+		"Exosite",
+		"Murano",
+		"HVAC",
+		"BLE",
+		"SmartConnect",
+		"Atmel",
+		"Gateway Engine",
+		"GWE"
+	],
+	"dependencies": {
+		"noble-device": "~1.4.1",
+		"follow-redirects":"0.0.3"
+	}
+}
+

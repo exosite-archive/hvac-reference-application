@@ -5,12 +5,11 @@ Icon
 *.sw[a-z]
 tags
 
-.mrmurano/
-.mrmuranorc*
+.murano/
 .env
 .jiramulerc
 
-bb_less_cloud.v*.tar.gz
+gwe.apps/*.tar.gz
 
 # Thumbnails
 ._*

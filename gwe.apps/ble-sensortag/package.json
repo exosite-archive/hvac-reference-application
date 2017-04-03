@@ -1,0 +1,32 @@
+{
+	"name": "hvac-sensortag",
+	"version": "0.0.2",
+	"description": "Use SensorTags for the Temperature and Humidity sensors in the HVAC demo",
+	"main": "hvac-sensortag",
+
+	"bin": {
+		"hvac-sensortag": "hvac-sensortag.js"
+	},
+
+	"author": "Michael Conrad Tadpol Tilstra <miketilstra@exosite.com>",
+	"license": "MIT",
+	"repository": {
+	},
+	"bugs": {
+		"url": "https://github.com/exosite/hvac-reference-application/issues"
+	},
+	"keywords": [
+		"Exosite",
+		"Murano",
+		"HVAC",
+		"BLE",
+		"SensorTag",
+		"Gateway Engine",
+		"GWE"
+	],
+	"dependencies": {
+		"sensortag": "~1.2.3",
+		"follow-redirects":"0.0.3"
+	}
+}
+
