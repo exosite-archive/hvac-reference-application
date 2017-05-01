@@ -50,16 +50,14 @@ To get started with this tutorial, you will need to create an Exosite account us
 1. If you do not have an Exosite account, you can sign up here ([https://exosite.com/signup/](https://exosite.com/signup/)).
 
    ![signup](media/exosite_signup.png)
-   
-   ![welcome](media/business_welcome.png)
 
-## Create Business
+## Create a Business
 
 1. Once you have an active account and have logged in, you can navigate to the following URL to see your newly created Business [https://www.exosite.io/business/memberships](https://www.exosite.io/business/memberships).
 
    ![new business](media/new_business.png)
    
-## Install Murano CLI
+## Install the Murano CLI
 
 Exosite offers a command line tool that allows you to efficiently work with the project in this tutorial. Even though everything in this tutorial can be accomplished using a the Web UI, feel free to install the Murano CLI.
 
@@ -67,7 +65,7 @@ Exosite offers a command line tool that allows you to efficiently work with the 
 Murano CLI is the command-line tool that interacts with Murano and makes tasks easier. Murano CLI makes it simple to deploy code to a solution, import many product definitions at once, set up endpoints and APIs, and more. 
 ```
 
-Murano CLI is a Ruby based command-line interface. Murano CLI will be used for most actions throughout the rest of this tutorial.
+Murano CLI is a Ruby based command-line interface. Murano CLI can be used for most actions throughout the rest of this tutorial.
 
 Ruby is most likely already installed on your system. Check to see if Ruby is installed first by opening up a terminal window and typing the following command.  
 
@@ -95,7 +93,7 @@ $ sudo gem install MuranoCLI
 
 If prompted, please enter your local computer password.
 
-## Check Out the HVAC Demo Code
+## Check out the HVAC demo code
 
 Git is required for this next step. You can check if Git is installed by running the command: 
 
@@ -197,7 +195,7 @@ $ murano product create <name> --save
 
 This command will return the ID of your Product for the next step.
 
-## Configure Your Product
+## Configure your Product
 
 You will need to teach Murano about the resources that this tutorial will use. This can be done by hand in the Web UI, but it is much easier to use the MuranoCLI. Executing the command below will set the Product definition for this tutorial as defined in the `specs/resources.yaml` file. 
 
@@ -233,7 +231,7 @@ To connect a Product with a Solution using the Murano CLI:
 $ murano assign set
 ```
 
-## Sync Your Solution
+## Sync your Solution
 
 Before moving on to hardware or the simulator, all of the Solution configuration needs to be synced up to Murano.
 
@@ -402,7 +400,7 @@ $ sudo reboot
 
 At this point in the tutorial, your device’s software is up to date and ready to connect.
 
-## Add Device
+## Add a Device
 
 Now you will add your device to your product in Murano. You can do this with the Web UI or the MuranoCLI.
 
@@ -436,6 +434,8 @@ At this point, you will need to activate your device by executing a command in G
 
 ### GWE Activation
 
+GWE needs to be told about the virtual device you just created in Murano. To give GWE your device Identity we'll need to activated it.
+
 The steps to activate your BBGW using GWE can be found here:
 [http://docs.exosite.com/gwe/getting_started/](http://docs.exosite.com/gwe/getting_started/)
 
@@ -449,11 +449,9 @@ $ sudo reboot
 
 ## Installing a GWE application
 
-The BBGW needs to be able to talk to the Temp/Humidity sensor.
+The BBGW needs to be able to talk to the Temp/Humidity sensor. So we need to get a sensor application included in the HVAC reference application repository onto your BBGW. Let's do that using the OTAU features of GWE to install the th02.py script.
 
-We will use the OTA features of GWE to install the th02.py script.
-
- This will read data from the temperature and humidity sensor and send the data to your Murano Solution.
+The th02.py script will read data from the connected temperature and humidity sensor and send the data to your Murano Solution.
 
 ```sh
 $ cd gwe.apps/th02
@@ -462,6 +460,13 @@ $ cd ..
 $ murano content upload th02.v1.tar.gz th02.v1.tar.gz
 $ murano product device write <mac address> engine_fetch \{\"install\":\[\{\"name\":\"th02.v1.tar.gz\"\}\]\}
 ```
+
+After less than five minutes, or sooner if you specified a different report interval, GWE on your BBGW will download and install the file your uploaded using the Murano CLI. Temperature and Humidity data will be flowing from your device through Exosite Murano and onto the web application you deployed. 
+
+You can validate data by checking on your device in your Murano Products page, or by opening your new web application in your browser.
+
+Congrats!
+
 ## Troubleshooting the BBGW
 
 Just in case, here is a link the quick start and troubleshooting guide for the BeagleBone Black. The steps and software for this other platform also should work for the BBGW
@@ -473,6 +478,8 @@ Additionally, if at some point you want to start over and need to reset your dev
 [http://elinux.org/Beagleboard:BeagleBoneBlack_Debian#microSD.2FStandalone:_.28iot.29_.28BeagleBone.2FBeagleBone_Black.2FBeagleBone_Green.29](http://elinux.org/Beagleboard:BeagleBoneBlack_Debian#microSD.2FStandalone:_.28iot.29_.28BeagleBone.2FBeagleBone_Black.2FBeagleBone_Green.29) 
 
 [Reinstall BBGW](http://wiki.seeed.cc/BeagleBone_Green_Wireless/#update-to-latest-software)
+
+If you continue to have trouble you can reach out to use on our community forum [community.exosite.com](https:community.exosite.com).
 
 
 # Python Simulator
@@ -519,7 +526,7 @@ wuapi = aen23n5215a235jkjh
 
 The CIK value will be automatically added during the activation step below.
 
-## Add Device
+## Add a Device
 
 Now you will add your device to your Product in Murano
 
