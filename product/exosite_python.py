@@ -23,13 +23,13 @@ def datetime_to_epoch(dt):
 
 
 class Murano(object):
-    def __init__(self, product_id=None, device_id=None):
+    def __init__(self, product_id=None, device_sn=None):
         self.CONFIG = 'config.ini'
         self.config = ConfigParser()
         self.cik = None
         self.product_id = product_id
-        self.device_id = device_id
-        self.product_url = 'https://' + product_id + '.m2.exosite.com'
+        self.device_sn = device_sn
+        self.product_url = 'https://' + product_id + '.m2.exosite.io'
 
     def create_config(self, filename):
         self.config['main'] = {
@@ -84,7 +84,7 @@ class Murano(object):
 
     def timestamp(self):
         '''Get the current timestamp for the Murano product API'''
-        req = requests.get('https://m2.exosite.com/timestamp')
+        req = requests.get('https://m2.exosite.io/timestamp')
         req.raise_for_status()
         return int(req.text)
 
@@ -92,7 +92,7 @@ class Murano(object):
         req = requests.post(
             self.product_url + '/provision/activate',
             headers={'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8'},
-            data='vendor={0}&model={0}&sn={1}'.format(self.product_id, self.device_id)
+            data='sn={0}'.format(self.device_sn)
         )
         req.raise_for_status()
         self.save_cik(req.text)

@@ -144,8 +144,8 @@ class Preferences(object):
 
 
 class Simulator(object):
-    def __init__(self, product_id, device_id):
-        self.murano = Murano(product_id, device_id)
+    def __init__(self, product_id, device_sn):
+        self.murano = Murano(product_id, device_sn)
 
         cik = self.murano.load_cik()
         if not cik:
@@ -207,13 +207,13 @@ class Simulator(object):
 if __name__ == "__main__":
     if len(sys.argv) < 3:
         print('Usage:')
-        print('   python ./hvac-simulator.py <product_id> <device_id>')
+        print('   python ./hvac-simulator.py <product_id> <device_sn>')
         exit(1)
 
     PRODUCT_ID = sys.argv[1]
-    DEVICE_ID = sys.argv[2]
+    DEVICE_SN = sys.argv[2]
 
-    simulator = Simulator(PRODUCT_ID, DEVICE_ID)
+    simulator = Simulator(PRODUCT_ID, DEVICE_SN)
     simulator.start()
     while True:
         simulator.iterate()
