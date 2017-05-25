@@ -1,8 +1,10 @@
 .DS_Store
 .AppleDouble
 .LSOverride
+.idea
 Icon
 *.sw[a-z]
+*.pyc
 tags
 
 .murano/

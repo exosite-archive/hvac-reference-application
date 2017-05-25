@@ -57,9 +57,9 @@ To get started with this tutorial, you will need to create an Exosite account us
 
    ![new business](media/new_business.png)
    
-## Install the Murano CLI
+## Install Murano CLI
 
-Exosite offers a command line tool that allows you to efficiently work with the project in this tutorial. Even though everything in this tutorial can be accomplished using a the Web UI, feel free to install the Murano CLI.
+Exosite offers a command line tool that allows you to efficiently work with the project in this tutorial. Even though everything in this tutorial can be accomplished using a the Web UI, feel free to install Murano CLI.
 
 ```
 Murano CLI is the command-line tool that interacts with Murano and makes tasks easier. Murano CLI makes it simple to deploy code to a solution, import many product definitions at once, set up endpoints and APIs, and more. 
@@ -119,7 +119,7 @@ $ cd hvac-reference-application
 
 ## Create an Application Solution
 
-Next you need to create an Application Solution so you can deploy the HVAC tutorial web application on Murano. You can do this using the Web UI or the Murano CLI.
+Next you need to create an Application Solution so you can deploy the HVAC tutorial web application on Murano. You can do this using the Web UI or Murano CLI.
 
 ### Web UI
 
@@ -145,59 +145,54 @@ Once you have created an application solution, you will need to find its Applica
 
 ### Murano CLI (alternate method)
 
-To create a Solution using the Murano CLI:
+To create a application solution using Murano CLI:
 
 ```sh
 $ murano solution create <name> --save
 ```
 
-This command will return the ID of your Solution and save it to the Murano CLI config file.
+This command will return the ID of your application solution and save it to Murano CLI config file.
 
-## Create a Product
+## Create a Product Solution
 
-Next, you will need to create a Product. The Product you create is the virtual representation of the BBGW’s physical hardware and sensors that will send data to the Murano platform. This can be done using the Web UI or the Murano CLI.
+Next, you will need to create a product solution. The product solution you create is the virtual representation of the BBGW’s physical hardware and sensors that will send data to the Murano platform. This can be done using the Web UI or Murano CLI.
 
 ### Web UI
 
-To create a new Product using the Web UI:
+To create a new product solution using the Web UI:
 
-1. Navigate to the following URL: 
-   [https://www.exosite.io/business/products](https://www.exosite.io/business/products)
+1. From the [*Solutions* tab](https://www.exosite.io/business/solutions), click "+ NEW SOLUTION" and select "Add a Product" 
 
-   ![new product](media/new_product.png)
+   ![new product solution](media/new_solution.png)
 
-1. Click on "+ NEW PRODUCT." 
+2. Name your product, select *Start from scratch*, and click the "ADD" button.
+    https://raw.githubusercontent.com/exosite/hvac-reference-application/master/specs/resources.yaml
 
-1. Name your Product. Note: Your Product name cannot contain any capital letters. 
+   ![new product solution](media/new_product_solution_popup.png)
 
-1. Open the *Choose Starting Point* dropdown, select *Start from scratch*, and click the "ADD" button. In the next step you can use code to configure your Product.
+Once you have created a product solution, you will need to find its Product ID.
 
-   ![new product](media/new_product_popup.png)
+1. In Murano select *Solutions*.
 
-Before continuing you will need to find the ID of the Product you created.
-
-1. In Murano select *Products*.
-
-2. Select the Product you just created.
+2. Select the product solution you just created.
 
 3. Copy the Product ID on this page.
 
-   ![product id](media/product_id.png)
-
+   ![product tab](media/product_tab.png)
 
 ### Murano CLI (alternate method)
 
-To create a new Product using the Murano CLI:
+To create a new product solution using Murano CLI:
 
 ```sh
 $ murano product create <name> --save
 ```
 
-This command will return the ID of your Product for the next step.
+This command will return the ID of your product solution for the next step.
 
 ## Configure your Product
 
-You will need to teach Murano about the resources that this tutorial will use. This can be done by hand in the Web UI, but it is much easier to use the MuranoCLI. Executing the command below will set the Product definition for this tutorial as defined in the `specs/resources.yaml` file. 
+You will need to teach Murano about the resources that this tutorial will use. This can be done by hand in the Web UI, but it is much easier to use Murano CLI. Executing the command below will set the Product definition for this tutorial as defined in the `specs/resources.yaml` file. 
 
 ```sh
 $ murano syncup --specs
@@ -225,7 +220,7 @@ Next, you will need to link your Product with your Solution. Linking allows your
 
 ### Murano CLI (alternate method)
 
-To connect a Product with a Solution using the Murano CLI:
+To connect a Product with a Solution using Murano CLI:
 
 ```sh
 $ murano assign set
@@ -402,7 +397,7 @@ At this point in the tutorial, your device’s software is up to date and ready 
 
 ## Add a Device
 
-Now you will add your device to your product in Murano. You can do this with the Web UI or the MuranoCLI.
+Now you will add your device to your product in Murano. You can do this with the Web UI or Murano CLI.
 
 ### Web UI
 
@@ -461,7 +456,7 @@ $ murano content upload th02.v1.tar.gz th02.v1.tar.gz
 $ murano product device write <mac address> engine_fetch \{\"install\":\[\{\"name\":\"th02.v1.tar.gz\"\}\]\}
 ```
 
-After less than five minutes, or sooner if you specified a different report interval, GWE on your BBGW will download and install the file your uploaded using the Murano CLI. Temperature and Humidity data will be flowing from your device through Exosite Murano and onto the web application you deployed. 
+After less than five minutes, or sooner if you specified a different report interval, GWE on your BBGW will download and install the file your uploaded using Murano CLI. Temperature and Humidity data will be flowing from your device through Exosite Murano and onto the web application you deployed. 
 
 You can validate data by checking on your device in your Murano Products page, or by opening your new web application in your browser.
 
