@@ -117,29 +117,29 @@ Run this command:
 $ cd hvac-reference-application
 ```
 
-## Create a Solution
+## Create an Application Solution
 
-Next you need to create a Solution so you can deploy the HVAC tutorial web application on Murano. You can do this using the Web UI or the Murano CLI.
+Next you need to create an Application Solution so you can deploy the HVAC tutorial web application on Murano. You can do this using the Web UI or the Murano CLI.
 
 ### Web UI
 
-To create a Solution using the Web UI:
+To create an application solution using the Web UI:
 
-1. From the [*Solutions* tab](https://www.exosite.io/business/solutions), click "+ NEW SOLUTION." 
+1. From the [*Solutions* tab](https://www.exosite.io/business/solutions), click "+ NEW SOLUTION" and select "Add an Application" 
 
    ![new solution](media/new_solution.png)
 
-2. Select *Start from scratch* and click the "ADD" button.
+2. Name your application, select *Start from scratch*, and click the "ADD" button.
 
    ![new solution](media/new_solution_popup.png)
 
-Once you have created a solution, you will need to find the Solution ID.
+Once you have created an application solution, you will need to find its Application ID.
 
 1. In Murano select *Solutions*.
 
-2. Select the Solution you just created.
+2. Select the application solution you just created.
 
-3. Copy the Solution ID on this page.
+3. Copy the Application ID on this page.
 
    ![solutions tab](media/solutions_tab.png)
 
