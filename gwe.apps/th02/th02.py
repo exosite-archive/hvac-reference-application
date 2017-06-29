@@ -1,5 +1,6 @@
 import subprocess
 import time
+import json
 
 from exo.api import ExositeAPI
 
@@ -66,10 +67,11 @@ class I2C_TH02():
         return data
 
     def upload_data(self, temp, humi):
-        data = {'temperature': temp, 'humidity': humi}
-        return self.api.http_write_multiple(data)
+        sensor_data = {'temperature': temp, 'humidity': humi}
+        write_data = {'raw_data': json.dumps(sensor_data)}
+        return self.api.http_write_multiple(write_data)
 
-
+        
 if __name__=="__main__":
     th02 = I2C_TH02()
     while True:
